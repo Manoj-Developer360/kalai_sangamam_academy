@@ -254,7 +254,7 @@ This project is developed for educational and academy management purposes.
 
 # 👨‍💻 Developer
 
-**Manoj Kumar V**
+**Manoj Kumar V | Kishor Kumar S** 
 
 Full Stack Web Developer
 
