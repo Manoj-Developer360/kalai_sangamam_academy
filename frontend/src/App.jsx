@@ -1,5 +1,8 @@
 import Navbar from "./components/layout/Navbar";
 import Hero from "./components/home/Hero";
+import AboutPreview from "./components/home/AboutPreview";
+import ProgramsPreview from "./components/home/ProgramsPreview";
+import WhyChoose from "./components/home/WhyChoose";
 
 function App() {
   return (
@@ -8,8 +11,9 @@ function App() {
 
       <main>
         <Hero />
-
-        {/* More Home sections will be added here */}
+        <AboutPreview />
+        <ProgramsPreview/>
+        <WhyChoose/>
       </main>
     </>
   );
