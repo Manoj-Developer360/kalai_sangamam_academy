@@ -5,6 +5,8 @@ import ProgramsPreview from "./components/home/ProgramsPreview";
 import WhyChoose from "./components/home/WhyChoose";
 import MastersPreview from "./components/home/MastersPreview";
 import AchievementsPreview from "./components/home/AchievementsPreview";
+import GalleryPreview from "./components/home/GalleryPreview";
+import TestimonialsPreview from "./components/home/TestimonialsPreview";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <WhyChoose/>
         <MastersPreview/>
         <AchievementsPreview/>
+        <GalleryPreview/>
+        <TestimonialsPreview/>
       </main>
     </>
   );
