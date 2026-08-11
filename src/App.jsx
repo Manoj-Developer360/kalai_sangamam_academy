@@ -7,6 +7,7 @@ import Home from './pages/public/Home.jsx';
 import NotFound from './pages/public/NotFound.jsx';
 
 import StudentLogin from './pages/student/StudentLogin.jsx';
+import StudentRegister from './pages/student/StudentRegister.jsx';
 import StudentDashboardHome from './pages/student/StudentDashboardHome.jsx';
 import StudentProfile from './pages/student/StudentProfile.jsx';
 import StudentAttendance from './pages/student/StudentAttendance.jsx';
@@ -38,6 +39,7 @@ function App() {
 
         {/* Student */}
         <Route path="/student/login" element={<StudentLogin />} />
+        <Route path="/student/register" element={<StudentRegister />} />
         <Route path="/student/dashboard" element={<ProtectedRoute role="student"><StudentDashboardHome /></ProtectedRoute>} />
         <Route path="/student/profile" element={<ProtectedRoute role="student"><StudentProfile /></ProtectedRoute>} />
         <Route path="/student/attendance" element={<ProtectedRoute role="student"><StudentAttendance /></ProtectedRoute>} />

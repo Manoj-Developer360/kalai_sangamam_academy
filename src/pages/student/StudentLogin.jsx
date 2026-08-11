@@ -69,6 +69,9 @@ const StudentLogin = () => {
               {loading ? 'Signing in…' : 'Sign In'}
             </button>
           </form>
+          <p className="text-slate-500 text-sm mt-5 text-center">
+            New student? <Link to="/student/register" className="text-brass-400 hover:underline">Register here</Link>
+          </p>
         </div>
       </div>
     </div>

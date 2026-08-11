@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { FiHome, FiUser, FiCheckSquare, FiCreditCard, FiAward, FiMessageSquare, FiSettings, FiLogOut, FiMenu, FiX } from 'react-icons/fi';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { FiHome, FiUser, FiCheckSquare, FiCreditCard, FiAward, FiMessageSquare, FiSettings, FiLogOut, FiMenu, FiX, FiArrowLeft } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext.jsx';
 
 const LINKS = [
@@ -74,7 +74,14 @@ const StudentDashboardLayout = ({ children }) => {
         </div>
       )}
 
-      <main className="flex-1 p-5 lg:p-10">{children}</main>
+      <main className="flex-1 p-5 lg:p-10">
+        <div className="mb-6">
+          <Link to="/" className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-brass-400">
+            <FiArrowLeft /> Back to site
+          </Link>
+        </div>
+        {children}
+      </main>
     </div>
   );
 };

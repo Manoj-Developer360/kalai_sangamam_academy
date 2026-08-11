@@ -16,30 +16,50 @@ const emptyForm = {
 
 const AdminStudents = () => {
   const { showToast } = useToast();
+  const [activeTab, setActiveTab] = useState('students');
   const [students, setStudents] = useState(null);
+  const [requests, setRequests] = useState(null);
   const [error, setError] = useState(false);
+  const [requestError, setRequestError] = useState(false);
   const [search, setSearch] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState(emptyForm);
-  const [confirmId, setConfirmId] = useState(null);
+  const [confirm, setConfirm] = useState(null);
   const [saving, setSaving] = useState(false);
 
-  const load = () => {
-    adminService.getStudents(search ? { search } : {}).then(({ data }) => setStudents(data.data)).catch(() => setError(true));
+  const loadStudents = () => {
+    adminService
+      .getStudents(search ? { search } : {})
+      .then(({ data }) => {
+        setStudents(data.data);
+        setError(false);
+      })
+      .catch(() => setError(true));
   };
 
-  useEffect(() => { load(); /* eslint-disable-next-line */ }, [search]);
+  const loadRequests = () => {
+    adminService
+      .getStudentRequests({ status: 'pending' })
+      .then(({ data }) => {
+        setRequests(data.data);
+        setRequestError(false);
+      })
+      .catch(() => setRequestError(true));
+  };
+
+  useEffect(() => { loadStudents(); }, [search]);
+  useEffect(() => { loadRequests(); }, []);
 
   const openCreate = () => { setEditing(null); setForm(emptyForm); setModalOpen(true); };
-  const openEdit = (s) => {
-    setEditing(s);
-    setForm({ ...emptyForm, ...s, username: s.users?.username || '' });
+  const openEdit = (student) => {
+    setEditing(student);
+    setForm({ ...emptyForm, ...student, username: student.users?.username || '' });
     setModalOpen(true);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     setSaving(true);
     try {
       if (editing) {
@@ -50,7 +70,7 @@ const AdminStudents = () => {
         showToast('Student created successfully.');
       }
       setModalOpen(false);
-      load();
+      loadStudents();
     } catch (err) {
       showToast(err.response?.data?.message || 'Failed to save student.', 'error');
     } finally {
@@ -58,87 +78,164 @@ const AdminStudents = () => {
     }
   };
 
-  const handleDeactivate = async () => {
+  const handleConfirm = async () => {
+    if (!confirm) return;
     try {
-      await adminService.deactivateStudent(confirmId);
-      showToast('Student deactivated.');
-      setConfirmId(null);
-      load();
+      if (confirm.type === 'remove') {
+        await adminService.deactivateStudent(confirm.id);
+        showToast('Student removed.');
+        loadStudents();
+      }
+      if (confirm.type === 'approve') {
+        await adminService.approveStudentRequest(confirm.id);
+        showToast('Registration request approved.');
+        loadStudents();
+        loadRequests();
+      }
+      if (confirm.type === 'reject') {
+        await adminService.rejectStudentRequest(confirm.id);
+        showToast('Registration request rejected.');
+        loadRequests();
+      }
+      setConfirm(null);
     } catch (err) {
-      showToast(err.response?.data?.message || 'Failed to deactivate student.', 'error');
+      showToast(err.response?.data?.message || 'Action failed.', 'error');
     }
   };
 
+  const pendingCount = requests?.length || 0;
+
   return (
     <AdminDashboardLayout>
-      <AdminPageHeader title="Students" subtitle="Manage student accounts, profiles and enrolments." actionLabel="Add Student" onAction={openCreate} />
+      <AdminPageHeader title="Students" subtitle="Manage student accounts and review registration requests." actionLabel="Add Student" onAction={openCreate} />
 
-      <input
-        placeholder="Search by name…"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="mb-6 w-full sm:w-72 bg-ink-900 border border-parchment-100/10 rounded-sm px-4 py-2.5 text-sm text-parchment-100 focus:border-brass-500 outline-none"
-      />
+      <div className="mb-6 flex flex-wrap items-center gap-3 border-b border-parchment-100/10">
+        <TabButton active={activeTab === 'students'} onClick={() => setActiveTab('students')}>
+          Students
+        </TabButton>
+        <TabButton active={activeTab === 'requests'} onClick={() => setActiveTab('requests')}>
+          Requests{pendingCount ? ` (${pendingCount})` : ''}
+        </TabButton>
+      </div>
 
-      {!students && !error && <SkeletonGrid count={4} />}
-      {error && <ErrorState message="Couldn't load students right now." />}
+      {activeTab === 'students' && (
+        <>
+          <input
+            placeholder="Search by name..."
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            className="mb-6 w-full sm:w-72 bg-ink-900 border border-parchment-100/10 rounded-sm px-4 py-2.5 text-sm text-parchment-100 focus:border-brass-500 outline-none"
+          />
 
-      {students && (
-        <DataTable
-          columns={[
-            { key: 'student_code', label: 'ID' },
-            { key: 'full_name', label: 'Name' },
-            { key: 'contact_number', label: 'Contact' },
-            { key: 'status', label: 'Status', render: (r) => <span className={`capitalize text-xs px-2.5 py-1 rounded-full border ${r.status === 'active' ? 'border-brass-500/30 text-brass-400' : 'border-slate-500/30 text-slate-400'}`}>{r.status}</span> },
-          ]}
-          rows={students}
-          emptyMessage="No students found."
-          actions={(r) => (
-            <>
-              <button onClick={() => openEdit(r)} className="text-brass-400 text-xs hover:underline">Edit</button>
-              <button onClick={() => setConfirmId(r.id)} className="text-maroon-400 text-xs hover:underline">Deactivate</button>
-            </>
+          {!students && !error && <SkeletonGrid count={4} />}
+          {error && <ErrorState message="Couldn't load students right now." />}
+
+          {students && (
+            <DataTable
+              columns={[
+                { key: 'student_code', label: 'ID' },
+                { key: 'full_name', label: 'Name' },
+                { key: 'contact_number', label: 'Contact' },
+                { key: 'status', label: 'Status', render: (row) => <StatusBadge status={row.status} /> },
+              ]}
+              rows={students}
+              emptyMessage="No students found."
+              actions={(row) => (
+                <>
+                  <button onClick={() => openEdit(row)} className="text-brass-400 text-xs hover:underline">Edit</button>
+                  <button onClick={() => setConfirm({ type: 'remove', id: row.id })} className="text-maroon-400 text-xs hover:underline">Remove</button>
+                </>
+              )}
+            />
           )}
-        />
+        </>
+      )}
+
+      {activeTab === 'requests' && (
+        <>
+          {!requests && !requestError && <SkeletonGrid count={3} />}
+          {requestError && <ErrorState message="Couldn't load student requests right now." />}
+
+          {requests && (
+            <DataTable
+              columns={[
+                { key: 'created_at', label: 'Requested', render: (row) => formatDate(row.created_at) },
+                { key: 'full_name', label: 'Name' },
+                { key: 'username', label: 'Username' },
+                { key: 'contact_number', label: 'Contact' },
+                { key: 'parent_name', label: 'Parent' },
+              ]}
+              rows={requests}
+              emptyMessage="No pending registration requests."
+              actions={(row) => (
+                <>
+                  <button onClick={() => setConfirm({ type: 'approve', id: row.id })} className="text-brass-400 text-xs hover:underline">Approve</button>
+                  <button onClick={() => setConfirm({ type: 'reject', id: row.id })} className="text-maroon-400 text-xs hover:underline">Reject</button>
+                </>
+              )}
+            />
+          )}
+        </>
       )}
 
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} title={editing ? 'Edit Student' : 'Add Student'} maxWidth="max-w-2xl">
         <form onSubmit={handleSubmit} className="grid sm:grid-cols-2 gap-4">
           {!editing && (
             <>
-              <Field label="Username" value={form.username} onChange={(v) => setForm({ ...form, username: v })} required />
-              <Field label="Password" type="password" value={form.password} onChange={(v) => setForm({ ...form, password: v })} required />
+              <Field label="Username" value={form.username} onChange={(value) => setForm({ ...form, username: value })} required />
+              <Field label="Password" type="password" value={form.password} onChange={(value) => setForm({ ...form, password: value })} required />
             </>
           )}
-          <Field label="Email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} />
-          <Field label="Full Name" value={form.full_name} onChange={(v) => setForm({ ...form, full_name: v })} required />
-          <Field label="Date of Birth" type="date" value={form.date_of_birth} onChange={(v) => setForm({ ...form, date_of_birth: v })} />
-          <Field label="Gender" value={form.gender} onChange={(v) => setForm({ ...form, gender: v })} />
-          <Field label="Parent Name" value={form.parent_name} onChange={(v) => setForm({ ...form, parent_name: v })} />
-          <Field label="Parent Contact" value={form.parent_contact} onChange={(v) => setForm({ ...form, parent_contact: v })} />
-          <Field label="Contact Number" value={form.contact_number} onChange={(v) => setForm({ ...form, contact_number: v })} />
-          <Field label="Blood Group" value={form.blood_group} onChange={(v) => setForm({ ...form, blood_group: v })} />
-          <Field label="Emergency Contact" value={form.emergency_contact} onChange={(v) => setForm({ ...form, emergency_contact: v })} />
-          <Field label="Joining Date" type="date" value={form.joining_date} onChange={(v) => setForm({ ...form, joining_date: v })} />
-          <Field label="Address" value={form.address} onChange={(v) => setForm({ ...form, address: v })} className="sm:col-span-2" />
+          <Field label="Email" type="email" value={form.email} onChange={(value) => setForm({ ...form, email: value })} />
+          <Field label="Full Name" value={form.full_name} onChange={(value) => setForm({ ...form, full_name: value })} required />
+          <Field label="Date of Birth" type="date" value={form.date_of_birth} onChange={(value) => setForm({ ...form, date_of_birth: value })} />
+          <Field label="Gender" value={form.gender} onChange={(value) => setForm({ ...form, gender: value })} />
+          <Field label="Parent Name" value={form.parent_name} onChange={(value) => setForm({ ...form, parent_name: value })} />
+          <Field label="Parent Contact" value={form.parent_contact} onChange={(value) => setForm({ ...form, parent_contact: value })} />
+          <Field label="Contact Number" value={form.contact_number} onChange={(value) => setForm({ ...form, contact_number: value })} />
+          <Field label="Blood Group" value={form.blood_group} onChange={(value) => setForm({ ...form, blood_group: value })} />
+          <Field label="Emergency Contact" value={form.emergency_contact} onChange={(value) => setForm({ ...form, emergency_contact: value })} />
+          <Field label="Joining Date" type="date" value={form.joining_date} onChange={(value) => setForm({ ...form, joining_date: value })} />
+          <Field label="Address" value={form.address} onChange={(value) => setForm({ ...form, address: value })} className="sm:col-span-2" />
 
           <button type="submit" disabled={saving} className="btn-primary sm:col-span-2 disabled:opacity-60">
-            {saving ? 'Saving…' : editing ? 'Update Student' : 'Create Student'}
+            {saving ? 'Saving...' : editing ? 'Update Student' : 'Create Student'}
           </button>
         </form>
       </Modal>
 
       <ConfirmDialog
-        open={!!confirmId}
-        onClose={() => setConfirmId(null)}
-        onConfirm={handleDeactivate}
-        title="Deactivate Student"
-        message="This student will be marked inactive and lose dashboard access. This can be reversed later."
-        confirmLabel="Deactivate"
+        open={!!confirm}
+        onClose={() => setConfirm(null)}
+        onConfirm={handleConfirm}
+        title={confirmTitle(confirm)}
+        message={confirmMessage(confirm)}
+        confirmLabel={confirmLabel(confirm)}
+        danger={confirm?.type !== 'approve'}
       />
     </AdminDashboardLayout>
   );
 };
+
+const TabButton = ({ active, onClick, children }) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className={`px-1 pb-3 text-sm font-display uppercase tracking-wide border-b-2 transition-colors ${
+      active ? 'border-brass-500 text-brass-400' : 'border-transparent text-slate-500 hover:text-parchment-200'
+    }`}
+  >
+    {children}
+  </button>
+);
+
+const StatusBadge = ({ status }) => (
+  <span className={`capitalize text-xs px-2.5 py-1 rounded-full border ${
+    status === 'active' ? 'border-brass-500/30 text-brass-400' : 'border-slate-500/30 text-slate-400'
+  }`}>
+    {status}
+  </span>
+);
 
 const Field = ({ label, value, onChange, type = 'text', required, className = '' }) => (
   <div className={className}>
@@ -147,10 +244,30 @@ const Field = ({ label, value, onChange, type = 'text', required, className = ''
       type={type}
       required={required}
       value={value || ''}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={(event) => onChange(event.target.value)}
       className="w-full bg-ink-950 border border-parchment-100/10 rounded-sm px-4 py-2.5 text-sm text-parchment-100 focus:border-brass-500 outline-none"
     />
   </div>
 );
+
+const formatDate = (value) => (value ? new Date(value).toLocaleDateString() : '-');
+
+const confirmTitle = (confirm) => {
+  if (confirm?.type === 'approve') return 'Approve Request';
+  if (confirm?.type === 'reject') return 'Reject Request';
+  return 'Remove Student';
+};
+
+const confirmMessage = (confirm) => {
+  if (confirm?.type === 'approve') return 'This will create an active student account from the request.';
+  if (confirm?.type === 'reject') return 'This registration request will be rejected.';
+  return 'This student will be marked inactive and lose dashboard access.';
+};
+
+const confirmLabel = (confirm) => {
+  if (confirm?.type === 'approve') return 'Approve';
+  if (confirm?.type === 'reject') return 'Reject';
+  return 'Remove';
+};
 
 export default AdminStudents;

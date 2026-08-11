@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import {
   FiHome, FiUsers, FiUserCheck, FiBookOpen, FiAward, FiImage, FiBell,
   FiCalendar, FiMessageSquare, FiCheckSquare, FiCreditCard, FiHelpCircle,
-  FiSettings, FiLogOut, FiMenu, FiX,
+  FiSettings, FiLogOut, FiMenu, FiX, FiArrowLeft,
 } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext.jsx';
 
@@ -82,7 +82,14 @@ const AdminDashboardLayout = ({ children }) => {
         </div>
       )}
 
-      <main className="flex-1 p-5 lg:p-10 min-w-0">{children}</main>
+      <main className="flex-1 p-5 lg:p-10 min-w-0">
+        <div className="mb-6">
+          <Link to="/" className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-brass-400">
+            <FiArrowLeft /> Back to site
+          </Link>
+        </div>
+        {children}
+      </main>
     </div>
   );
 };

@@ -11,6 +11,9 @@ export const adminService = {
   updateStudent: (id, payload) => api.put(`/students/${id}`, payload),
   deactivateStudent: (id) => api.delete(`/students/${id}`),
   assignProgram: (id, payload) => api.post(`/students/${id}/programs`, payload),
+  getStudentRequests: (params) => api.get('/students/requests', { params }),
+  approveStudentRequest: (id) => api.post(`/students/requests/${id}/approve`),
+  rejectStudentRequest: (id) => api.post(`/students/requests/${id}/reject`),
 
   // Masters
   getMastersAdmin: () => api.get('/masters/admin'),
