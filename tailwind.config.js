@@ -5,15 +5,15 @@ export default {
     extend: {
       colors: {
         ink: {
-          950: '#050609', // deepest page canvas
-          900: '#0C0E18',
-          800: '#141821',
-          700: '#262B3A',
+          950: '#070504', // deepest page canvas
+          900: '#100D0A',
+          800: '#181410',
+          700: '#2C2620',
         },
         brass: {
-          400: '#F7A15A',
-          500: '#E08532', // primary accent — warm orange gold
-          600: '#A75A27',
+          400: '#E69A3F',
+          500: '#C97B28', // primary accent — warm gold
+          600: '#A76422',
         },
         maroon: {
           500: '#852B38', // secondary accent — rich temple red

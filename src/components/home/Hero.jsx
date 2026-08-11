@@ -24,9 +24,9 @@ const Hero = () => {
       <div className="container-xl grid gap-12 lg:min-h-[calc(100vh-12rem)] lg:grid-cols-[1.35fr_0.9fr] lg:items-stretch">
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="lg:self-center">
           <p className="eyebrow mb-4">Kalai Sangamam &middot; Dindigul</p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-semibold leading-[0.98] tracking-[-0.03em] text-transparent bg-clip-text bg-gradient-to-r from-brass-400 via-parchment-100 to-brass-400">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-semibold leading-[0.98] tracking-[-0.03em] text-parchment-100">
             Tradition.<br />
-            Discipline.<br />
+            <span className="text-brass-400">Discipline.</span><br />
             Excellence.
           </h1>
           <p className="mt-6 text-slate-300 text-base lg:text-lg max-w-xl leading-relaxed">

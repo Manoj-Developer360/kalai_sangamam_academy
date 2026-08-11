@@ -8,11 +8,11 @@
   }
   body {
     @apply bg-ink-950 text-parchment-100 font-body antialiased;
-    background-image: radial-gradient(circle at 20% 10%, rgba(231, 171, 88, 0.08), transparent 22%), radial-gradient(circle at 80% 20%, rgba(231, 171, 88, 0.06), transparent 20%);
-    background-color: #050609;
+    background-color: #070504;
+    background-image: radial-gradient(circle at 20% 10%, rgba(214, 152, 62, 0.08), transparent 18%), radial-gradient(circle at 78% 25%, rgba(214, 152, 62, 0.05), transparent 20%);
   }
   h1, h2, h3, h4 {
-    @apply font-display tracking-tight;
+    @apply font-display tracking-tight text-parchment-100;
   }
   ::selection {
     @apply bg-brass-500 text-ink-950;
@@ -33,14 +33,11 @@
   }
 
   .section-heading {
-    @apply text-3xl sm:text-4xl lg:text-5xl font-display font-semibold;
-    background-image: linear-gradient(90deg, #F7A15A 0%, #F3EFE7 55%, #F7A15A 100%);
-    -webkit-background-clip: text;
-    color: transparent;
+    @apply text-3xl sm:text-4xl lg:text-5xl font-display font-semibold text-parchment-100;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-brass-400 via-brass-500 to-maroon-500 text-ink-950 font-display font-semibold uppercase tracking-wide text-sm rounded-sm shadow-[0_16px_40px_-18px_rgba(232,133,50,0.8)] transition-all duration-200 hover:from-brass-500 hover:to-brass-400;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-brass-500 text-ink-950 font-display font-semibold uppercase tracking-wide text-sm rounded-sm shadow-[0_16px_40px_-18px_rgba(232,133,50,0.8)] transition-all duration-200 hover:bg-brass-400;
   }
 
   .btn-secondary {
@@ -50,13 +47,11 @@
   }
 
   .gradient-text {
-    background-image: linear-gradient(90deg, #F7A15A 0%, #F3EFE7 35%, #F7A15A 100%);
-    -webkit-background-clip: text;
-    color: transparent;
+    color: #E69A3F;
   }
 
   .card {
-    @apply bg-ink-900/70 border border-parchment-100/10 rounded-md;
+    @apply bg-[#0d0a08]/90 border border-parchment-100/10 rounded-3xl;
   }
 
   /* Signature divider motif: an angled brass sweep, referencing a silambam stick strike */

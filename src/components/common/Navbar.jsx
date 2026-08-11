@@ -37,7 +37,7 @@ const Navbar = () => {
       }`}
     >
       <div className="container-xl flex items-center justify-between h-16 lg:h-20">
-        <a href="#home" className="font-display text-xl lg:text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-brass-400 via-parchment-100 to-brass-400">
+        <a href="#home" className="font-display text-xl lg:text-2xl font-semibold text-brass-400">
           Kalai <span className="text-brass-500">Sangamam</span>
         </a>
 
