@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-ink-950 text-parchment-100 font-body antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display tracking-wide;
+  }
+  ::selection {
+    @apply bg-brass-500 text-ink-950;
+  }
+  :focus-visible {
+    outline: 2px solid #C89B3C;
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .container-xl {
+    @apply max-w-7xl mx-auto px-5 sm:px-8 lg:px-10;
+  }
+
+  .eyebrow {
+    @apply text-brass-500 font-mono text-xs tracking-[0.25em] uppercase;
+  }
+
+  .section-heading {
+    @apply text-3xl sm:text-4xl lg:text-5xl font-display font-semibold text-parchment-100;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-brass-500 text-ink-950 font-display font-semibold uppercase tracking-wide text-sm rounded-sm hover:bg-brass-400 transition-colors duration-200;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 border border-parchment-300/30 text-parchment-100 font-display font-semibold uppercase tracking-wide text-sm rounded-sm hover:border-brass-500 hover:text-brass-400 transition-colors duration-200;
+  }
+
+  .card {
+    @apply bg-ink-800/70 border border-parchment-100/5 rounded-md;
+  }
+
+  /* Signature divider motif: an angled brass sweep, referencing a silambam stick strike */
+  .stick-divider {
+    @apply relative h-10 w-full overflow-hidden;
+  }
+  .stick-divider::before {
+    content: '';
+    @apply absolute inset-0 bg-stick-sweep opacity-70;
+  }
+
+  .skeleton {
+    @apply animate-pulse bg-ink-700 rounded-md;
+  }
+}

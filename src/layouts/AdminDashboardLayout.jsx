@@ -1,0 +1,90 @@
+import React, { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import {
+  FiHome, FiUsers, FiUserCheck, FiBookOpen, FiAward, FiImage, FiBell,
+  FiCalendar, FiMessageSquare, FiCheckSquare, FiCreditCard, FiHelpCircle,
+  FiSettings, FiLogOut, FiMenu, FiX,
+} from 'react-icons/fi';
+import { useAuth } from '../context/AuthContext.jsx';
+
+const LINKS = [
+  { to: '/admin/dashboard', label: 'Dashboard', icon: FiHome, end: true },
+  { to: '/admin/students', label: 'Students', icon: FiUsers },
+  { to: '/admin/masters', label: 'Masters', icon: FiUserCheck },
+  { to: '/admin/programs', label: 'Programs', icon: FiBookOpen },
+  { to: '/admin/achievements', label: 'Achievements', icon: FiAward },
+  { to: '/admin/gallery', label: 'Gallery', icon: FiImage },
+  { to: '/admin/announcements', label: 'Announcements', icon: FiBell },
+  { to: '/admin/events', label: 'Events', icon: FiCalendar },
+  { to: '/admin/testimonials', label: 'Testimonials', icon: FiMessageSquare },
+  { to: '/admin/attendance', label: 'Attendance', icon: FiCheckSquare },
+  { to: '/admin/fees', label: 'Fees', icon: FiCreditCard },
+  { to: '/admin/faqs', label: 'FAQs', icon: FiHelpCircle },
+  { to: '/admin/settings', label: 'Website Settings', icon: FiSettings },
+];
+
+const AdminDashboardLayout = ({ children }) => {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+
+  const handleLogout = () => {
+    logout();
+    navigate('/admin/login');
+  };
+
+  const SidebarContent = () => (
+    <>
+      <div className="mb-6">
+        <p className="font-display text-lg text-parchment-100">Kalai <span className="text-brass-500">Sangamam</span></p>
+        <p className="text-xs text-slate-500 mt-1">Admin &middot; {user?.username}</p>
+      </div>
+      <nav className="flex-1 space-y-0.5 overflow-y-auto pr-1">
+        {LINKS.map((l) => (
+          <NavLink
+            key={l.to}
+            to={l.to}
+            end={l.end}
+            onClick={() => setOpen(false)}
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-3 py-2.5 rounded-sm text-sm transition-colors ${
+                isActive ? 'bg-brass-500/10 text-brass-400' : 'text-slate-400 hover:text-parchment-100'
+              }`
+            }
+          >
+            <l.icon /> {l.label}
+          </NavLink>
+        ))}
+      </nav>
+      <button onClick={handleLogout} className="flex items-center gap-3 px-3 py-2.5 text-sm text-maroon-400 hover:text-maroon-300 mt-3">
+        <FiLogOut /> Logout
+      </button>
+    </>
+  );
+
+  return (
+    <div className="min-h-screen bg-ink-950 lg:flex">
+      <aside className="hidden lg:flex flex-col w-64 shrink-0 bg-ink-900 border-r border-parchment-100/5 p-6 h-screen sticky top-0">
+        <SidebarContent />
+      </aside>
+
+      <div className="lg:hidden flex items-center justify-between p-4 border-b border-parchment-100/5">
+        <p className="font-display text-parchment-100">Admin Panel</p>
+        <button onClick={() => setOpen(true)} className="text-parchment-100 text-xl"><FiMenu /></button>
+      </div>
+      {open && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <div className="absolute inset-0 bg-ink-950/70" onClick={() => setOpen(false)} />
+          <aside className="absolute left-0 top-0 bottom-0 w-72 bg-ink-900 p-6 flex flex-col">
+            <button onClick={() => setOpen(false)} className="self-end text-parchment-100 text-xl mb-4"><FiX /></button>
+            <SidebarContent />
+          </aside>
+        </div>
+      )}
+
+      <main className="flex-1 p-5 lg:p-10 min-w-0">{children}</main>
+    </div>
+  );
+};
+
+export default AdminDashboardLayout;
