@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { FiArrowRight, FiCalendar, FiMapPin, FiPlayCircle } from 'react-icons/fi';
 import { publicService } from '../../services/publicService';
 
 const Hero = () => {
+  const navigate = useNavigate();
   const [announcement, setAnnouncement] = useState(null);
 
   useEffect(() => {
@@ -91,15 +93,13 @@ const Hero = () => {
                 </div>
               </div>
 
-              <a
-                href={announcement.registration_link || '#'}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center justify-between border-t border-parchment-100/10 pt-5 font-display text-sm font-semibold uppercase tracking-wide text-parchment-100 transition-colors hover:text-brass-400"
+              <button
+                onClick={() => navigate('/events')}
+                className="w-full flex items-center justify-between border-t border-parchment-100/10 pt-5 font-display text-sm font-semibold uppercase tracking-wide text-parchment-100 transition-colors hover:text-brass-400"
               >
                 <span>View Event</span>
                 <FiArrowRight className="text-brass-500" />
-              </a>
+              </button>
             </>
           ) : (
             <>

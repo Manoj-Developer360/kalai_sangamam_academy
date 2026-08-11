@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { FiMenu, FiUser, FiX } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext.jsx';
 
 const NAV_LINKS = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Why Us', href: '#why-us' },
-  { label: 'Programs', href: '#programs' },
-  { label: 'Masters', href: '#masters' },
-  { label: 'Achievements', href: '#achievements' },
-  { label: 'Gallery', href: '#gallery' },
-  { label: 'Events', href: '#events' },
-  { label: 'Testimonials', href: '#testimonials' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Why Us', href: '/#why-us' },
+  { label: 'Programs', href: '/programs' },
+  { label: 'Masters', href: '/masters' },
+  { label: 'Achievements', href: '/achievements' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'Events', href: '/events' },
+  { label: 'Testimonials', href: '/#testimonials' },
+  { label: 'FAQ', href: '/#faq' },
+  { label: 'Contact', href: '/#contact' },
 ];
 
 const Navbar = () => {
@@ -42,15 +42,32 @@ const Navbar = () => {
         </a>
 
         <nav className="hidden xl:flex items-center gap-6">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm text-parchment-300 hover:text-brass-400 transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const isHashRoute = link.href.startsWith('/#');
+            if (isHashRoute) {
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm text-parchment-300 hover:text-brass-400 transition-colors"
+                >
+                  {link.label}
+                </a>
+              );
+            }
+
+            return (
+              <NavLink
+                key={link.href}
+                to={link.href}
+                className={({ isActive }) =>
+                  `text-sm transition-colors ${isActive ? 'text-brass-400' : 'text-parchment-300 hover:text-brass-400'}`
+                }
+              >
+                {link.label}
+              </NavLink>
+            );
+          })}
         </nav>
 
         <div className="hidden xl:block">
@@ -81,16 +98,31 @@ const Navbar = () => {
 
       {open && (
         <div className="xl:hidden bg-ink-900 border-t border-parchment-100/5 px-5 py-6 flex flex-col gap-4">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="text-parchment-200 text-sm"
-            >
-              {link.label}
-            </a>
-          ))}
+          {NAV_LINKS.map((link) => {
+            if (link.href.startsWith('/#')) {
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="text-parchment-200 text-sm"
+                >
+                  {link.label}
+                </a>
+              );
+            }
+
+            return (
+              <Link
+                key={link.href}
+                to={link.href}
+                onClick={() => setOpen(false)}
+                className="text-parchment-200 text-sm"
+              >
+                {link.label}
+              </Link>
+            );
+          })}
           {!loading && user ? (
             <Link to={dashboardPath} onClick={() => setOpen(false)} className="btn-primary mt-2">
               <FiUser /> Dashboard

@@ -4,6 +4,12 @@ import { ToastProvider } from './context/ToastContext.jsx';
 import ProtectedRoute from './routes/ProtectedRoute.jsx';
 
 import Home from './pages/public/Home.jsx';
+import AboutPage from './pages/public/AboutPage.jsx';
+import ProgramsPage from './pages/public/ProgramsPage.jsx';
+import MastersPage from './pages/public/MastersPage.jsx';
+import AchievementsPage from './pages/public/AchievementsPage.jsx';
+import GalleryPage from './pages/public/GalleryPage.jsx';
+import EventsPage from './pages/public/EventsPage.jsx';
 import NotFound from './pages/public/NotFound.jsx';
 
 import StudentLogin from './pages/student/StudentLogin.jsx';
@@ -36,6 +42,12 @@ function App() {
     <ToastProvider>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/programs" element={<ProgramsPage />} />
+        <Route path="/masters" element={<MastersPage />} />
+        <Route path="/achievements" element={<AchievementsPage />} />
+        <Route path="/gallery" element={<GalleryPage />} />
+        <Route path="/events" element={<EventsPage />} />
 
         {/* Student */}
         <Route path="/student/login" element={<StudentLogin />} />
