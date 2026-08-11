@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiArrowRight, FiCalendar, FiPlayCircle } from 'react-icons/fi';
+import { FiArrowRight, FiCalendar, FiMapPin, FiPlayCircle } from 'react-icons/fi';
 import { publicService } from '../../services/publicService';
-
-const statusStyles = {
-  open: 'bg-brass-500/15 text-brass-400 border-brass-500/30',
-  closed: 'bg-slate-500/15 text-slate-400 border-slate-500/30',
-  coming_soon: 'bg-maroon-500/15 text-maroon-400 border-maroon-500/30',
-};
-const statusLabel = { open: 'Registration Open', closed: 'Registration Closed', coming_soon: 'Coming Soon' };
 
 const Hero = () => {
   const [announcement, setAnnouncement] = useState(null);
@@ -28,16 +21,17 @@ const Hero = () => {
         <div className="absolute top-40 -right-40 w-[26rem] h-[26rem] bg-maroon-500/10 rounded-full blur-3xl" />
       </div>
 
-      <div className="container-xl grid lg:grid-cols-[1.4fr_1fr] gap-12 items-center">
-        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+      <div className="container-xl grid gap-12 lg:min-h-[calc(100vh-12rem)] lg:grid-cols-[1.35fr_0.9fr] lg:items-stretch">
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="lg:self-center">
           <p className="eyebrow mb-4">Kalai Sangamam &middot; Dindigul</p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-semibold leading-[1.1] text-parchment-100">
-            Where tradition <span className="text-brass-500">strikes</span><br />
-            discipline into shape.
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-semibold leading-[0.98] tracking-[-0.03em] text-transparent bg-clip-text bg-gradient-to-r from-brass-400 via-parchment-100 to-brass-400">
+            Tradition.<br />
+            Discipline.<br />
+            Excellence.
           </h1>
-          <p className="mt-6 text-slate-400 text-base lg:text-lg max-w-xl leading-relaxed">
-            A Dindigul academy training students in Silambam, Karate, Yoga, Skating, Archery and Hindi —
-            guided by experienced masters across 15+ schools, built on safety, structure and steady progress.
+          <p className="mt-6 text-slate-300 text-base lg:text-lg max-w-xl leading-relaxed">
+            Nurturing strength, discipline and confidence through traditional arts, martial training and holistic growth —
+            guided by masters in Silambam, Karate, Yoga, Skating, Archery and Hindi.
           </p>
           <div className="mt-9 flex flex-wrap gap-4">
             <a href="#programs" className="btn-primary">
@@ -56,42 +50,83 @@ const Hero = () => {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="card p-6 lg:p-7"
+          className="relative w-full border border-parchment-100/15 bg-[#1b120d]/80 p-6 shadow-[0_24px_90px_-55px_rgba(224,133,50,0.35)] backdrop-blur-sm sm:p-7 lg:mb-8 lg:max-w-md lg:self-end lg:justify-self-end lg:p-8 xl:mb-12"
         >
+          <span className="absolute left-0 top-0 h-px w-16 bg-brass-500" />
           {announcement ? (
             <>
-              <p className="eyebrow mb-3">Flash News</p>
-              {announcement.image_url && (
-                <img
-                  src={announcement.image_url}
-                  alt={announcement.title}
-                  className="w-full h-36 object-cover rounded-md mb-4"
-                />
-              )}
-              <h3 className="font-display text-lg text-parchment-100 mb-2">{announcement.title}</h3>
-              {announcement.description && (
-                <p className="text-sm text-slate-400 mb-4 line-clamp-2">{announcement.description}</p>
-              )}
-              <div className="flex items-center gap-2 text-xs text-slate-400 mb-4">
-                <FiCalendar className="text-brass-500" />
-                {announcement.event_date
-                  ? new Date(announcement.event_date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
-                  : 'Date to be announced'}
+              <div className="flex items-center justify-between border-b border-parchment-100/10 pb-5">
+                <span className="flex items-center gap-2 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-brass-500">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brass-500 shadow-[0_0_12px_rgba(224,133,50,0.8)]" />
+                  Announcement
+                </span>
+                <span className="font-mono text-xs text-parchment-300/50">01</span>
               </div>
-              <span className={`inline-block text-xs px-3 py-1 rounded-full border mb-4 ${statusStyles[announcement.registration_status] || statusStyles.coming_soon}`}>
-                {statusLabel[announcement.registration_status] || 'Coming Soon'}
-              </span>
-              {announcement.registration_link && (
-                <a href={announcement.registration_link} target="_blank" rel="noreferrer" className="btn-primary w-full">
-                  Register Now
-                </a>
-              )}
+
+              <div className="grid gap-5 py-7 sm:grid-cols-[3.25rem_1fr]">
+                <span className="grid h-12 w-12 place-items-center border border-brass-500/25 text-brass-500">
+                  <FiCalendar className="text-lg" />
+                </span>
+                <div>
+                  <p className="mb-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-parchment-300/55">
+                    Upcoming Event
+                  </p>
+                  <h3 className="font-display text-2xl leading-[1.05] text-parchment-100 lg:text-3xl">
+                    {announcement.title}
+                  </h3>
+                  <div className="mt-5 grid gap-2.5 text-sm text-parchment-300/65">
+                    <div className="flex items-center gap-2.5">
+                      <FiCalendar className="text-brass-500" />
+                      <span>
+                        {announcement.event_date
+                          ? new Date(announcement.event_date).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
+                          : 'Date to be announced'}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2.5">
+                      <FiMapPin className="text-brass-500" />
+                      <span>Dindigul</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <a
+                href={announcement.registration_link || '#'}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-between border-t border-parchment-100/10 pt-5 font-display text-sm font-semibold uppercase tracking-wide text-parchment-100 transition-colors hover:text-brass-400"
+              >
+                <span>View Event</span>
+                <FiArrowRight className="text-brass-500" />
+              </a>
             </>
           ) : (
-            <div className="py-10 text-center">
-              <p className="eyebrow mb-2">Flash News</p>
-              <p className="text-slate-500 text-sm">No announcements at the moment. Check back soon.</p>
-            </div>
+            <>
+              <div className="flex items-center justify-between border-b border-parchment-100/10 pb-5">
+                <span className="flex items-center gap-2 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-brass-500">
+                  <span className="h-1.5 w-1.5 rounded-full bg-brass-500 shadow-[0_0_12px_rgba(224,133,50,0.8)]" />
+                  Announcement
+                </span>
+                <span className="font-mono text-xs text-parchment-300/50">01</span>
+              </div>
+              <div className="grid gap-5 py-7 sm:grid-cols-[3.25rem_1fr]">
+                <span className="grid h-12 w-12 place-items-center border border-brass-500/25 text-brass-500">
+                    <FiCalendar className="text-base" />
+                </span>
+                <div>
+                  <p className="mb-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-parchment-300/55">
+                    Flash News
+                  </p>
+                  <h3 className="font-display text-2xl leading-[1.05] text-parchment-100 lg:text-3xl">
+                    No announcements
+                  </h3>
+                  <p className="mt-4 text-sm leading-relaxed text-parchment-300/60">
+                    Check back soon for upcoming academy updates.
+                  </p>
+                </div>
+              </div>
+            </>
           )}
         </motion.div>
       </div>

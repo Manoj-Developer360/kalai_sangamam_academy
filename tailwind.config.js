@@ -5,31 +5,31 @@ export default {
     extend: {
       colors: {
         ink: {
-          950: '#0D0F17', // primary background — deep indigo-black
-          900: '#12151F',
-          800: '#1B1F2C',
-          700: '#262B3B',
+          950: '#050609', // deepest page canvas
+          900: '#0C0E18',
+          800: '#141821',
+          700: '#262B3A',
         },
         brass: {
-          400: '#DDB65E',
-          500: '#C89B3C', // primary accent — brass ring on a silambam stick
-          600: '#A67D28',
+          400: '#F7A15A',
+          500: '#E08532', // primary accent — warm orange gold
+          600: '#A75A27',
         },
         maroon: {
-          500: '#7A2331', // secondary accent — temple vermillion
-          600: '#5E1A25',
+          500: '#852B38', // secondary accent — rich temple red
+          600: '#61202B',
         },
         parchment: {
-          100: '#F3EFE7', // primary text on dark
-          300: '#D8D2C4',
+          100: '#F7F0E8', // bright cream text on dark
+          300: '#DCCFBC',
         },
         slate: {
-          400: '#9296A6',
-          500: '#7A7E8E',
+          400: '#8D94A5',
+          500: '#767A8D',
         },
       },
       fontFamily: {
-        display: ['"Oswald"', 'sans-serif'],
+        display: ['"Playfair Display"', 'serif'],
         body: ['"Inter"', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
       },
