@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FiMenu, FiX } from 'react-icons/fi';
+import { FiMenu, FiUser, FiX } from 'react-icons/fi';
+import { useAuth } from '../../context/AuthContext.jsx';
 
 const NAV_LINKS = [
   { label: 'Home', href: '#home' },
@@ -17,8 +18,11 @@ const NAV_LINKS = [
 ];
 
 const Navbar = () => {
+  const { user, loading } = useAuth();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const dashboardPath = user?.role === 'admin' ? '/admin/dashboard' : '/student/dashboard';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -50,9 +54,20 @@ const Navbar = () => {
         </nav>
 
         <div className="hidden xl:block">
-          <Link to="/student/login" className="btn-secondary !py-2 !px-5 !text-xs">
-            Student Login
-          </Link>
+          {!loading && user ? (
+            <Link
+              to={dashboardPath}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-sm border border-parchment-300/30 text-parchment-100 hover:border-brass-500 hover:text-brass-400 transition-colors"
+              aria-label="Go to dashboard"
+              title="Go to dashboard"
+            >
+              <FiUser />
+            </Link>
+          ) : (
+            <Link to="/student/login" className="btn-secondary !py-2 !px-5 !text-xs">
+              Student Login
+            </Link>
+          )}
         </div>
 
         <button
@@ -76,9 +91,15 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
-          <Link to="/student/login" onClick={() => setOpen(false)} className="btn-primary mt-2">
-            Student Login
-          </Link>
+          {!loading && user ? (
+            <Link to={dashboardPath} onClick={() => setOpen(false)} className="btn-primary mt-2">
+              <FiUser /> Dashboard
+            </Link>
+          ) : (
+            <Link to="/student/login" onClick={() => setOpen(false)} className="btn-primary mt-2">
+              Student Login
+            </Link>
+          )}
         </div>
       )}
     </header>
