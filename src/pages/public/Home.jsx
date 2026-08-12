@@ -16,7 +16,7 @@ const Home = () => (
     <About />
     <WhyChooseUs />
     <Programs />
-    <Masters />
+    <Masters limit={3} showViewAll />
     <Achievements />
     <Gallery />
     <Events />

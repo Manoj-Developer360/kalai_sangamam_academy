@@ -5,7 +5,7 @@ import Masters from '../../components/masters/Masters.jsx';
 const MastersPage = () => (
   <PublicLayout>
     <div className="pt-20 lg:pt-24">
-      <Masters />
+      <Masters pageView />
     </div>
   </PublicLayout>
 );
