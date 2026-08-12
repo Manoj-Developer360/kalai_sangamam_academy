@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import { FiArrowRight, FiCalendar, FiMapPin, FiPlayCircle } from 'react-icons/fi';
-import { publicService } from '../../services/publicService';
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import {
+  FiArrowRight,
+  FiCalendar,
+  FiMapPin,
+  FiPlayCircle,
+} from "react-icons/fi";
+import { publicService } from "../../services/publicService";
 
 const Hero = () => {
   const navigate = useNavigate();
   const [heroEvent, setHeroEvent] = useState(null);
-  const [flashNews, setFlashNews] = useState('');
+  const [flashNews, setFlashNews] = useState("");
 
   useEffect(() => {
     publicService
@@ -18,53 +23,73 @@ const Hero = () => {
     publicService
       .getSiteSettings()
       .then(({ data }) => {
-        const value = data?.data?.flash_news || '';
+        const value = data?.data?.flash_news || "";
         setFlashNews(String(value).trim());
       })
-      .catch(() => setFlashNews(''));
+      .catch(() => setFlashNews(""));
   }, []);
 
   const navigateToPrograms = () => {
-    navigate('/programs');
+    navigate("/programs");
   };
 
   const navigateToContact = () => {
-    navigate('/contact');
+    navigate("/contact");
   };
 
   return (
-    <section id="home" className="relative pt-32 pb-0 lg:pt-37 lg:pb-0 overflow-hidden">
+    <section
+      id="home"
+      className="relative pt-24 pb-0 lg:pt-37 lg:pb-0 overflow-hidden"
+    >
       <div className="absolute inset-0 -z-10">
         <div className="absolute -top-40 -left-40 w-[30rem] h-[30rem] bg-brass-500/10 rounded-full blur-3xl" />
         <div className="absolute top-40 -right-40 w-[26rem] h-[26rem] bg-maroon-500/10 rounded-full blur-3xl" />
       </div>
 
-      <div className="container-xl grid gap-12 lg:min-h-[calc(100vh-12rem)] lg:grid-cols-[1.35fr_0.9fr] lg:items-stretch">
-        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="lg:self-center">
-          
-
-          {flashNews && (
-            <div className="mb-6 flex items-center gap-3 overflow-hidden rounded-full border border-brass-500/25 bg-[#130d09]/80 px-3 py-2 shadow-[0_10px_30px_-18px_rgba(224,133,50,0.8)] backdrop-blur-sm">
-              <span className="shrink-0 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-brass-500">
-                Flash News
-              </span>
-              <div className="min-w-0 flex-1 overflow-hidden">
-                <marquee className="text-sm text-parchment-200" behavior="scroll" direction="left" scrollamount="3">
-                  <span>{flashNews}</span>
-                </marquee>
+      {flashNews && (
+            <div className="mb-6 flex justify-center">
+              <div className="flex w-full max-w-md items-center gap-3 overflow-hidden rounded-full border border-brass-500/25 bg-[#130d09]/80 px-3 py-2 shadow-[0_10px_30px_-18px_rgba(224,133,50,0.8)] backdrop-blur-sm sm:max-w-lg">
+                <span className="shrink-0 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-brass-500">
+                  Flash News
+                </span>
+                <div className="min-w-0 flex-1 overflow-hidden">
+                  <marquee
+                    className="text-sm text-parchment-200"
+                    behavior="scroll"
+                    direction="left"
+                    scrollamount="3"
+                  >
+                    <span>{flashNews}</span>
+                  </marquee>
+                </div>
               </div>
             </div>
           )}
-<p className="eyebrow mb-4">Kalai Sangamam &middot; Dindigul</p>
+
+      <div className="container-xl grid gap-12 lg:min-h-[calc(100vh-12rem)] lg:grid-cols-[1.35fr_0.9fr] lg:items-stretch">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="lg:self-center"
+        >
+          
+          <p className="eyebrow mb-4">Kalai Sangamam &middot; Dindigul</p>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-semibold leading-[0.98] tracking-[-0.03em] text-parchment-100">
-            Tradition.<br />
-            <span className="text-brass-400">Discipline.</span><br />
+            Tradition.
+            <br />
+            <span className="text-brass-400">Discipline.</span>
+            <br />
             Excellence.
           </h1>
           <p className="mt-6 text-slate-300 text-base lg:text-lg max-w-xl leading-relaxed">
-            Kalai Sangamam is dedicated to nurturing the next generation through traditional arts, martial disciplines, physical fitness, and cultural learning. With guidance from experienced masters, we create an environment where students develop confidence, discipline, respect, and excellence both within and beyond the academy.
+            Kalai Sangamam is dedicated to nurturing the next generation through
+            traditional arts, martial disciplines, physical fitness, and
+            cultural learning. With guidance from experienced masters, we create
+            an environment where students develop confidence, discipline,
+            respect, and excellence both within and beyond the academy.
           </p>
-          
 
           <div className="mt-9 flex flex-wrap gap-4">
             <button onClick={navigateToPrograms} className="btn-primary">
@@ -90,7 +115,9 @@ const Hero = () => {
                   <span className="h-1.5 w-1.5 rounded-full bg-brass-500 shadow-[0_0_12px_rgba(224,133,50,0.8)]" />
                   Featured Event
                 </span>
-                <span className="font-mono text-xs text-parchment-300/50">01</span>
+                <span className="font-mono text-xs text-parchment-300/50">
+                  01
+                </span>
               </div>
 
               <div className="grid gap-5 py-7 sm:grid-cols-[3.25rem_1fr]">
@@ -109,8 +136,15 @@ const Hero = () => {
                       <FiCalendar className="text-brass-500" />
                       <span>
                         {heroEvent.event_date
-                          ? new Date(heroEvent.event_date).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
-                          : 'Date to be announced'}
+                          ? new Date(heroEvent.event_date).toLocaleDateString(
+                              "en-IN",
+                              {
+                                day: "numeric",
+                                month: "long",
+                                year: "numeric",
+                              },
+                            )
+                          : "Date to be announced"}
                       </span>
                     </div>
                     <div className="flex items-center gap-2.5">
@@ -136,7 +170,9 @@ const Hero = () => {
                   <span className="h-1.5 w-1.5 rounded-full bg-brass-500 shadow-[0_0_12px_rgba(224,133,50,0.8)]" />
                   Featured Event
                 </span>
-                <span className="font-mono text-xs text-parchment-300/50">01</span>
+                <span className="font-mono text-xs text-parchment-300/50">
+                  01
+                </span>
               </div>
               <div className="grid gap-5 py-7 sm:grid-cols-[3.25rem_1fr]">
                 <span className="grid h-12 w-12 place-items-center border border-brass-500/25 text-brass-500">
