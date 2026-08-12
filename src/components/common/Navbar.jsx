@@ -15,6 +15,7 @@ const NAV_LINKS = [
   // { label: 'Testimonials', href: '/#testimonials' },
   // { label: 'FAQ', href: '/#faq' },
   { label: 'Contact', href: '/contact' },
+  
 ];
 
 const Navbar = () => {

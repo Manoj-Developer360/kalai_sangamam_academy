@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiArrowRight } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import SectionHeading from '../common/SectionHeading';
 import { SkeletonGrid, ErrorState, EmptyState } from '../common/StateViews';
 import { publicService } from '../../services/publicService';
@@ -43,31 +44,41 @@ const Programs = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: i * 0.06 }}
-                className="card overflow-hidden group"
+                className="card overflow-hidden flex flex-col h-full"
               >
                 <div className="h-44 overflow-hidden bg-ink-700">
                   <img
                     src={programImage(p.slug)}
                     alt={p.name}
                     onError={(e) => { e.currentTarget.style.opacity = 0; }}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <div className="p-6">
-                  <h3 className="font-display text-xl text-parchment-100 mb-2">{p.name}</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-2">{p.introduction}</p>
-                  {p.levels?.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {p.levels.map((lvl) => (
-                        <span key={lvl} className="text-[11px] px-2.5 py-1 rounded-full bg-brass-500/10 text-brass-400 border border-brass-500/20">
-                          {lvl}
-                        </span>
-                      ))}
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="font-display text-xl text-parchment-100">{p.name}</h3>
+                  <p className="mt-2 text-brass-400 text-sm uppercase tracking-[0.22em] font-mono line-clamp-1">
+                    {p.tagline || p.training_schedule || p.introduction || 'Training program'}
+                  </p>
+                  <p className="mt-4 text-slate-300 text-sm leading-relaxed line-clamp-3">
+                    {p.training_details || p.introduction || 'Structured training designed to build skill, discipline and confidence.'}
+                  </p>
+                  {p.benefits?.length > 0 && (
+                    <div className="mt-4">
+                     
+                      <ul className="space-y-2 text-slate-400 text-sm leading-relaxed list-disc pl-5 decorative-list">
+                        {p.benefits.slice(0, 4).map((benefit) => (
+                          <li key={benefit} className="line-clamp-1">
+                            {benefit}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   )}
-                  <a href={`#contact`} className="inline-flex items-center gap-1 text-sm text-brass-400 hover:gap-2 transition-all">
-                    Enquire <FiArrowRight />
-                  </a>
+                  <div className="mt-auto pt-6">
+                    <Link to={`/programs/${p.slug}`} className="inline-flex items-center gap-1 text-sm text-brass-400 hover:gap-2 transition-all">
+                      View More <FiArrowRight />
+                    </Link>
+                  </div>
                 </div>
               </motion.div>
             ))}

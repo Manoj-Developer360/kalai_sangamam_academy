@@ -6,6 +6,7 @@ import ProtectedRoute from './routes/ProtectedRoute.jsx';
 import Home from './pages/public/Home.jsx';
 import AboutPage from './pages/public/AboutPage.jsx';
 import ProgramsPage from './pages/public/ProgramsPage.jsx';
+import ProgramDetailPage from './pages/public/ProgramDetailPage.jsx';
 import MastersPage from './pages/public/MastersPage.jsx';
 import AchievementsPage from './pages/public/AchievementsPage.jsx';
 import GalleryPage from './pages/public/GalleryPage.jsx';
@@ -44,6 +45,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/programs" element={<ProgramsPage />} />
+        <Route path="/programs/:slug" element={<ProgramDetailPage />} />
         <Route path="/masters" element={<MastersPage />} />
         <Route path="/achievements" element={<AchievementsPage />} />
         <Route path="/gallery" element={<GalleryPage />} />
