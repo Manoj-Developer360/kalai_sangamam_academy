@@ -107,7 +107,7 @@ const Masters = ({ limit, showViewAll = false, pageView = false }) => {
         <div className="container-xl">
           <header className="max-w-3xl mx-auto text-center mb-16">
             <p className="eyebrow mb-3">Our Masters</p>
-            <h1 className="section-heading">Our Masters</h1>
+            {/* <h1 className="section-heading">Our Masters</h1> */}
             <p className="mt-5 text-brass-400 font-display text-xl sm:text-2xl">Trained under decorated coaches and national-level competitors</p>
             <p className="mt-4 text-slate-300 text-sm sm:text-base leading-relaxed">Each master brings years of competitive and teaching experience across their discipline.</p>
           </header>

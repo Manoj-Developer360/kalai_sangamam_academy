@@ -8,7 +8,7 @@ const parseValue = (raw) => {
   return { number: Number(match[1]), suffix: match[2] };
 };
 
-const AnimatedCounter = ({ value, label }) => {
+const AnimatedCounter = ({ value, label, className = '' }) => {
   const { number, suffix } = parseValue(value);
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
@@ -25,12 +25,12 @@ const AnimatedCounter = ({ value, label }) => {
   }, [inView, number]);
 
   return (
-    <motion.div ref={ref} className="text-center">
-      <p className="font-mono text-4xl lg:text-5xl font-semibold text-brass-500">
+    <motion.div ref={ref} className={className}>
+      <p className="font-display text-5xl sm:text-6xl lg:text-7xl leading-none text-brass-500">
         {display}
         {suffix}
       </p>
-      <p className="text-slate-400 text-sm mt-2 uppercase tracking-wide">{label}</p>
+      <p className="text-parchment-300/80 text-[11px] sm:text-xs mt-4 uppercase tracking-[0.12em]">{label}</p>
     </motion.div>
   );
 };

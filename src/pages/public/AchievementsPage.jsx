@@ -5,7 +5,7 @@ import Achievements from '../../components/home/Achievements.jsx';
 const AchievementsPage = () => (
   <PublicLayout>
     <div className="pt-20 lg:pt-24">
-      <Achievements />
+      <Achievements pageView />
     </div>
   </PublicLayout>
 );
