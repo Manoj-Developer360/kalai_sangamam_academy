@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiFacebook, FiInstagram, FiYoutube, FiMapPin, FiPhone, FiMail } from 'react-icons/fi';
 
 const Footer = ({ site }) => (
-  <footer className="border-t border-parchment-100/5 pt-16 pb-8">
+  <footer className="border-t border-parchment-100/5 bg-black/80 pt-16 pb-8">
     <div className="container-xl grid grid-cols-1 md:grid-cols-4 gap-10">
       <div>
         <h3 className="font-display text-xl font-semibold text-parchment-100 mb-3">
