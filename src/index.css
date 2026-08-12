@@ -5,6 +5,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    min-height: 100%;
   }
   html, body, #root {
     min-height: 100%;
@@ -23,12 +24,18 @@
     min-height: 100vh;
     background: transparent;
   }
-  h1, h2, h3, h4 {
+
+  h1,
+  h2,
+  h3,
+  h4 {
     @apply font-display tracking-tight text-parchment-100;
   }
+
   ::selection {
     @apply bg-brass-500 text-ink-950;
   }
+
   :focus-visible {
     outline: 2px solid #C89B3C;
     outline-offset: 2px;
