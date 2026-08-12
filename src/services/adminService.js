@@ -41,10 +41,10 @@ export const adminService = {
   deleteGalleryItem: (id) => api.delete(`/gallery/${id}`),
   reorderGallery: (items) => api.put('/gallery/reorder', { items }),
 
-  // Announcements
+  // Announcements / Flash News
   getAnnouncementsAdmin: () => api.get('/announcements/admin'),
-  createAnnouncement: (formData) => api.post('/announcements', formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
-  updateAnnouncement: (id, formData) => api.put(`/announcements/${id}`, formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
+  createAnnouncement: (formData) => api.post('/announcements', formData),
+  updateAnnouncement: (id, formData) => api.put(`/announcements/${id}`, formData),
   deleteAnnouncement: (id) => api.delete(`/announcements/${id}`),
 
   // Events

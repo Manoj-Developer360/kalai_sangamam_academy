@@ -10,7 +10,7 @@ const VALUES = [
 ];
 
 const About = () => (
-  <section id="about" className="py-24 lg:py-32">
+  <section id="about" className="py-10 ">
     <div className="container-xl">
       <SectionHeading eyebrow="About Us" title="Rooted in tradition, built for today" align="left" />
 

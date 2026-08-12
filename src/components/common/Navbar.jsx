@@ -6,15 +6,15 @@ import { useAuth } from '../../context/AuthContext.jsx';
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
-  { label: 'Why Us', href: '/#why-us' },
+  // { label: 'Why Us', href: '/#why-us' },
   { label: 'Programs', href: '/programs' },
   { label: 'Masters', href: '/masters' },
   { label: 'Achievements', href: '/achievements' },
   { label: 'Gallery', href: '/gallery' },
   { label: 'Events', href: '/events' },
-  { label: 'Testimonials', href: '/#testimonials' },
-  { label: 'FAQ', href: '/#faq' },
-  { label: 'Contact', href: '/#contact' },
+  // { label: 'Testimonials', href: '/#testimonials' },
+  // { label: 'FAQ', href: '/#faq' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 const Navbar = () => {

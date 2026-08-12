@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import {
-  FiHome, FiUsers, FiUserCheck, FiBookOpen, FiAward, FiImage, FiBell,
+  FiHome, FiUsers, FiUserCheck, FiBookOpen, FiAward, FiImage,
   FiCalendar, FiMessageSquare, FiCheckSquare, FiCreditCard, FiHelpCircle,
   FiSettings, FiLogOut, FiMenu, FiX, FiArrowLeft,
 } from 'react-icons/fi';
@@ -14,7 +14,6 @@ const LINKS = [
   { to: '/admin/programs', label: 'Programs', icon: FiBookOpen },
   { to: '/admin/achievements', label: 'Achievements', icon: FiAward },
   { to: '/admin/gallery', label: 'Gallery', icon: FiImage },
-  { to: '/admin/announcements', label: 'Announcements', icon: FiBell },
   { to: '/admin/events', label: 'Events', icon: FiCalendar },
   { to: '/admin/testimonials', label: 'Testimonials', icon: FiMessageSquare },
   { to: '/admin/attendance', label: 'Attendance', icon: FiCheckSquare },

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FiUsers, FiUserCheck, FiCalendar, FiCreditCard, FiImage, FiBell } from 'react-icons/fi';
+import { FiUsers, FiUserCheck, FiCalendar, FiCreditCard, FiImage } from 'react-icons/fi';
 import AdminDashboardLayout from '../../layouts/AdminDashboardLayout.jsx';
 import { adminService } from '../../services/adminService';
 import { ErrorState } from '../../components/common/StateViews.jsx';
@@ -11,7 +11,6 @@ const CARDS = [
   { key: 'upcomingEvents', label: 'Upcoming Events', icon: FiCalendar },
   { key: 'pendingFees', label: 'Pending Fees', icon: FiCreditCard },
   { key: 'galleryItems', label: 'Gallery Items', icon: FiImage },
-  { key: 'announcements', label: 'Announcements', icon: FiBell },
 ];
 
 const AdminDashboardHome = () => {

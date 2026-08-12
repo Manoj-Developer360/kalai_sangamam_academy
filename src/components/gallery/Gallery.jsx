@@ -22,7 +22,7 @@ const Gallery = () => {
   }, [active]);
 
   return (
-    <section id="gallery" className="py-24 lg:py-32 bg-ink-900/60">
+    <section id="gallery" className="py-10">
       <div className="container-xl">
         <SectionHeading eyebrow="Gallery" title="Moments from the mat, the ring and the field" />
 

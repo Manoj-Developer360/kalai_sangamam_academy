@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 import { FiCalendar, FiPhone, FiExternalLink } from 'react-icons/fi';
 import SectionHeading from '../common/SectionHeading';
 import { SkeletonGrid, ErrorState, EmptyState } from '../common/StateViews';
@@ -13,8 +14,10 @@ const statusStyles = {
 const statusLabel = { open: 'Open', closed: 'Closed', coming_soon: 'Coming Soon' };
 
 const Events = () => {
+  const location = useLocation();
   const [events, setEvents] = useState(null);
   const [error, setError] = useState(false);
+  const targetId = location.hash ? location.hash.replace('#', '') : '';
 
   useEffect(() => {
     publicService
@@ -23,8 +26,16 @@ const Events = () => {
       .catch(() => setError(true));
   }, []);
 
+  useEffect(() => {
+    if (!events || !targetId) return;
+    const target = document.getElementById(targetId);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [events, targetId]);
+
   return (
-    <section id="events" className="py-24 lg:py-32">
+    <section id="events" className="py-10 ">
       <div className="container-xl">
         <SectionHeading eyebrow="Upcoming Events" title="Belt tests, championships and camps" />
 
@@ -37,11 +48,12 @@ const Events = () => {
             {events.map((e, i) => (
               <motion.div
                 key={e.id}
+                id={`event-${e.id}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: i * 0.08 }}
-                className="card overflow-hidden flex flex-col"
+                className={`card overflow-hidden flex flex-col transition-all ${targetId === `event-${e.id}` ? 'ring-1 ring-brass-500/50 shadow-[0_0_0_1px_rgba(224,133,50,0.2)]' : ''}`}
               >
                 {e.image_url && <img src={e.image_url} alt={e.title} className="h-40 w-full object-cover" />}
                 <div className="p-6 flex flex-col flex-1">

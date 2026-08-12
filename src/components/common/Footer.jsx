@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiFacebook, FiInstagram, FiYoutube, FiMapPin, FiPhone, FiMail } from 'react-icons/fi';
 
 const Footer = ({ site }) => (
-  <footer className="bg-ink-900 border-t border-parchment-100/5 pt-16 pb-8">
+  <footer className="border-t border-parchment-100/5 pt-16 pb-8">
     <div className="container-xl grid grid-cols-1 md:grid-cols-4 gap-10">
       <div>
         <h3 className="font-display text-xl font-semibold text-parchment-100 mb-3">
@@ -22,11 +22,11 @@ const Footer = ({ site }) => (
       <div>
         <h4 className="text-parchment-100 font-display text-sm uppercase tracking-wide mb-4">Quick Links</h4>
         <ul className="space-y-2 text-sm text-slate-400">
-          <li><a href="#about" className="hover:text-brass-400">About Us</a></li>
-          <li><a href="#masters" className="hover:text-brass-400">Masters</a></li>
-          <li><a href="#gallery" className="hover:text-brass-400">Gallery</a></li>
-          <li><a href="#events" className="hover:text-brass-400">Upcoming Events</a></li>
-          <li><a href="#faq" className="hover:text-brass-400">FAQ</a></li>
+          <li><Link to="/about" className="hover:text-brass-400">About Us</Link></li>
+          <li><Link to="/masters" className="hover:text-brass-400">Masters</Link></li>
+          <li><Link to="/gallery" className="hover:text-brass-400">Gallery</Link></li>
+          <li><Link to="/events" className="hover:text-brass-400">Upcoming Events</Link></li>
+          <li><Link to="/contact" className="hover:text-brass-400">Contact</Link></li>
         </ul>
       </div>
 

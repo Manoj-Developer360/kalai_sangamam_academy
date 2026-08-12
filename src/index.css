@@ -6,10 +6,22 @@
   html {
     scroll-behavior: smooth;
   }
+  html, body, #root {
+    min-height: 100%;
+  }
   body {
-    @apply bg-ink-950 text-parchment-100 font-body antialiased;
-    background-color: #070504;
-    background-image: radial-gradient(circle at 20% 10%, rgba(214, 152, 62, 0.08), transparent 18%), radial-gradient(circle at 78% 25%, rgba(214, 152, 62, 0.05), transparent 20%);
+    @apply text-parchment-100 font-body antialiased;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 70% 18%, rgba(112, 70, 32, 0.16), transparent 38%),
+      linear-gradient(135deg, #090705 0%, #0d0906 30%, #120c07 55%, #0b0806 78%, #070504 100%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  #root {
+    min-height: 100vh;
+    background: transparent;
   }
   h1, h2, h3, h4 {
     @apply font-display tracking-tight text-parchment-100;
