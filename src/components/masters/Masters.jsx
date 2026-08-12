@@ -18,7 +18,7 @@ const Masters = () => {
   }, []);
 
   return (
-    <section id="masters" className="py-24 lg:py-32">
+    <section id="masters" className="py-10">
       <div className="container-xl">
         <SectionHeading eyebrow="Masters" title="The people behind the discipline" />
 

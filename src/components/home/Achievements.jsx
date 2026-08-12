@@ -20,7 +20,7 @@ const Achievements = () => {
   const milestones = (items?.filter((i) => i.type === 'milestone') || []).sort((a, b) => (a.year || 0) - (b.year || 0));
 
   return (
-    <section id="achievements" className="py-24 lg:py-32">
+    <section id="achievements" className="py-10 ">
       <div className="container-xl">
         <SectionHeading eyebrow="Achievements" title="Numbers that reflect real training" />
 

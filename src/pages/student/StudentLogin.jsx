@@ -4,7 +4,7 @@ import { FiUser, FiLock, FiArrowLeft } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext.jsx';
 
 const StudentLogin = () => {
-  const { login } = useAuth();
+  const { login, logout } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
@@ -17,6 +17,7 @@ const StudentLogin = () => {
     try {
       const user = await login(form.username, form.password);
       if (user.role !== 'student') {
+        logout();
         setError('This login is for students only.');
         return;
       }

@@ -69,7 +69,7 @@ const AdminSettings = () => {
       <div className="grid lg:grid-cols-2 gap-6">
         <form onSubmit={saveSite} className="card p-6 space-y-4">
           <p className="font-display text-parchment-100 mb-1">Site Info</p>
-          {site && ['academy_name', 'tagline', 'address', 'phone', 'whatsapp', 'email', 'facebook', 'instagram', 'youtube'].map((key) => (
+          {site && ['academy_name', 'tagline', 'flash_news', 'address', 'phone', 'whatsapp', 'email', 'facebook', 'instagram', 'youtube'].map((key) => (
             <div key={key}>
               <label className="text-xs text-slate-400 mb-1.5 block capitalize">{key.replace('_', ' ')}</label>
               <input

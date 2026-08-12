@@ -21,7 +21,7 @@ const Testimonials = () => {
   const prev = () => setIndex((i) => (i - 1 + items.length) % items.length);
 
   return (
-    <section id="testimonials" className="py-24 lg:py-32 bg-ink-900/60">
+    <section id="testimonials" className="py-10">
       <div className="container-xl">
         <SectionHeading eyebrow="Testimonials" title="Words from our students" />
 

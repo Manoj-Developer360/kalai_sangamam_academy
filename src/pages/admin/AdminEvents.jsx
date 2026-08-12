@@ -9,8 +9,16 @@ import { adminService } from '../../services/adminService';
 import { useToast } from '../../context/ToastContext.jsx';
 
 const emptyForm = {
-  title: '', description: '', event_date: '', last_date: '', registration_status: 'coming_soon',
-  registration_link: '', qr_code_url: '', contact_info: '', image_url: '',
+  title: '',
+  description: '',
+  event_date: '',
+  last_date: '',
+  registration_status: 'coming_soon',
+  registration_link: '',
+  qr_code_url: '',
+  contact_info: '',
+  image_url: '',
+  show_on_hero: false,
 };
 
 const AdminEvents = () => {
@@ -21,13 +29,13 @@ const AdminEvents = () => {
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState(emptyForm);
   const [saving, setSaving] = useState(false);
-  const [confirm, setConfirm] = useState(null); // { id, action: 'archive' | 'delete' }
+  const [confirm, setConfirm] = useState(null);
 
   const load = () => adminService.getEventsAdmin().then(({ data }) => setRows(data.data)).catch(() => setError(true));
   useEffect(() => { load(); }, []);
 
   const openCreate = () => { setEditing(null); setForm(emptyForm); setModalOpen(true); };
-  const openEdit = (e) => { setEditing(e); setForm({ ...emptyForm, ...e }); setModalOpen(true); };
+  const openEdit = (eventItem) => { setEditing(eventItem); setForm({ ...emptyForm, ...eventItem }); setModalOpen(true); };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -88,6 +96,7 @@ const AdminEvents = () => {
             { key: 'title', label: 'Title' },
             { key: 'event_date', label: 'Date', render: (r) => new Date(r.event_date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) },
             { key: 'registration_status', label: 'Registration' },
+            { key: 'show_on_hero', label: 'Hero', render: (r) => (r.show_on_hero ? 'Yes' : 'No') },
             { key: 'status', label: 'Status' },
           ]}
           rows={rows}
@@ -131,8 +140,12 @@ const AdminEvents = () => {
           <Field label="Registration Link" value={form.registration_link} onChange={(v) => setForm({ ...form, registration_link: v })} />
           <Field label="QR Code URL" value={form.qr_code_url} onChange={(v) => setForm({ ...form, qr_code_url: v })} />
           <Field label="Image URL" value={form.image_url} onChange={(v) => setForm({ ...form, image_url: v })} className="sm:col-span-2" />
+          <label className="flex items-center gap-2 sm:col-span-2 text-sm text-slate-300">
+            <input type="checkbox" checked={!!form.show_on_hero} onChange={(e) => setForm({ ...form, show_on_hero: e.target.checked })} />
+            Show this event in the Hero section
+          </label>
 
-          <button type="submit" disabled={saving} className="btn-primary sm:col-span-2 disabled:opacity-60">{saving ? 'Saving…' : editing ? 'Update' : 'Create'}</button>
+          <button type="submit" disabled={saving} className="btn-primary sm:col-span-2 disabled:opacity-60">{saving ? 'Saving...' : editing ? 'Update' : 'Create'}</button>
         </form>
       </Modal>
 

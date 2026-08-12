@@ -22,7 +22,7 @@ const Programs = () => {
   }, []);
 
   return (
-    <section id="programs" className="py-24 lg:py-32">
+    <section id="programs" className="py-10 ">
       <div className="container-xl">
         <SectionHeading
           eyebrow="Our Training Programs"

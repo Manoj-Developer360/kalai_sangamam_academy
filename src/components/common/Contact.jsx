@@ -15,7 +15,7 @@ const Contact = ({ site }) => {
   };
 
   return (
-    <section id="contact" className="py-24 lg:py-32 bg-ink-900/60">
+    <section id="contact" className="py-10">
       <div className="container-xl">
         <SectionHeading eyebrow="Contact" title="Come train with us" />
 

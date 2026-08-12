@@ -18,7 +18,7 @@ const FAQ = () => {
   }, []);
 
   return (
-    <section id="faq" className="py-24 lg:py-32">
+    <section id="faq" className="py-10 ">
       <div className="container-xl max-w-3xl">
         <SectionHeading eyebrow="FAQ" title="Common questions, answered" />
 
