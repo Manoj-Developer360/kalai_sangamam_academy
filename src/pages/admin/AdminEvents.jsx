@@ -28,24 +28,31 @@ const AdminEvents = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState(emptyForm);
+  const [imageFile, setImageFile] = useState(null);
   const [saving, setSaving] = useState(false);
   const [confirm, setConfirm] = useState(null);
 
   const load = () => adminService.getEventsAdmin().then(({ data }) => setRows(data.data)).catch(() => setError(true));
   useEffect(() => { load(); }, []);
 
-  const openCreate = () => { setEditing(null); setForm(emptyForm); setModalOpen(true); };
-  const openEdit = (eventItem) => { setEditing(eventItem); setForm({ ...emptyForm, ...eventItem }); setModalOpen(true); };
+  const openCreate = () => { setEditing(null); setForm(emptyForm); setImageFile(null); setModalOpen(true); };
+  const openEdit = (eventItem) => { setEditing(eventItem); setForm({ ...emptyForm, ...eventItem }); setImageFile(null); setModalOpen(true); };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
     try {
+      const payload = new FormData();
+      Object.entries(emptyForm).forEach(([key]) => {
+        const value = form[key];
+        payload.append(key, value ?? '');
+      });
+      if (imageFile) payload.append('image', imageFile);
       if (editing) {
-        await adminService.updateEvent(editing.id, form);
+        await adminService.updateEvent(editing.id, payload);
         showToast('Event updated.');
       } else {
-        await adminService.createEvent(form);
+        await adminService.createEvent(payload);
         showToast('Event created.');
       }
       setModalOpen(false);
@@ -136,10 +143,14 @@ const AdminEvents = () => {
               <option value="coming_soon">Coming Soon</option>
             </select>
           </div>
-          <Field label="Contact Info" value={form.contact_info} onChange={(v) => setForm({ ...form, contact_info: v })} />
+          {/* <Field label="Contact Info" value={form.contact_info} onChange={(v) => setForm({ ...form, contact_info: v })} /> */}
           <Field label="Registration Link" value={form.registration_link} onChange={(v) => setForm({ ...form, registration_link: v })} />
-          <Field label="QR Code URL" value={form.qr_code_url} onChange={(v) => setForm({ ...form, qr_code_url: v })} />
-          <Field label="Image URL" value={form.image_url} onChange={(v) => setForm({ ...form, image_url: v })} className="sm:col-span-2" />
+          {/* <Field label="QR Code URL" value={form.qr_code_url} onChange={(v) => setForm({ ...form, qr_code_url: v })} /> */}
+          <div className="sm:col-span-2">
+            <label className="text-xs text-slate-400 mb-1.5 block">Event Image</label>
+            <input type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files?.[0] || null)} className="w-full text-sm text-slate-300" />
+            <p className="mt-1 text-[11px] text-slate-500">{imageFile ? imageFile.name : editing && form.image_url ? 'Leave empty to keep the current image.' : 'Optional. JPG, PNG, WebP, or GIF.'}</p>
+          </div>
           <label className="flex items-center gap-2 sm:col-span-2 text-sm text-slate-300">
             <input type="checkbox" checked={!!form.show_on_hero} onChange={(e) => setForm({ ...form, show_on_hero: e.target.checked })} />
             Show this event in the Hero section

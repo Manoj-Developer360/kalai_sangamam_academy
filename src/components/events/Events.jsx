@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FiCalendar, FiPhone, FiExternalLink } from 'react-icons/fi';
 import SectionHeading from '../common/SectionHeading';
 import { SkeletonGrid, ErrorState, EmptyState } from '../common/StateViews';
 import { publicService } from '../../services/publicService';
 
 const statusStyles = {
-  open: 'bg-brass-500/15 text-brass-400 border-brass-500/30',
-  closed: 'bg-slate-500/15 text-slate-400 border-slate-500/30',
-  coming_soon: 'bg-maroon-500/15 text-maroon-400 border-maroon-500/30',
+  open: 'bg-emerald-700/95 text-white border-emerald-300/90',
+  closed: 'bg-red-700/95 text-white border-red-300/90',
+  coming_soon: 'bg-brass-500/95 text-ink-950 border-brass-200/90',
 };
 const statusLabel = { open: 'Open', closed: 'Closed', coming_soon: 'Coming Soon' };
 
@@ -55,11 +55,13 @@ const Events = () => {
                 transition={{ duration: 0.45, delay: i * 0.08 }}
                 className={`card overflow-hidden flex flex-col transition-all ${targetId === `event-${e.id}` ? 'ring-1 ring-brass-500/50 shadow-[0_0_0_1px_rgba(224,133,50,0.2)]' : ''}`}
               >
-                {e.image_url && <img src={e.image_url} alt={e.title} className="h-40 w-full object-cover" />}
-                <div className="p-6 flex flex-col flex-1">
-                  <span className={`self-start text-xs px-3 py-1 rounded-full border mb-3 ${statusStyles[e.registration_status] || statusStyles.coming_soon}`}>
+                <div className="relative h-40 w-full bg-ink-800">
+                  {e.image_url && <img src={e.image_url} alt={e.title} className="h-full w-full object-cover" />}
+                  <span className={`absolute right-3 top-3 z-10 text-xs font-semibold px-3 py-1 rounded-full border shadow-lg backdrop-blur-sm ${statusStyles[e.registration_status] || statusStyles.coming_soon}`}>
                     {statusLabel[e.registration_status] || 'Coming Soon'}
                   </span>
+                </div>
+                <div className="p-6 flex flex-col flex-1">
                   <h3 className="font-display text-lg text-parchment-100 mb-2">{e.title}</h3>
                   {e.description && <p className="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-2">{e.description}</p>}
 
@@ -75,6 +77,9 @@ const Events = () => {
                         Register <FiExternalLink />
                       </a>
                     )}
+                    <Link to="/contact" className="btn-secondary flex-1 !py-2.5 text-xs text-center">
+                      Any Queries?
+                    </Link>
                     {e.qr_code_url && (
                       <img src={e.qr_code_url} alt="Registration QR" className="w-12 h-12 rounded-sm border border-parchment-100/10" />
                     )}

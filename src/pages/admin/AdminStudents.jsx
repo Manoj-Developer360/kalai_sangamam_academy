@@ -186,15 +186,17 @@ const AdminStudents = () => {
               <Field label="Password" type="password" value={form.password} onChange={(value) => setForm({ ...form, password: value })} required />
             </>
           )}
-          <Field label="Email" type="email" value={form.email} onChange={(value) => setForm({ ...form, email: value })} />
           <Field label="Full Name" value={form.full_name} onChange={(value) => setForm({ ...form, full_name: value })} required />
+          <Field label="Email" type="email" value={form.email} onChange={(value) => setForm({ ...form, email: value })} />
+            <Field label="Contact Number" value={form.contact_number} onChange={(value) => setForm({ ...form, contact_number: value })} />
+          
           <Field label="Date of Birth" type="date" value={form.date_of_birth} onChange={(value) => setForm({ ...form, date_of_birth: value })} />
           <Field label="Gender" value={form.gender} onChange={(value) => setForm({ ...form, gender: value })} />
           <Field label="Parent Name" value={form.parent_name} onChange={(value) => setForm({ ...form, parent_name: value })} />
           <Field label="Parent Contact" value={form.parent_contact} onChange={(value) => setForm({ ...form, parent_contact: value })} />
-          <Field label="Contact Number" value={form.contact_number} onChange={(value) => setForm({ ...form, contact_number: value })} />
+          
           <Field label="Blood Group" value={form.blood_group} onChange={(value) => setForm({ ...form, blood_group: value })} />
-          <Field label="Emergency Contact" value={form.emergency_contact} onChange={(value) => setForm({ ...form, emergency_contact: value })} />
+          {/* <Field label="Emergency Contact" value={form.emergency_contact} onChange={(value) => setForm({ ...form, emergency_contact: value })} /> */}
           <Field label="Joining Date" type="date" value={form.joining_date} onChange={(value) => setForm({ ...form, joining_date: value })} />
           <Field label="Address" value={form.address} onChange={(value) => setForm({ ...form, address: value })} className="sm:col-span-2" />
 

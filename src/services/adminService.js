@@ -49,8 +49,8 @@ export const adminService = {
 
   // Events
   getEventsAdmin: () => api.get('/events/admin'),
-  createEvent: (payload) => api.post('/events', payload),
-  updateEvent: (id, payload) => api.put(`/events/${id}`, payload),
+  createEvent: (payload) => api.post('/events', payload, { headers: { 'Content-Type': 'multipart/form-data' } }),
+  updateEvent: (id, payload) => api.put(`/events/${id}`, payload, { headers: { 'Content-Type': 'multipart/form-data' } }),
   closeEventRegistration: (id) => api.patch(`/events/${id}/close-registration`),
   archiveEvent: (id) => api.patch(`/events/${id}/archive`),
   deleteEvent: (id) => api.delete(`/events/${id}`),

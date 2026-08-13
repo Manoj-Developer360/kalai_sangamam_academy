@@ -101,11 +101,11 @@ const AdminMasters = () => {
           <Field label="Role (Founder / Director / Head Coach / Master)" value={form.role} onChange={(v) => setForm({ ...form, role: v })} required />
           <Field label="Specialization" value={form.specialization} onChange={(v) => setForm({ ...form, specialization: v })} />
           <Field label="Experience (years)" type="number" value={form.experience_years} onChange={(v) => setForm({ ...form, experience_years: v })} />
-          <Field label="Achievements" value={form.achievements} onChange={(v) => setForm({ ...form, achievements: v })} />
-          <div>
+          {/* <Field label="Achievements" value={form.achievements} onChange={(v) => setForm({ ...form, achievements: v })} /> */}
+          {/* <div>
             <label className="text-xs text-slate-400 mb-1.5 block">Short Bio</label>
             <textarea rows={3} value={form.bio} onChange={(e) => setForm({ ...form, bio: e.target.value })} className="w-full bg-ink-950 border border-parchment-100/10 rounded-sm px-4 py-2.5 text-sm text-parchment-100 focus:border-brass-500 outline-none resize-none" />
-          </div>
+          </div> */}
           <Field label="Display Order" type="number" value={form.display_order} onChange={(v) => setForm({ ...form, display_order: v })} />
           <button type="submit" disabled={saving} className="btn-primary w-full disabled:opacity-60">
             {saving ? 'Saving…' : editing ? 'Update Master' : 'Add Master'}
