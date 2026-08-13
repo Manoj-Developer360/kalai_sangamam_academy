@@ -1,8 +1,14 @@
 import axios from 'axios';
 import { clearStoredAuth, getStoredToken } from '../utils/authStorage';
 
+const configuredBaseUrl = import.meta.env.VITE_API_BASE_URL
+  || 'https://kalai-sangamam-academy-backend-liard.vercel.app';
+const apiBaseUrl = configuredBaseUrl.replace(/\/+$/, '').endsWith('/api')
+  ? configuredBaseUrl.replace(/\/+$/, '')
+  : `${configuredBaseUrl.replace(/\/+$/, '')}/api`;
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'https://kalai-sangamam-academy-backend-liard.vercel.app/',
+  baseURL: apiBaseUrl,
 });
 
 api.interceptors.request.use((config) => {
