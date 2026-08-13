@@ -31,13 +31,18 @@ const MasterCard = ({ master, index }) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.45, delay: index * 0.06 }}
-    className="overflow-hidden rounded-2xl border border-parchment-100/20 bg-[#17110d] shadow-[0_18px_55px_-30px_rgba(0,0,0,0.95)]"
+    className="group overflow-hidden rounded-2xl border border-parchment-100/20 bg-ink-950/60 shadow-[0_18px_55px_-30px_rgba(0,0,0,0.95)] transition-all duration-300 hover:-translate-y-1 hover:border-brass-500/40 hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.95)]"
   >
-    <div className="aspect-[1.08/1] bg-gradient-to-br from-[#3a2b23] via-[#211814] to-[#100d0b] flex items-center justify-center overflow-hidden">
+    <div className="aspect-[1.08/1] bg-gradient-to-br from-ink-800 via-ink-900 to-ink-950 flex items-center justify-center overflow-hidden">
       {master.photo_url ? (
-        <img src={master.photo_url} alt={master.name} className="w-full h-full object-cover" />
+        <img
+          src={master.photo_url}
+          alt={master.name}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+          loading="lazy"
+        />
       ) : (
-        <span className="font-display text-5xl sm:text-6xl text-[#f5d383]">{initials(master.name)}</span>
+        <span className="font-display text-5xl sm:text-6xl text-brass-400">{initials(master.name)}</span>
       )}
     </div>
     <div className="p-6 sm:p-7 text-left">
@@ -65,6 +70,29 @@ const MasterCard = ({ master, index }) => (
 const MasterGrid = ({ masters }) => (
   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
     {masters.map((master, index) => <MasterCard key={master.id} master={master} index={index} />)}
+  </div>
+);
+
+const DisciplineFilter = ({ disciplines, active, onChange }) => (
+  <div className="flex flex-wrap justify-center gap-2 mb-8" role="group" aria-label="Filter coaches by discipline">
+    {['All', ...disciplines].map((discipline) => {
+      const isActive = active === discipline;
+      return (
+        <button
+          key={discipline}
+          type="button"
+          aria-pressed={isActive}
+          onClick={() => onChange(discipline)}
+          className={`px-4 py-2 rounded-full border text-xs font-semibold uppercase tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass-400 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950 ${
+            isActive
+              ? 'bg-brass-500 border-brass-500 text-ink-950'
+              : 'border-parchment-100/15 text-slate-300 hover:border-brass-400 hover:text-brass-400'
+          }`}
+        >
+          {discipline}
+        </button>
+      );
+    })}
   </div>
 );
 
@@ -107,9 +135,10 @@ const Masters = ({ limit, showViewAll = false, pageView = false }) => {
         <div className="container-xl">
           <header className="max-w-3xl mx-auto text-center mb-16">
             <p className="eyebrow mb-3">Our Masters</p>
-            {/* <h1 className="section-heading">Our Masters</h1> */}
-            <p className="mt-5 text-brass-400 font-display text-xl sm:text-2xl">Trained under decorated coaches and national-level competitors</p>
-            <p className="mt-4 text-slate-300 text-sm sm:text-base leading-relaxed">Each master brings years of competitive and teaching experience across their discipline.</p>
+            <h1 className="section-heading">Trained under decorated coaches and national-level competitors</h1>
+            <p className="mt-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+              Each master brings years of competitive and teaching experience across their discipline.
+            </p>
           </header>
 
           {isLoading && <SkeletonGrid count={6} className="sm:grid-cols-2 lg:grid-cols-3" />}
@@ -119,33 +148,28 @@ const Masters = ({ limit, showViewAll = false, pageView = false }) => {
           {masters?.length > 0 && (
             <div className="space-y-16">
               {leadership.length > 0 && (
-                <section>
+                <section aria-labelledby="leadership-heading">
                   <div className="text-center mb-12">
-                    <h2 className="section-heading">Leadership</h2>
-                    <p className="mt-3 text-brass-400 font-display text-lg">Common Leadership</p>
+                    <h2 id="leadership-heading" className="section-heading">Leadership</h2>
+                    <p className="mt-3 text-brass-400 font-display text-lg">Founders, directors and head coaches</p>
                   </div>
                   <MasterGrid masters={leadership} />
                 </section>
               )}
 
               {coaches.length > 0 && (
-                <section>
+                <section aria-labelledby="coaches-heading">
                   <div className="text-center mb-12">
-                    <h2 className="section-heading">Programme Coaches</h2>
-                    <p className="mt-3 text-brass-400 font-display text-lg">Game-wise Masters</p>
+                    <h2 id="coaches-heading" className="section-heading">Programme Coaches</h2>
+                    <p className="mt-3 text-brass-400 font-display text-lg">Specialists across every discipline we teach</p>
                   </div>
-                  <div className="flex flex-wrap justify-center gap-2 mb-8">
-                    {['All', ...disciplines].map((discipline) => (
-                      <button
-                        key={discipline}
-                        type="button"
-                        onClick={() => setActiveDiscipline(discipline)}
-                        className={`px-4 py-2 rounded-full border text-xs font-semibold uppercase tracking-wide transition-colors ${activeDiscipline === discipline ? 'bg-brass-500 border-brass-500 text-ink-950' : 'border-parchment-100/15 text-slate-300 hover:border-brass-400 hover:text-brass-400'}`}
-                      >
-                        {discipline}
-                      </button>
-                    ))}
-                  </div>
+                  {disciplines.length > 0 && (
+                    <DisciplineFilter
+                      disciplines={disciplines}
+                      active={activeDiscipline}
+                      onChange={setActiveDiscipline}
+                    />
+                  )}
                   {visibleCoaches.length > 0 ? <MasterGrid masters={visibleCoaches} /> : <EmptyState message="No masters are listed for this discipline yet." />}
                 </section>
               )}
