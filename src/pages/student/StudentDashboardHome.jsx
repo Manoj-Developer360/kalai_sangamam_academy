@@ -9,6 +9,11 @@ const StudentDashboardHome = () => {
   const [attendance, setAttendance] = useState(null);
   const [fees, setFees] = useState(null);
 
+  const activePrograms = (profile?.program_names?.length ? profile.program_names : (profile?.student_programs || [])
+    .filter((enrollment) => enrollment.status === 'active' || !enrollment.status)
+    .map((enrollment) => enrollment.programs?.name)
+    .filter(Boolean));
+
   useEffect(() => {
     studentService.getMyAttendance().then(({ data }) => setAttendance(data.data.summary)).catch(() => {});
     studentService.getMyFees().then(({ data }) => setFees(data.data)).catch(() => {});
@@ -34,8 +39,8 @@ const StudentDashboardHome = () => {
         </div>
         <div className="card p-6">
           <FiAward className="text-brass-500 text-2xl mb-3" />
-          <p className="text-2xl font-mono text-parchment-100">{profile?.student_programs?.length || 0}</p>
-          <p className="text-slate-400 text-xs mt-1">Enrolled programs</p>
+          <p className="text-2xl font-mono text-parchment-100">{activePrograms.length}</p>
+          <p className="text-slate-400 text-xs mt-1">Registered programs</p>
         </div>
       </div>
     </StudentDashboardLayout>

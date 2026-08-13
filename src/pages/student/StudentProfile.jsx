@@ -17,6 +17,10 @@ const FIELDS = [
 
 const StudentProfile = () => {
   const { profile } = useAuth();
+  const registeredPrograms = (profile?.program_names?.length ? profile.program_names : (profile?.student_programs || [])
+    .filter((enrollment) => enrollment.status === 'active' || !enrollment.status)
+    .map((enrollment) => enrollment.programs?.name)
+    .filter(Boolean));
 
   return (
     <StudentDashboardLayout>
@@ -30,6 +34,11 @@ const StudentProfile = () => {
             <p className="text-parchment-100 text-sm">{profile?.[key] || '—'}</p>
           </div>
         ))}
+
+        <div className="sm:col-span-2 pt-4 border-t border-parchment-100/10">
+          <p className="text-xs text-slate-500 uppercase tracking-wide mb-1">Registered Programs</p>
+          <p className="text-parchment-100 text-sm">{registeredPrograms.length ? registeredPrograms.join(', ') : '—'}</p>
+        </div>
       </div>
     </StudentDashboardLayout>
   );

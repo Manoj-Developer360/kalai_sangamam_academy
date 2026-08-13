@@ -6,12 +6,13 @@ import Modal from '../../components/dashboard/admin/Modal.jsx';
 import ConfirmDialog from '../../components/dashboard/admin/ConfirmDialog.jsx';
 import { SkeletonGrid, ErrorState } from '../../components/common/StateViews.jsx';
 import { adminService } from '../../services/adminService';
+import { publicService } from '../../services/publicService';
 import { useToast } from '../../context/ToastContext.jsx';
 
 const emptyForm = {
   username: '', password: '', email: '', full_name: '', date_of_birth: '',
   gender: '', parent_name: '', parent_contact: '', contact_number: '',
-  address: '', blood_group: '', emergency_contact: '', joining_date: '',
+  address: '', blood_group: '', emergency_contact: '', joining_date: '', program_id: '', program_ids: [],
 };
 
 const AdminStudents = () => {
@@ -25,6 +26,7 @@ const AdminStudents = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState(emptyForm);
+  const [programs, setPrograms] = useState([]);
   const [confirm, setConfirm] = useState(null);
   const [saving, setSaving] = useState(false);
 
@@ -50,23 +52,53 @@ const AdminStudents = () => {
 
   useEffect(() => { loadStudents(); }, [search]);
   useEffect(() => { loadRequests(); }, []);
+  useEffect(() => {
+    publicService.getPrograms().then(({ data }) => setPrograms(data.data)).catch(() => setPrograms([]));
+  }, []);
+
+  const toggleProgramSelection = (programId) => {
+    setForm((current) => {
+      const selectedProgramIds = current.program_ids.includes(programId)
+        ? current.program_ids.filter((id) => id !== programId)
+        : [...current.program_ids, programId];
+
+      return {
+        ...current,
+        program_ids: selectedProgramIds,
+        program_id: selectedProgramIds[0] || '',
+      };
+    });
+  };
 
   const openCreate = () => { setEditing(null); setForm(emptyForm); setModalOpen(true); };
   const openEdit = (student) => {
     setEditing(student);
-    setForm({ ...emptyForm, ...student, username: student.users?.username || '' });
+    const selectedPrograms = student.student_programs?.map((item) => item.program_id) || [];
+    setForm({ ...emptyForm, ...student, username: student.users?.username || '', program_ids: selectedPrograms, program_id: selectedPrograms[0] || '' });
     setModalOpen(true);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const selectedProgramIds = form.program_ids.filter(Boolean);
+    if (!selectedProgramIds.length) {
+      showToast('Please select at least one program.', 'error');
+      return;
+    }
+
     setSaving(true);
     try {
+      const payload = {
+        ...form,
+        program_ids: selectedProgramIds,
+        program_id: selectedProgramIds[0],
+      };
+
       if (editing) {
-        await adminService.updateStudent(editing.id, form);
+        await adminService.updateStudent(editing.id, payload);
         showToast('Student updated successfully.');
       } else {
-        await adminService.createStudent(form);
+        await adminService.createStudent(payload);
         showToast('Student created successfully.');
       }
       setModalOpen(false);
@@ -198,6 +230,22 @@ const AdminStudents = () => {
           <Field label="Blood Group" value={form.blood_group} onChange={(value) => setForm({ ...form, blood_group: value })} />
           {/* <Field label="Emergency Contact" value={form.emergency_contact} onChange={(value) => setForm({ ...form, emergency_contact: value })} /> */}
           <Field label="Joining Date" type="date" value={form.joining_date} onChange={(value) => setForm({ ...form, joining_date: value })} />
+          <div className="sm:col-span-2">
+            <label className="text-xs text-slate-400 mb-2 block">Programs</label>
+            <div className="grid sm:grid-cols-2 gap-2">
+              {programs.map((program) => (
+                <label key={program.id} className="flex cursor-pointer items-center gap-3 rounded-xl border border-parchment-100/10 bg-ink-950/60 px-4 py-3 text-sm text-parchment-100 transition-all hover:-translate-y-0.5 hover:border-brass-500/60 hover:bg-ink-900 has-[:checked]:border-brass-500/70 has-[:checked]:bg-brass-500/10 has-[:checked]:text-brass-300">
+                  <input
+                    type="checkbox"
+                    checked={form.program_ids.includes(program.id)}
+                    onChange={() => toggleProgramSelection(program.id)}
+                    className="h-4 w-4 accent-brass-500"
+                  />
+                  <span>{program.name}</span>
+                </label>
+              ))}
+            </div>
+          </div>
           <Field label="Address" value={form.address} onChange={(value) => setForm({ ...form, address: value })} className="sm:col-span-2" />
 
           <button type="submit" disabled={saving} className="btn-primary sm:col-span-2 disabled:opacity-60">

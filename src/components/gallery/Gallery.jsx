@@ -66,9 +66,9 @@ const Gallery = () => {
                 {item.media_type === 'video' && (
                   <FiPlayCircle className="absolute inset-0 m-auto text-3xl text-parchment-100 drop-shadow" />
                 )}
-                <span className="absolute bottom-0 inset-x-0 bg-ink-950/80 text-[10px] text-slate-300 px-2 py-1 truncate">
+                {/* <span className="absolute bottom-0 inset-x-0 bg-ink-950/80 text-[10px] text-slate-300 px-2 py-1 truncate">
                   {item.category}
-                </span>
+                </span> */}
               </motion.button>
             ))}
           </div>
@@ -87,11 +87,17 @@ const Gallery = () => {
             <button className="absolute top-6 right-6 text-parchment-100 text-2xl" onClick={() => setLightbox(null)}>
               <FiX />
             </button>
-            {lightbox.media_type === 'video' ? (
-              <video src={lightbox.video_url} controls autoPlay className="max-h-[85vh] max-w-full rounded-md" />
-            ) : (
-              <img src={lightbox.image_url} alt={lightbox.title} className="max-h-[85vh] max-w-full rounded-md object-contain" />
-            )}
+            <div className="max-h-[85vh] max-w-full" onClick={(e) => e.stopPropagation()}>
+              {lightbox.media_type === 'video' ? (
+                <video src={lightbox.video_url} controls autoPlay className="max-h-[72vh] max-w-full rounded-md" />
+              ) : (
+                <img src={lightbox.image_url} alt={lightbox.title || lightbox.category} className="max-h-[72vh] max-w-full rounded-md object-contain" />
+              )}
+              <div className="mt-3 text-center">
+                <h3 className="font-display text-lg text-parchment-100">{lightbox.title || lightbox.category}</h3>
+                <p className="mt-1 text-xs text-brass-400">{lightbox.category}</p>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
