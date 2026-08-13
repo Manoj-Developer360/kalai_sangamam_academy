@@ -10,6 +10,7 @@ import Gallery from '../../components/gallery/Gallery.jsx';
 import Events from '../../components/events/Events.jsx';
 import Testimonials from '../../components/home/Testimonials.jsx';
 import FAQ from '../../components/home/FAQ.jsx';
+import Contact from '../../components/common/Contact.jsx';
 const Home = () => (
   <PublicLayout>
     <Hero />
@@ -22,6 +23,7 @@ const Home = () => (
     <Events />
     <Testimonials />
     <FAQ />
+    <Contact />
   </PublicLayout>
 );
 
