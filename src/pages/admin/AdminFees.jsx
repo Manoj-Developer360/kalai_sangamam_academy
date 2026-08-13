@@ -80,10 +80,10 @@ const AdminFees = () => {
             <label className="text-xs text-slate-400 mb-1.5 block">Payment Date</label>
             <input type="date" value={form.payment_date} onChange={(e) => setForm({ ...form, payment_date: e.target.value })} className="w-full bg-ink-950 border border-parchment-100/10 rounded-sm px-4 py-2.5 text-sm text-parchment-100 focus:border-brass-500 outline-none" />
           </div>
-          <div>
+          {/* <div>
             <label className="text-xs text-slate-400 mb-1.5 block">Payment Note</label>
             <input value={form.payment_note} onChange={(e) => setForm({ ...form, payment_note: e.target.value })} className="w-full bg-ink-950 border border-parchment-100/10 rounded-sm px-4 py-2.5 text-sm text-parchment-100 focus:border-brass-500 outline-none" />
-          </div>
+          </div> */}
           <p className="text-xs text-slate-500">Status (Paid / Pending / Partially Paid) is calculated automatically from the amounts entered.</p>
           <button type="submit" disabled={saving} className="btn-primary w-full disabled:opacity-60">{saving ? 'Saving…' : 'Save Fee Record'}</button>
         </form>
@@ -97,6 +97,7 @@ const AdminFees = () => {
                 { key: 'month', label: 'Month' },
                 { key: 'fee_amount', label: 'Fee', render: (r) => `₹${r.fee_amount}` },
                 { key: 'paid_amount', label: 'Paid', render: (r) => `₹${r.paid_amount}` },
+                {key: 'payment_date', label: 'Payment Date', render: (r) => r.payment_date ? new Date(r.payment_date).toLocaleDateString() : '—' },
                 { key: 'status', label: 'Status', render: (r) => <span className={`capitalize text-xs px-2.5 py-1 rounded-full border ${statusStyles[r.status]}`}>{r.status?.replace('_', ' ')}</span> },
               ]}
               rows={fees}

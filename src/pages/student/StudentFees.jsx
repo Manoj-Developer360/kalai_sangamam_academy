@@ -68,6 +68,7 @@ const StudentFees = () => {
                       <th className="p-4">Month</th>
                       <th className="p-4">Fee</th>
                       <th className="p-4">Paid</th>
+                      <th className="p-4">Payment Date</th>
                       <th className="p-4">Status</th>
                     </tr>
                   </thead>
@@ -77,6 +78,7 @@ const StudentFees = () => {
                         <td className="p-4 text-parchment-200">{f.month}</td>
                         <td className="p-4 text-slate-300">₹{f.fee_amount}</td>
                         <td className="p-4 text-slate-300">₹{f.paid_amount}</td>
+                        <td className="p-4 text-slate-300">{f.payment_date ? new Date(f.payment_date).toLocaleDateString() : '—'}</td>
                         <td className={`p-4 capitalize text-xs`}><span className={`px-2.5 py-1 rounded-full border ${statusStyles[f.status]}`}>{f.status?.replace('_', ' ')}</span></td>
                       </tr>
                     ))}
