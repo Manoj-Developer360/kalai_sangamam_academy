@@ -1,5 +1,5 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { ToastProvider } from './context/ToastContext.jsx';
 import ProtectedRoute from './routes/ProtectedRoute.jsx';
 
@@ -39,9 +39,20 @@ import AdminFees from './pages/admin/AdminFees.jsx';
 import AdminSettings from './pages/admin/AdminSettings.jsx';
 import AdminEnquiries from './pages/admin/AdminEnquiries.jsx';
 
+const ScrollToTop = () => {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (!hash) window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [pathname, hash]);
+
+  return null;
+};
+
 function App() {
   return (
     <ToastProvider>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutPage />} />
