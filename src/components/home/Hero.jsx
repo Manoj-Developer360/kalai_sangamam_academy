@@ -191,24 +191,28 @@ const Hero = () => {
             <p className="eyebrow mb-4 pr-28 sm:pr-36 lg:pr-0">
               Kalai Sangamam &middot; Dindigul
             </p>
-            <h1 className="pr-28 sm:pr-36 lg:pr-0 text-4xl sm:text-5xl lg:text-6xl xl:text-6xl font-display font-semibold leading-[0.98] tracking-[-0.03em] text-parchment-100">
+
+            {/* Tamil display heading — negative tracking removed and line-height opened up,
+                since Tamil conjuncts/matras clip under tight latin-style leading/tracking */}
+            <h1 className="pr-28 sm:pr-36 lg:pr-0 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-display font-bold leading-[1.25] tracking-wider text-parchment-100">
               Tradition.
               <br />
               <span className="text-brass-400">Discipline.</span>
               <br />
-              Excellence.
+              Champions.
             </h1>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-300 text-justify lg:text-lg">
-              Kalai Sangamam is dedicated to nurturing the next generation
-              through traditional arts, martial disciplines, physical fitness,
-              and cultural learning. With guidance from experienced masters,
-              we create an environment where students develop confidence,
-              discipline, respect, and excellence both within and beyond the
-              academy.
+
+            <p className="mt-3 font-display text-base sm:text-lg font-semibold tracking-wide text-brass-400">
+              Where Tradition Builds Champions.
             </p>
 
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-300 text-justify lg:text-lg">
+             We blend tradition, disciplined training, and modern excellence to build strength, focus, confidence, 
+             and character — from Silambam & Karate to Yoga, Skating & Archery.
+             </p>
+
             {/* discipline tags with icons */}
-            <div className="mt-8 flex flex-wrap gap-x-7 gap-y-4">
+            {/* <div className="mt-8 flex flex-wrap gap-x-7 gap-y-4">
               {DISCIPLINES.map(({ icon: Icon, label }) => (
                 <div
                   key={label}
@@ -222,6 +226,17 @@ const Hero = () => {
                   </span>
                 </div>
               ))}
+            </div> */}
+
+            {/* short Tamil affirmation line, set apart with a brass rule above it */}
+            <div className="mt-4 border-t border-brass-500/20 pt-6">
+              <p className="font-display text-base sm:text-lg leading-relaxed text-parchment-100">
+                கலையை கற்று. ஒழுக்கத்தை வளர்த்து.
+                <br className="hidden sm:block" /> உன் வெற்றியை உருவாக்கு.
+              </p>
+              <p className="mt-2 font-mono text-[0.68rem] uppercase tracking-[0.22em] text-brass-500/80">
+                Kalai Sangamam &mdash; TRAIN. DISCIPLINE. EXCEL.
+              </p>
             </div>
 
             <div className="mt-9 flex flex-wrap gap-4">
