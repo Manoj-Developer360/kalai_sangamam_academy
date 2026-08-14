@@ -37,6 +37,7 @@ import AdminFaqs from './pages/admin/AdminFaqs.jsx';
 import AdminAttendance from './pages/admin/AdminAttendance.jsx';
 import AdminFees from './pages/admin/AdminFees.jsx';
 import AdminSettings from './pages/admin/AdminSettings.jsx';
+import AdminEnquiries from './pages/admin/AdminEnquiries.jsx';
 
 function App() {
   return (
@@ -77,6 +78,7 @@ function App() {
         <Route path="/admin/attendance" element={<ProtectedRoute role="admin"><AdminAttendance /></ProtectedRoute>} />
         <Route path="/admin/fees" element={<ProtectedRoute role="admin"><AdminFees /></ProtectedRoute>} />
         <Route path="/admin/settings" element={<ProtectedRoute role="admin"><AdminSettings /></ProtectedRoute>} />
+        <Route path="/admin/enquiries" element={<ProtectedRoute role="admin"><AdminEnquiries /></ProtectedRoute>} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

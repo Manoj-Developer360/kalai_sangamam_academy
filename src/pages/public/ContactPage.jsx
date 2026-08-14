@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { FiMapPin, FiPhone, FiMail, FiCalendar, FiCheckCircle, FiAlertTriangle, FiAlertCircle } from 'react-icons/fi';
 import PublicLayout from '../../layouts/PublicLayout.jsx';
 import SectionHeading from '../../components/common/SectionHeading';
+import api from '../../services/api';
 
 /* ============================================================================
  * NOTE — FRONTEND-ONLY CONTACT PAGE
@@ -81,15 +82,9 @@ const isValidPhone = (value = '') => {
  * then resolves successfully. No form data is stored or sent anywhere.
  * ==========================================================================*/
 
-const simulateSubmit = (_payload) =>
-  new Promise((resolve) => {
-    // Small artificial delay purely so the "Sending..." loading state is
-    // visible in the UI. Replace this whole function with a real submit
-    // call (API / Supabase / EmailJS / etc.) when the backend is ready.
-    setTimeout(resolve, 500);
-  });
+const submitEnquiry = (payload) => api.post('/contact-enquiries', payload);
 
-function useFormSubmit(submitFn = simulateSubmit) {
+function useFormSubmit(submitFn = submitEnquiry) {
   const [status, setStatus] = useState('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -328,8 +323,7 @@ const GeneralEnquiryForm = () => {
     const nextErrors = validateGeneral(values);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
-    // Frontend-only demo: no data leaves the browser.
-    const ok = await submit(values);
+    const ok = await submit({ enquiry_type: 'general', name: values.fullName, phone: values.phone, email: values.email, subject: values.subject, message: values.message });
     if (ok) setValues(GENERAL_INITIAL);
   };
 
@@ -444,8 +438,7 @@ const GameEnrolmentForm = () => {
     const nextErrors = validateEnrolment(values);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
-    // Frontend-only demo: no data leaves the browser.
-    const ok = await submit(values);
+    const ok = await submit({ enquiry_type: 'enrolment', name: values.studentName, phone: values.phone, email: values.email, game: values.game, age: values.age, preferred_branch: values.preferredBranch, message: values.message });
     if (ok) setValues(ENROL_INITIAL);
   };
 
@@ -567,8 +560,7 @@ const EventEnquiry = () => {
     const nextErrors = validateEvent(values);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
-    // Frontend-only demo: no data leaves the browser.
-    const ok = await submit(values);
+    const ok = await submit({ enquiry_type: 'event', name: values.name, phone: values.phone, email: values.email, event_name: values.eventName, message: values.message });
     if (ok) setValues(EVENT_INITIAL);
   };
 

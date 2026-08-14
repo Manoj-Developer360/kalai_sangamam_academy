@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import {
   FiHome, FiUsers, FiUserCheck, FiBookOpen, FiAward, FiImage,
   FiCalendar, FiMessageSquare, FiCheckSquare, FiCreditCard, FiHelpCircle,
-  FiSettings, FiLogOut, FiMenu, FiX, FiArrowLeft,
+  FiSettings, FiLogOut, FiMenu, FiX, FiArrowLeft, FiMail,
 } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext.jsx';
 
@@ -16,6 +16,7 @@ const LINKS = [
   { to: '/admin/gallery', label: 'Gallery', icon: FiImage },
   { to: '/admin/events', label: 'Events', icon: FiCalendar },
   { to: '/admin/testimonials', label: 'Testimonials', icon: FiMessageSquare },
+  { to: '/admin/enquiries', label: 'Enquiries', icon: FiMail },
   { to: '/admin/attendance', label: 'Attendance', icon: FiCheckSquare },
   { to: '/admin/fees', label: 'Fees', icon: FiCreditCard },
   { to: '/admin/faqs', label: 'FAQs', icon: FiHelpCircle },
