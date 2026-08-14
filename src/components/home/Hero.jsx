@@ -6,8 +6,38 @@ import {
   FiCalendar,
   FiMapPin,
   FiPlayCircle,
+  FiZap,
+  FiShield,
+  FiSun,
+  FiActivity,
+  FiTarget,
+  FiBookOpen,
 } from "react-icons/fi";
 import { publicService } from "../../services/publicService";
+import academyImage from "../../assets/images/hero/banner.jpg";
+
+// clipped-corner "premium frame" shape, used for the mobile floating badge only
+const FRAME_CLIP =
+  "polygon(22px 0, 100% 0, 100% calc(100% - 22px), calc(100% - 22px) 100%, 0 100%, 0 22px)";
+
+// discipline tags with icons — swap for real data from publicService if/when available
+const DISCIPLINES = [
+  { icon: FiZap, label: "Silambam" },
+  { icon: FiShield, label: "Karate" },
+  { icon: FiSun, label: "Yoga" },
+  { icon: FiActivity, label: "Skating" },
+  { icon: FiTarget, label: "Archery" },
+  { icon: FiBookOpen, label: "Hindi" },
+];
+
+const formatEventDate = (date) =>
+  date
+    ? new Date(date).toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      })
+    : null;
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -40,7 +70,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative pt-24 pb-0 lg:pt-37 lg:pb-0 overflow-hidden"
+      className="relative pt-24 pb-16 lg:pt-20 lg:pr-12 lg:pb-0 overflow-hidden"
     >
       <div className="absolute inset-0 -z-10">
         <div className="absolute -top-40 -left-40 w-[30rem] h-[30rem] bg-brass-500/10 rounded-full blur-3xl" />
@@ -48,151 +78,248 @@ const Hero = () => {
       </div>
 
       {flashNews && (
-            <div className="mb-6 flex justify-center">
-              <div className="flex w-full max-w-md items-center gap-3 overflow-hidden rounded-full border border-brass-500/25 bg-[#130d09]/80 px-3 py-2 shadow-[0_10px_30px_-18px_rgba(224,133,50,0.8)] backdrop-blur-sm sm:max-w-lg">
-                <span className="shrink-0 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-brass-500">
-                  Flash News
-                </span>
-                <div className="min-w-0 flex-1 overflow-hidden">
-                  <marquee
-                    className="text-sm text-parchment-200"
-                    behavior="scroll"
-                    direction="left"
-                    scrollamount="3"
-                  >
-                    <span>{flashNews}</span>
-                  </marquee>
-                </div>
+        <div className="mb-4 flex justify-center">
+          <div className="flex w-full max-w-md items-center gap-3 overflow-hidden rounded-full border border-brass-500/25 bg-[#130d09]/80 px-3 py-2 shadow-[0_10px_30px_-18px_rgba(224,133,50,0.8)] backdrop-blur-sm sm:max-w-lg">
+            <span className="shrink-0 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-brass-500">
+              Flash News
+            </span>
+            <div className="min-w-0 flex-1 overflow-hidden">
+              <marquee
+                className="text-sm text-parchment-200"
+                behavior="scroll"
+                direction="left"
+                scrollamount="3"
+              >
+                <span>{flashNews}</span>
+              </marquee>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="relative lg:min-h-[42rem]">
+        {/* DESKTOP ONLY: full-bleed banner image, flush to the viewport's right edge,
+            with the event info floating as an overlay card on top of it */}
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7 }}
+          className="absolute inset-y-0 right-0 hidden w-[58%] overflow-hidden rounded-l-[2.5rem] lg:block"
+        >
+          <img
+            src={academyImage}
+            alt="Kalai Sangamam academy"
+            className="absolute inset-0 h-full w-full object-cover object-top"
+            style={{
+              WebkitMaskImage: "linear-gradient(to right, transparent, black 16%)",
+              maskImage: "linear-gradient(to right, transparent, black 16%)",
+            }}
+          />
+
+          <div className="absolute inset-x-6 bottom-6 z-10 flex items-center justify-between gap-6 rounded-2xl border border-white/10 bg-[#120d09]/80 p-5 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.85)] backdrop-blur-md">
+            <div className="flex min-w-0 items-center gap-4">
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg border border-brass-500/30 bg-brass-500/10 text-brass-500">
+                <FiCalendar />
+              </span>
+              <div className="min-w-0">
+                <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.24em] text-brass-500">
+                  {heroEvent ? "Featured Event" : "Flash News"}
+                </p>
+                <h4 className="mt-1 truncate font-display text-lg leading-tight text-parchment-100">
+                  {heroEvent ? heroEvent.title : "No featured event"}
+                </h4>
+                <p className="mt-1 truncate text-xs text-parchment-300/60">
+                  {heroEvent
+                    ? `${formatEventDate(heroEvent.event_date) || "Date to be announced"} \u2022 Dindigul`
+                    : "Check back soon for upcoming academy updates."}
+                </p>
               </div>
             </div>
-          )}
-
-      <div className="container-xl grid gap-12 lg:min-h-[calc(100vh-12rem)] lg:grid-cols-[1.35fr_0.9fr] lg:items-stretch">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="lg:self-center"
-        >
-          
-          <p className="eyebrow mb-4">Kalai Sangamam &middot; Dindigul</p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-semibold leading-[0.98] tracking-[-0.03em] text-parchment-100">
-            Tradition.
-            <br />
-            <span className="text-brass-400">Discipline.</span>
-            <br />
-            Excellence.
-          </h1>
-          <p className="mt-6 text-slate-300 text-base lg:text-lg max-w-xl leading-relaxed">
-            Kalai Sangamam is dedicated to nurturing the next generation through
-            traditional arts, martial disciplines, physical fitness, and
-            cultural learning. With guidance from experienced masters, we create
-            an environment where students develop confidence, discipline,
-            respect, and excellence both within and beyond the academy.
-          </p>
-
-          <div className="mt-9 flex flex-wrap gap-4">
-            <button onClick={navigateToPrograms} className="btn-primary">
-              Explore Programs <FiArrowRight />
-            </button>
-            <button onClick={navigateToContact} className="btn-secondary">
-              <FiPlayCircle /> Join a Class
+            <button
+              onClick={() =>
+                navigate(heroEvent ? `/events#event-${heroEvent.id}` : "/events")
+              }
+              className="flex shrink-0 items-center gap-2 font-display text-sm font-semibold uppercase tracking-wide text-parchment-100 transition-colors hover:text-brass-400"
+            >
+              View All Events <FiArrowRight className="text-brass-500" />
             </button>
           </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-          className="relative w-full border border-parchment-100/15 bg-[#1b120d]/80 p-6 shadow-[0_24px_90px_-55px_rgba(224,133,50,0.35)] backdrop-blur-sm sm:p-7 lg:mb-8 lg:max-w-md lg:self-end lg:justify-self-end lg:p-8 xl:mb-12"
-        >
-          <span className="absolute left-0 top-0 h-px w-16 bg-brass-500" />
-          {heroEvent ? (
-            <>
-              <div className="flex items-center justify-between border-b border-parchment-100/10 pb-5">
-                <span className="flex items-center gap-2 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-brass-500">
-                  <span className="h-1.5 w-1.5 rounded-full bg-brass-500 shadow-[0_0_12px_rgba(224,133,50,0.8)]" />
-                  Featured Event
-                </span>
-                <span className="font-mono text-xs text-parchment-300/50">
-                  01
-                </span>
+        <div className="container-xl relative z-10 lg:flex lg:h-full lg:min-h-[42rem] lg:items-center">
+          {/* LEFT: hero text */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="relative lg:w-[46%]"
+          >
+            {/* MOBILE-ONLY floating framed image, sits to the right of the heading */}
+            <motion.div
+              initial={{ opacity: 0, scale: 1, rotate: 2 }}
+              animate={{
+                opacity: 1,
+                scale: 1.2,
+                rotate: [4, -2, 4],
+                y: [10, 10, 10],
+              }}
+              transition={{
+                opacity: { duration: 0.6 },
+                scale: { duration: 0.6 },
+                rotate: { duration: 5, repeat: Infinity, ease: "easeInOut" },
+                y: { duration: 5, repeat: Infinity, ease: "easeInOut" },
+              }}
+              className="absolute right-0 top-0 z-10 h-28 w-24 sm:h-36 sm:w-32 lg:hidden"
+            >
+              <div
+                className="h-full w-full bg-gradient-to-br from-brass-500/70 via-brass-500/20 to-transparent p-[2.5px] shadow-[0_18px_45px_-20px_rgba(224,133,50,0.65)]"
+                style={{ clipPath: FRAME_CLIP }}
+              >
+                <div
+                  className="h-full w-full overflow-hidden bg-[#1b120d]"
+                  style={{ clipPath: FRAME_CLIP }}
+                >
+                  <img
+                    src={academyImage}
+                    alt="Kalai Sangamam academy"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
               </div>
+            </motion.div>
 
-              <div className="grid gap-5 py-7 sm:grid-cols-[3.25rem_1fr]">
-                <span className="grid h-12 w-12 place-items-center border border-brass-500/25 text-brass-500">
-                  <FiCalendar className="text-lg" />
-                </span>
-                <div>
-                  <p className="mb-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-parchment-300/55">
-                    Upcoming Event
-                  </p>
-                  <h3 className="font-display text-2xl leading-[1.05] text-parchment-100 lg:text-3xl">
-                    {heroEvent.title}
-                  </h3>
-                  <div className="mt-5 grid gap-2.5 text-sm text-parchment-300/65">
-                    <div className="flex items-center gap-2.5">
-                      <FiCalendar className="text-brass-500" />
-                      <span>
-                        {heroEvent.event_date
-                          ? new Date(heroEvent.event_date).toLocaleDateString(
-                              "en-IN",
-                              {
-                                day: "numeric",
-                                month: "long",
-                                year: "numeric",
-                              },
-                            )
-                          : "Date to be announced"}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2.5">
-                      <FiMapPin className="text-brass-500" />
-                      <span>Dindigul</span>
+            <p className="eyebrow mb-4 pr-28 sm:pr-36 lg:pr-0">
+              Kalai Sangamam &middot; Dindigul
+            </p>
+            <h1 className="pr-28 sm:pr-36 lg:pr-0 text-4xl sm:text-5xl lg:text-6xl xl:text-6xl font-display font-semibold leading-[0.98] tracking-[-0.03em] text-parchment-100">
+              Tradition.
+              <br />
+              <span className="text-brass-400">Discipline.</span>
+              <br />
+              Excellence.
+            </h1>
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-300 lg:text-lg">
+              Kalai Sangamam is dedicated to nurturing the next generation
+              through traditional arts, martial disciplines, physical fitness,
+              and cultural learning. With guidance from experienced masters,
+              we create an environment where students develop confidence,
+              discipline, respect, and excellence both within and beyond the
+              academy.
+            </p>
+
+            {/* discipline tags with icons */}
+            <div className="mt-8 flex flex-wrap gap-x-7 gap-y-4">
+              {DISCIPLINES.map(({ icon: Icon, label }) => (
+                <div
+                  key={label}
+                  className="flex w-14 flex-col items-center gap-2 text-center"
+                >
+                  <span className="grid h-9 w-9 place-items-center border border-brass-500/25 text-brass-500">
+                    <Icon className="text-base" />
+                  </span>
+                  <span className="text-[0.7rem] leading-none text-parchment-300/70">
+                    {label}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-9 flex flex-wrap gap-4">
+              <button onClick={navigateToPrograms} className="btn-primary">
+                Explore Programs <FiArrowRight />
+              </button>
+              <button onClick={navigateToContact} className="btn-secondary">
+                <FiPlayCircle /> Join a Class
+              </button>
+            </div>
+          </motion.div>
+
+          {/* MOBILE-ONLY event card, kept exactly as-is per your confirmation */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="relative mt-8 w-full border border-parchment-100/15 bg-[#1b120d]/80 p-6 shadow-[0_24px_90px_-55px_rgba(224,133,50,0.35)] backdrop-blur-sm sm:p-7 lg:hidden"
+          >
+            <span className="absolute left-0 top-0 h-px w-16 bg-brass-500" />
+            {heroEvent ? (
+              <>
+                <div className="flex items-center justify-between border-b border-parchment-100/10 pb-5">
+                  <span className="flex items-center gap-2 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-brass-500">
+                    <span className="h-1.5 w-1.5 rounded-full bg-brass-500 shadow-[0_0_12px_rgba(224,133,50,0.8)]" />
+                    Featured Event
+                  </span>
+                  <span className="font-mono text-xs text-parchment-300/50">
+                    01
+                  </span>
+                </div>
+
+                <div className="grid gap-5 py-7 sm:grid-cols-[3.25rem_1fr]">
+                  <span className="grid h-12 w-12 place-items-center border border-brass-500/25 text-brass-500">
+                    <FiCalendar className="text-lg" />
+                  </span>
+                  <div>
+                    <p className="mb-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-parchment-300/55">
+                      Upcoming Event
+                    </p>
+                    <h3 className="font-display text-2xl leading-[1.05] text-parchment-100 lg:text-3xl">
+                      {heroEvent.title}
+                    </h3>
+                    <div className="mt-5 grid gap-2.5 text-sm text-parchment-300/65">
+                      <div className="flex items-center gap-2.5">
+                        <FiCalendar className="text-brass-500" />
+                        <span>
+                          {formatEventDate(heroEvent.event_date) ||
+                            "Date to be announced"}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2.5">
+                        <FiMapPin className="text-brass-500" />
+                        <span>Dindigul</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <button
-                onClick={() => navigate(`/events#event-${heroEvent.id}`)}
-                className="w-full flex items-center justify-between border-t border-parchment-100/10 pt-5 font-display text-sm font-semibold uppercase tracking-wide text-parchment-100 transition-colors hover:text-brass-400"
-              >
-                <span>View Event</span>
-                <FiArrowRight className="text-brass-500" />
-              </button>
-            </>
-          ) : (
-            <>
-              <div className="flex items-center justify-between border-b border-parchment-100/10 pb-5">
-                <span className="flex items-center gap-2 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-brass-500">
-                  <span className="h-1.5 w-1.5 rounded-full bg-brass-500 shadow-[0_0_12px_rgba(224,133,50,0.8)]" />
-                  Featured Event
-                </span>
-                <span className="font-mono text-xs text-parchment-300/50">
-                  01
-                </span>
-              </div>
-              <div className="grid gap-5 py-7 sm:grid-cols-[3.25rem_1fr]">
-                <span className="grid h-12 w-12 place-items-center border border-brass-500/25 text-brass-500">
-                  <FiCalendar className="text-base" />
-                </span>
-                <div>
-                  <p className="mb-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-parchment-300/55">
-                    Flash News
-                  </p>
-                  <h3 className="font-display text-2xl leading-[1.05] text-parchment-100 lg:text-3xl">
-                    No featured event
-                  </h3>
-                  <p className="mt-4 text-sm leading-relaxed text-parchment-300/60">
-                    Check back soon for upcoming academy updates.
-                  </p>
+                <button
+                  onClick={() => navigate(`/events#event-${heroEvent.id}`)}
+                  className="w-full flex items-center justify-between border-t border-parchment-100/10 pt-5 font-display text-sm font-semibold uppercase tracking-wide text-parchment-100 transition-colors hover:text-brass-400"
+                >
+                  <span>View Event</span>
+                  <FiArrowRight className="text-brass-500" />
+                </button>
+              </>
+            ) : (
+              <>
+                <div className="flex items-center justify-between border-b border-parchment-100/10 pb-5">
+                  <span className="flex items-center gap-2 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-brass-500">
+                    <span className="h-1.5 w-1.5 rounded-full bg-brass-500 shadow-[0_0_12px_rgba(224,133,50,0.8)]" />
+                    Featured Event
+                  </span>
+                  <span className="font-mono text-xs text-parchment-300/50">
+                    01
+                  </span>
                 </div>
-              </div>
-            </>
-          )}
-        </motion.div>
+                <div className="grid gap-5 py-7 sm:grid-cols-[3.25rem_1fr]">
+                  <span className="grid h-12 w-12 place-items-center border border-brass-500/25 text-brass-500">
+                    <FiCalendar className="text-base" />
+                  </span>
+                  <div>
+                    <p className="mb-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-parchment-300/55">
+                      Flash News
+                    </p>
+                    <h3 className="font-display text-2xl leading-[1.05] text-parchment-100 lg:text-3xl">
+                      No featured event
+                    </h3>
+                    <p className="mt-4 text-sm leading-relaxed text-parchment-300/60">
+                      Check back soon for upcoming academy updates.
+                    </p>
+                  </div>
+                </div>
+              </>
+            )}
+          </motion.div>
+        </div>
       </div>
     </section>
   );
