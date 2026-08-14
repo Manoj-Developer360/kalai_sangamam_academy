@@ -4,6 +4,11 @@ export const adminService = {
   // Dashboard
   getOverview: () => api.get('/dashboard/overview'),
 
+  // Contact enquiries
+  getContactEnquiries: () => api.get('/contact-enquiries'),
+  updateContactEnquiryStatus: (id, status) => api.patch(`/contact-enquiries/${id}/status`, { status }),
+  deleteContactEnquiry: (id) => api.delete(`/contact-enquiries/${id}`),
+
   // Students
   getStudents: (params) => api.get('/students', { params }),
   getStudent: (id) => api.get(`/students/${id}`),
