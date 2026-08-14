@@ -198,7 +198,7 @@ const Hero = () => {
               <br />
               Excellence.
             </h1>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-300 lg:text-lg">
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-300 text-justify lg:text-lg">
               Kalai Sangamam is dedicated to nurturing the next generation
               through traditional arts, martial disciplines, physical fitness,
               and cultural learning. With guidance from experienced masters,
