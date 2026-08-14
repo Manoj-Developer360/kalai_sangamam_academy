@@ -14,17 +14,17 @@ const VALUES = [
   {
     icon: FiCompass,
     title: "Discipline",
-    text: "Build focus, consistency, respect and self-control through structured training.",
+    text: "A strong mind begins with consistent practice and purposeful training.",
   },
   {
     icon: FiTarget,
     title: "Excellence",
-    text: "Encourage students to continuously improve their skills and perform with confidence.",
+    text: "Every session is an opportunity to improve, perform, and move closer to your potential.",
   },
   {
     icon: FiHeart,
     title: "Heritage",
-    text: "Preserve traditional martial arts and cultural values for the next generation.",
+    text: "Keeping traditional arts alive while inspiring the next generation to carry them forward.",
   },
 ];
 
@@ -35,7 +35,7 @@ const About = () => {
         {/* Section Heading */}
         <SectionHeading
           eyebrow="About Kalai Sangamam"
-          title="Rooted in Tradition. Built for Tomorrow."
+          title="Where Discipline Becomes a Way of Life"
           align="center"
         />
 
@@ -100,20 +100,34 @@ const About = () => {
             <p className="eyebrow mb-3">Our Story</p>
 
             {/* Main Heading */}
-            <h2 className="font-display text-3xl font-semibold tracking-tight text-parchment-100 sm:text-4xl lg:text-5xl">
-              Rooted in Tradition.
-              <br />
-              <span className="text-brass-500">Built for Tomorrow.</span>
+            <h2 className="font-display text-3xl font-semibold tracking-tight text-left text-parchment-100 sm:text-4xl lg:text-5xl lg:whitespace-nowrap">
+              From Tradition to{" "}
+              <span className="text-brass-500">Transformation.</span>
             </h2>
 
             {/* Short About */}
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-400 lg:text-lg">
-              Kalai Sangamam began as a small Silambam circle in Dindigul and
-              grew into a multi-discipline academy offering Silambam, Karate,
-              Yoga, Skating, Archery, and Hindi. Every session builds
-              discipline, fitness, and confidence — preparing students for real
-              skill and competition, not just attendance.
-            </p>
+            <div className="mt-5 max-w-xl text-base leading-relaxed text-slate-400 lg:text-lg">
+              <p>
+                Born from a passion for{" "}
+                <span className="text-parchment-100">Silambam</span> and
+                traditional training in Dindigul, Kalai Sangamam has grown into
+                a dedicated academy shaping the next generation through
+                disciplined training.
+              </p>
+
+              <p className="mt-4">
+                From{" "}
+                <span className="text-parchment-100">
+                  Silambam, Karate, Yoga, Skating, Archery, and Hindi
+                </span>
+                , we help students build strength, focus, confidence, and
+                character — both inside and outside the training ground.
+              </p>
+
+              <p className="mt-5 font-extrabold text-brass-500 text-center ">
+                மரபை காப்போம். திறமையை வளர்ப்போம். தலைமுறையை உருவாக்குவோம்.
+              </p>
+            </div>
 
             {/* =================================================
                 CORE VALUES

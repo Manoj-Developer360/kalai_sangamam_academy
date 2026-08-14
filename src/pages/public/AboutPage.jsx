@@ -27,26 +27,57 @@ import academyImage from "../../assets/images/about-academy.jpg";
 
 const EXPERIENCE = "10+";
 
+// Small helper for bolding key words inline within paragraphs
+const B = ({ children }) => (
+  <strong className="text-parchment-100 font-semibold">{children}</strong>
+);
+
 const STORY_POINTS = [
   {
     icon: FiCompass,
     title: "Beginnings in Silambam",
-    text: "Kalai Sangamam started as a small Silambam circle in Dindigul, teaching the traditional South Indian art of stick fighting with a focus on discipline and technique.",
+    text: (
+      <>
+        Kalai Sangamam began as a small Silambam kalari in Dindigul — a single
+        room, a wooden stick, and a Guru's unwavering commitment to{" "}
+        <B>ஒழுக்கம்</B> (discipline). From that foundation, a{" "}
+        <B>legacy</B> was built.
+      </>
+    ),
   },
   {
     icon: FiUsers,
     title: "Growth Into Multiple Disciplines",
-    text: "As interest grew, the academy expanded to offer Karate, Yoga, Skating, Archery and Hindi — building a well-rounded, multi-discipline training environment.",
+    text: (
+      <>
+        As our community's ambition grew, so did our offerings. Today the
+        academy delivers <B>world-class training</B> in Karate, Yoga,
+        Skating, Archery, and Hindi — a true multi-disciplinary powerhouse.
+      </>
+    ),
   },
   {
     icon: FiAward,
     title: "Structured, Safety-First Training",
-    text: "Every discipline is taught through structured, safety-first coaching led by experienced Masters, helping students build real, lasting skill.",
+    text: (
+      <>
+        Every discipline is built around <B>structured, safety-first
+        coaching</B>, led by seasoned Masters who bring real{" "}
+        <B>அனுபவம்</B> (experience) to every session — turning effort into
+        measurable, lasting skill.
+      </>
+    ),
   },
   {
     icon: FiMapPin,
     title: "Training Across Schools",
-    text: "Today, our Masters carry the same founding discipline into partner schools and institutions, bringing traditional and modern training to more students.",
+    text: (
+      <>
+        Today, our Masters carry that founding discipline into{" "}
+        <B>partner schools and institutions</B> across the region, extending
+        traditional and modern training to a new generation of students.
+      </>
+    ),
   },
 ];
 
@@ -54,12 +85,26 @@ const VISION_MISSION = [
   {
     icon: FiCompass,
     title: "Our Vision",
-    text: "To make traditional and modern disciplines accessible to every student, building confident, disciplined and capable individuals while preserving cultural heritage.",
+    text: (
+      <>
+        To make world-class traditional and modern disciplines{" "}
+        <B>accessible to every student</B> — building confident, disciplined,
+        capable individuals while preserving our Tamil cultural{" "}
+        <B>பாரம்பரியம்</B> (heritage) for generations to come.
+      </>
+    ),
   },
   {
     icon: FiTarget,
     title: "Our Mission",
-    text: "To provide structured, safe and professional training that develops physical ability, discipline, confidence, teamwork and competitive skill.",
+    text: (
+      <>
+        To deliver structured, safe, and professional training that builds{" "}
+        <B>physical excellence, discipline, confidence</B>, teamwork, and
+        championship-level competitive skill — in every student, every
+        single day.
+      </>
+    ),
   },
 ];
 
@@ -67,32 +112,63 @@ const CORE_VALUES = [
   {
     icon: FiCompass,
     title: "Discipline",
-    text: "Building consistency, focus, self-control and respect through regular practice.",
+    text: (
+      <>
+        <B>ஒழுக்கம்</B> (discipline) is our foundation — building
+        consistency, focus, self-control, and respect through rigorous,
+        purposeful practice.
+      </>
+    ),
   },
   {
     icon: FiTarget,
     title: "Excellence",
-    text: "Encouraging students to improve continuously and pursue their personal best.",
+    text: (
+      <>
+        We push every student toward <B>continuous improvement</B> and
+        expect nothing less than their personal best.
+      </>
+    ),
   },
   {
     icon: FiHeart,
     title: "Heritage",
-    text: "Preserving traditional martial arts and cultural values for future generations.",
+    text: (
+      <>
+        Protecting and honoring <B>traditional martial arts</B> and Tamil
+        cultural values, so they thrive in the next generation.
+      </>
+    ),
   },
   {
     icon: FiUsers,
     title: "Respect",
-    text: "Teaching students to respect their Masters, teammates, opponents and community.",
+    text: (
+      <>
+        <B>மரியாதை</B> (respect) for Masters, teammates, opponents, and
+        community is non-negotiable — on and off the training floor.
+      </>
+    ),
   },
   {
     icon: FiShield,
     title: "Confidence",
-    text: "Helping students develop courage, self-belief and the ability to face challenges.",
+    text: (
+      <>
+        We forge <B>தைரியம்</B> (courage) and self-belief, equipping
+        students with the strength to face any challenge head-on.
+      </>
+    ),
   },
   {
     icon: FiCheckCircle,
     title: "Integrity",
-    text: "Encouraging honesty, responsibility and good character both inside and outside training.",
+    text: (
+      <>
+        <B>Honesty, accountability</B>, and strong character — inside the
+        academy and out in the world — define every student we train.
+      </>
+    ),
   },
 ];
 
@@ -125,12 +201,13 @@ const AboutPage = () => (
       {/* PAGE INTRO */}
       <div className="container-xl text-center">
         <SectionHeading
-          eyebrow="About Kalai Sangamam"
-          title="Rooted in Tradition. Built for the Future."
+          eyebrow="வணக்கம் — About Kalai Sangamam"
+          title="Rooted in Tradition. Engineered for Excellence."
           align="center"
         />
         <p className="mt-4 max-w-2xl mx-auto text-slate-400 leading-relaxed text-base lg:text-lg">
-          Discover the journey, values and vision behind Kalai Sangamam Academy.
+          The journey, the values, and the vision powering Kalai Sangamam
+          Academy — where <B>பாரம்பரியம்</B> (heritage) meets performance.
         </p>
       </div>
 
@@ -185,11 +262,12 @@ const AboutPage = () => (
           </h2>
 
           <p className="text-slate-400 leading-relaxed text-base lg:text-lg max-w-xl">
-            Kalai Sangamam began as a small Silambam circle in Dindigul and grew
-            into a multi-discipline academy offering Silambam, Karate, Yoga,
-            Skating, Archery, and Hindi. Every session builds discipline, fitness,
-            and confidence — preparing students for real skill and competition,
-            not just attendance.
+            Kalai Sangamam began as a single Silambam kalari in Dindigul and
+            has grown into a <B>premier multi-discipline academy</B> —
+            Silambam, Karate, Yoga, Skating, Archery, and Hindi, all under
+            one roof. Every session is built on <B>ஒழுக்கம்</B>{" "}
+            (discipline), driving real fitness, real confidence, and real
+            competitive results — not just attendance.
           </p>
 
           <Link
@@ -329,10 +407,11 @@ const AboutPage = () => (
               transition={{ duration: 0.5 }}
               className="mt-4 text-slate-400 leading-relaxed"
             >
-              At Kalai Sangamam, training goes beyond physical skill. Every
-              class is built to develop discipline, mental strength and
-              character alongside technique — shaping students who carry these
-              values well beyond the training hall.
+              At Kalai Sangamam, training goes far beyond physical skill.
+              Every class is built to develop <B>ஒழுக்கம்</B> (discipline),
+              mental strength, and character alongside technique — shaping
+              students who carry these values well beyond the training hall,
+              for life.
             </motion.p>
           </div>
 
@@ -370,8 +449,8 @@ const AboutPage = () => (
               Ready to Begin Your Journey?
             </h2>
             <p className="text-slate-400 max-w-md leading-relaxed text-sm sm:text-base">
-              Take the first step towards discipline, confidence and skill with
-              Kalai Sangamam Academy.
+              Take the first step toward <B>ஒழுக்கம்</B> (discipline),
+              confidence, and real skill with Kalai Sangamam Academy.
             </p>
             <Link
               to="/contact"
