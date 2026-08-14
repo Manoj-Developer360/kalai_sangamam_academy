@@ -74,11 +74,13 @@ export const adminService = {
 
   // Attendance
   markAttendance: (payload) => api.post('/attendance', payload),
+  markAttendanceBulk: (payload) => api.post('/attendance/bulk', payload),
   getStudentAttendance: (studentId, month) => api.get(`/attendance/student/${studentId}`, { params: month ? { month } : {} }),
 
   // Fees
   getFees: (params) => api.get('/fees', { params }),
   upsertFee: (payload) => api.post('/fees', payload),
+  upsertFeesBulk: (payload) => api.post('/fees/bulk', payload),
   updateFeeStatus: (id, payload) => api.patch(`/fees/${id}/status`, payload),
 
   // Settings
