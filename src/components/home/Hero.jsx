@@ -78,7 +78,7 @@ const Hero = () => {
       </div>
 
       {flashNews && (
-        <div className="mb-4 flex justify-center">
+        <div className="mb-4 flex justify-center lg:hidden">
           <div className="flex w-full max-w-md items-center gap-3 overflow-hidden rounded-full border border-brass-500/25 bg-[#130d09]/80 px-3 py-2 shadow-[0_10px_30px_-18px_rgba(224,133,50,0.8)] backdrop-blur-sm sm:max-w-lg">
             <span className="shrink-0 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-brass-500">
               Flash News
@@ -98,6 +98,15 @@ const Hero = () => {
       )}
 
       <div className="relative lg:min-h-[42rem]">
+        {flashNews && (
+          <div className="absolute left-1/2 top-0 z-30 hidden w-[min(32rem,calc(100%-3rem))] -translate-x-1/2 items-center gap-3 overflow-hidden rounded-full border border-brass-500/25 bg-[#130d09]/85 px-4 py-2.5 shadow-[0_10px_30px_-18px_rgba(224,133,50,0.8)] backdrop-blur-md lg:flex">
+            <span className="shrink-0 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-brass-500">Flash News</span>
+            <div className="min-w-0 flex-1 overflow-hidden">
+              <marquee className="text-sm text-parchment-200" behavior="scroll" direction="left" scrollamount="3"><span>{flashNews}</span></marquee>
+            </div>
+          </div>
+        )}
+
         {/* DESKTOP ONLY: full-bleed banner image, flush to the viewport's right edge,
             with the event info floating as an overlay card on top of it */}
         <motion.div
