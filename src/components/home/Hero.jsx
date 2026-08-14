@@ -33,10 +33,10 @@ const DISCIPLINES = [
 const formatEventDate = (date) =>
   date
     ? new Date(date).toLocaleDateString("en-IN", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    })
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      })
     : null;
 
 const Hero = () => {
@@ -100,9 +100,18 @@ const Hero = () => {
       <div className="relative lg:min-h-[42rem]">
         {flashNews && (
           <div className="absolute left-1/2 top-0 z-30 hidden w-[min(32rem,calc(100%-3rem))] -translate-x-1/2 items-center gap-3 overflow-hidden rounded-full border border-brass-500/25 bg-[#130d09]/85 px-4 py-2.5 shadow-[0_10px_30px_-18px_rgba(224,133,50,0.8)] backdrop-blur-md lg:flex">
-            <span className="shrink-0 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-brass-500">Flash News</span>
+            <span className="shrink-0 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-brass-500">
+              Flash News
+            </span>
             <div className="min-w-0 flex-1 overflow-hidden">
-              <marquee className="text-sm text-parchment-200" behavior="scroll" direction="left" scrollamount="3"><span>{flashNews}</span></marquee>
+              <marquee
+                className="text-sm text-parchment-200"
+                behavior="scroll"
+                direction="left"
+                scrollamount="3"
+              >
+                <span>{flashNews}</span>
+              </marquee>
             </div>
           </div>
         )}
@@ -120,7 +129,8 @@ const Hero = () => {
             alt="Kalai Sangamam academy"
             className="absolute inset-0 h-full w-full object-cover object-top"
             style={{
-              WebkitMaskImage: "linear-gradient(to right, transparent, black 16%)",
+              WebkitMaskImage:
+                "linear-gradient(to right, transparent, black 16%)",
               maskImage: "linear-gradient(to right, transparent, black 16%)",
             }}
           />
@@ -146,7 +156,9 @@ const Hero = () => {
             </div>
             <button
               onClick={() =>
-                navigate(heroEvent ? `/events#event-${heroEvent.id}` : '/events')
+                navigate(
+                  heroEvent ? `/events#event-${heroEvent.id}` : "/events",
+                )
               }
               className="flex shrink-0 items-center gap-2 px-3 py-2 font-display text-sm font-semibold uppercase tracking-wide text-parchment-100 transition-colors hover:text-brass-400"
             >
@@ -165,35 +177,37 @@ const Hero = () => {
           >
             {/* MOBILE-ONLY floating framed image, sits to the right of the heading */}
             <motion.div
-              initial={{ opacity: 0, scale: 1, rotate: 2 }}
+              initial={{ opacity: 0, x: 120, scale: 1.3 }}
               animate={{
                 opacity: 1,
-                scale: 1.2,
-                rotate: [4, -2, 4],
-                y: [10, 10, 10],
+                x: 0,
+                scale: 1.3,
               }}
               transition={{
-                opacity: { duration: 0.6 },
-                scale: { duration: 0.6 },
-                rotate: { duration: 5, repeat: Infinity, ease: "easeInOut" },
-                y: { duration: 5, repeat: Infinity, ease: "easeInOut" },
+                duration: 0.8,
+                ease: [0.22, 1, 0.36, 1],
               }}
-              className="absolute right-0 top-0 z-10 h-28 w-24 sm:h-36 sm:w-32 lg:hidden"
+              className="absolute right-5 top-9 z-10 h-28 w-28 sm:h-36 sm:w-32 lg:hidden"
             >
-              <div
-                className="h-full w-full bg-gradient-to-br from-brass-500/70 via-brass-500/20 to-transparent p-[2.5px] shadow-[0_18px_45px_-20px_rgba(224,133,50,0.65)]"
-                style={{ clipPath: FRAME_CLIP }}
-              >
-                <div
-                  className="h-full w-full overflow-hidden bg-[#1b120d]"
-                  style={{ clipPath: FRAME_CLIP }}
-                >
-                  <img
-                    src={academyImage}
-                    alt="Kalai Sangamam academy"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
+              <div className="relative h-full w-full overflow-hidden rounded-sm">
+                {/* Image */}
+                <img
+                  src={academyImage}
+                  alt="Kalai Sangamam academy"
+                  className="h-full w-full object-cover"
+                  style={{
+                    WebkitMaskImage: `
+    linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%)
+  `,
+                    WebkitMaskComposite: "source-in",
+                    maskImage: `
+    linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%)
+  `,
+                    maskComposite: "intersect",
+                  }}
+                />
               </div>
             </motion.div>
 
@@ -216,9 +230,10 @@ const Hero = () => {
             </p>
 
             <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-300 text-justify lg:text-lg">
-             We blend tradition, disciplined training, and modern excellence to build strength, focus, confidence, 
-             and character — from Silambam & Karate to Yoga, Skating & Archery.
-             </p>
+              We blend tradition, disciplined training, and modern excellence to
+              build strength, focus, confidence, and character — from Silambam &
+              Karate to Yoga, Skating & Archery.
+            </p>
 
             {/* discipline tags with icons */}
             {/* <div className="mt-8 flex flex-wrap gap-x-7 gap-y-4">
@@ -249,10 +264,16 @@ const Hero = () => {
             </div>
 
             <div className="mt-9 flex flex-nowrap gap-3 sm:gap-4">
-              <button onClick={navigateToPrograms} className="btn-primary flex-1 whitespace-nowrap !px-3 text-xs sm:flex-none sm:!px-6 sm:text-sm">
+              <button
+                onClick={navigateToPrograms}
+                className="btn-primary flex-1 whitespace-nowrap !px-3 text-xs sm:flex-none sm:!px-6 sm:text-sm"
+              >
                 Explore Programs <FiArrowRight />
               </button>
-              <button onClick={navigateToContact} className="btn-secondary flex-1 whitespace-nowrap !px-3 text-xs sm:flex-none sm:!px-6 sm:text-sm">
+              <button
+                onClick={navigateToContact}
+                className="btn-secondary flex-1 whitespace-nowrap !px-3 text-xs sm:flex-none sm:!px-6 sm:text-sm"
+              >
                 <FiPlayCircle /> Join a Class
               </button>
             </div>
