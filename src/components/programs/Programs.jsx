@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiArrowRight } from 'react-icons/fi';
+import { FiArrowRight, FiCheckCircle } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import SectionHeading from '../common/SectionHeading';
 import { SkeletonGrid, ErrorState, EmptyState } from '../common/StateViews';
@@ -63,12 +63,15 @@ const Programs = () => {
                     {p.training_details || p.introduction || 'Structured training designed to build skill, discipline and confidence.'}
                   </p>
                   {p.benefits?.length > 0 && (
-                    <div className="mt-4">
-                     
-                      <ul className="space-y-2 text-slate-400 text-sm leading-relaxed list-disc pl-5 decorative-list">
+                    <div className="mt-5 pt-5 border-t border-brass-500/15">
+                      <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-brass-500/70">
+                        Key Benefits
+                      </span>
+                      <ul className="mt-3 space-y-2.5">
                         {p.benefits.slice(0, 4).map((benefit) => (
-                          <li key={benefit} className="line-clamp-1">
-                            {benefit}
+                          <li key={benefit} className="flex items-start gap-2.5 text-slate-300 text-sm leading-snug">
+                            <FiCheckCircle className="mt-0.5 shrink-0 text-brass-500 text-base" />
+                            <span className="line-clamp-1">{benefit}</span>
                           </li>
                         ))}
                       </ul>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FiArrowRight } from 'react-icons/fi';
+import { FiArrowRight, FiAward, FiClock } from 'react-icons/fi';
 import SectionHeading from '../common/SectionHeading';
 import { SkeletonGrid, ErrorState, EmptyState } from '../common/StateViews';
 import { publicService } from '../../services/publicService';
@@ -31,44 +31,69 @@ const MasterCard = ({ master, index }) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.45, delay: index * 0.06 }}
-    className="group overflow-hidden rounded-2xl border border-parchment-100/20 bg-ink-950/60 shadow-[0_18px_55px_-30px_rgba(0,0,0,0.95)] transition-all duration-300 hover:-translate-y-1 hover:border-brass-500/40 hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.95)]"
+    className="group relative overflow-hidden rounded-2xl border border-parchment-100/12 bg-gradient-to-b from-ink-900/80 to-ink-950 shadow-[0_18px_50px_-28px_rgba(0,0,0,0.9)] transition-all duration-300 hover:-translate-y-1 hover:border-brass-500/40 hover:shadow-[0_28px_65px_-24px_rgba(224,133,50,0.25)]"
   >
-    <div className="aspect-[1.08/1] bg-gradient-to-br from-ink-800 via-ink-900 to-ink-950 flex items-center justify-center overflow-hidden">
+    {/* PHOTO */}
+    <div className="relative aspect-[1.08/1] overflow-hidden bg-gradient-to-br from-ink-800 via-ink-900 to-ink-950">
       {master.photo_url ? (
         <img
           src={master.photo_url}
           alt={master.name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+          className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.05]"
           loading="lazy"
         />
       ) : (
-        <span className="font-display text-5xl sm:text-6xl text-brass-400">{initials(master.name)}</span>
+        <div className="flex h-full w-full items-center justify-center">
+          <span className="font-display text-4xl text-brass-400">{initials(master.name)}</span>
+        </div>
       )}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/10 to-transparent" />
+
+      {/* ROLE BADGE */}
+      <span className="absolute top-3 left-3 rounded-full border border-brass-500/40 bg-ink-950/80 px-3 py-1 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-brass-400 backdrop-blur-sm">
+        {master.role}
+      </span>
     </div>
-    <div className="p-6 sm:p-7 text-left">
-      <h3 className="font-display text-2xl text-parchment-100 leading-tight">{master.name}</h3>
-      <p className="text-brass-400 text-xs font-bold uppercase tracking-[0.12em] mt-2">{master.role}</p>
-      {(master.specialization || master.experience_years) && <div className="my-5 border-t border-parchment-100/15" />}
-      <div className="space-y-4 text-sm">
-        {master.specialization && (
-          <div>
-            <p className="text-slate-400 text-xs uppercase tracking-wide">Specialization</p>
-            <p className="text-parchment-100 mt-1">{master.specialization}</p>
-          </div>
-        )}
-        {master.experience_years && (
-          <div>
-            <p className="text-slate-400 text-xs uppercase tracking-wide">Experience</p>
-            <p className="text-parchment-100 mt-1">{master.experience_years} years</p>
-          </div>
-        )}
-      </div>
+
+    {/* CONTENT */}
+    <div className="p-5 sm:p-6 text-left">
+      <span className="block h-px w-9 bg-brass-500/60 mb-3" />
+      <h3 className="font-display text-xl sm:text-[1.35rem] text-parchment-100 leading-tight">
+        {master.name}
+      </h3>
+
+      {(master.specialization || master.experience_years) && (
+        <div className="mt-4 grid grid-cols-2 gap-3">
+          {master.specialization && (
+            <div className="rounded-lg border border-parchment-100/10 bg-[#130d09]/50 px-3 py-2.5">
+              <div className="flex items-center gap-1.5 text-brass-500">
+                <FiAward className="text-xs shrink-0" />
+                <span className="text-[0.6rem] font-semibold uppercase tracking-[0.1em]">Specialty</span>
+              </div>
+              <p className="mt-1 text-parchment-100 text-sm leading-snug line-clamp-2">
+                {master.specialization}
+              </p>
+            </div>
+          )}
+          {master.experience_years && (
+            <div className="rounded-lg border border-parchment-100/10 bg-[#130d09]/50 px-3 py-2.5">
+              <div className="flex items-center gap-1.5 text-brass-500">
+                <FiClock className="text-xs shrink-0" />
+                <span className="text-[0.6rem] font-semibold uppercase tracking-[0.1em]">Experience</span>
+              </div>
+              <p className="mt-1 text-parchment-100 text-sm leading-snug">
+                {master.experience_years} years
+              </p>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   </motion.article>
 );
 
 const MasterGrid = ({ masters }) => (
-  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
     {masters.map((master, index) => <MasterCard key={master.id} master={master} index={index} />)}
   </div>
 );
