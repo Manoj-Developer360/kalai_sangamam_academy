@@ -248,11 +248,11 @@ const Hero = () => {
               </p>
             </div>
 
-            <div className="mt-9 flex flex-wrap gap-4">
-              <button onClick={navigateToPrograms} className="btn-primary">
+            <div className="mt-9 flex flex-nowrap gap-3 sm:gap-4">
+              <button onClick={navigateToPrograms} className="btn-primary flex-1 whitespace-nowrap !px-3 text-xs sm:flex-none sm:!px-6 sm:text-sm">
                 Explore Programs <FiArrowRight />
               </button>
-              <button onClick={navigateToContact} className="btn-secondary">
+              <button onClick={navigateToContact} className="btn-secondary flex-1 whitespace-nowrap !px-3 text-xs sm:flex-none sm:!px-6 sm:text-sm">
                 <FiPlayCircle /> Join a Class
               </button>
             </div>
