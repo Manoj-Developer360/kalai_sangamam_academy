@@ -33,10 +33,10 @@ const DISCIPLINES = [
 const formatEventDate = (date) =>
   date
     ? new Date(date).toLocaleDateString("en-IN", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      })
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    })
     : null;
 
 const Hero = () => {
@@ -104,7 +104,7 @@ const Hero = () => {
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7 }}
-          className="absolute inset-y-0 right-0 hidden w-[58%] overflow-hidden rounded-l-[2.5rem] lg:block"
+          className="absolute inset-y-0 right-0 z-20 hidden w-[58%] overflow-hidden rounded-l-[2.5rem] lg:block"
         >
           <img
             src={academyImage}
@@ -137,9 +137,9 @@ const Hero = () => {
             </div>
             <button
               onClick={() =>
-                navigate(heroEvent ? `/events#event-${heroEvent.id}` : "/events")
+                navigate(heroEvent ? `/events#event-${heroEvent.id}` : '/events')
               }
-              className="flex shrink-0 items-center gap-2 font-display text-sm font-semibold uppercase tracking-wide text-parchment-100 transition-colors hover:text-brass-400"
+              className="flex shrink-0 items-center gap-2 px-3 py-2 font-display text-sm font-semibold uppercase tracking-wide text-parchment-100 transition-colors hover:text-brass-400"
             >
               View All Events <FiArrowRight className="text-brass-500" />
             </button>
