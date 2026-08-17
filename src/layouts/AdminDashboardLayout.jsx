@@ -6,6 +6,7 @@ import {
   FiSettings, FiLogOut, FiMenu, FiX, FiArrowLeft, FiMail,
 } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext.jsx';
+import ThemeToggle from '../components/common/ThemeToggle.jsx';
 
 const LINKS = [
   { to: '/admin/dashboard', label: 'Dashboard', icon: FiHome, end: true },
@@ -35,9 +36,12 @@ const AdminDashboardLayout = ({ children }) => {
 
   const SidebarContent = () => (
     <>
-      <div className="mb-6">
-        <p className="font-display text-lg text-parchment-100">Kalai <span className="text-brass-500">Sangamam</span></p>
-        <p className="text-xs text-slate-500 mt-1">Admin &middot; {user?.username}</p>
+      <div className="mb-6 flex items-start justify-between gap-3">
+        <div>
+          <p className="font-display text-lg text-parchment-100">Kalai <span className="text-brass-500">Sangamam</span></p>
+          <p className="text-xs text-slate-500 mt-1">Admin &middot; {user?.username}</p>
+        </div>
+        <ThemeToggle className="!h-9 !w-9 text-lg" />
       </div>
       <nav className="flex-1 space-y-0.5 overflow-y-auto pr-1">
         {LINKS.map((l) => (
@@ -70,7 +74,10 @@ const AdminDashboardLayout = ({ children }) => {
 
       <div className="lg:hidden flex items-center justify-between p-4 border-b border-parchment-100/5">
         <p className="font-display text-parchment-100">Admin Panel</p>
-        <button onClick={() => setOpen(true)} className="text-parchment-100 text-xl"><FiMenu /></button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle className="!h-9 !w-9 text-lg" />
+          <button onClick={() => setOpen(true)} className="text-parchment-100 text-xl"><FiMenu /></button>
+        </div>
       </div>
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden">

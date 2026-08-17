@@ -65,7 +65,7 @@ const MasterCard = ({ master, index }) => (
       {(master.specialization || master.experience_years) && (
         <div className="mt-4 grid grid-cols-2 gap-3">
           {master.specialization && (
-            <div className="rounded-lg border border-parchment-100/10 bg-[#130d09]/50 px-3 py-2.5">
+            <div className="rounded-lg border border-parchment-100/10 bg-ink-900/50 px-3 py-2.5">
               <div className="flex items-center gap-1.5 text-brass-500">
                 <FiAward className="text-xs shrink-0" />
                 <span className="text-[0.6rem] font-semibold uppercase tracking-[0.1em]">Specialty</span>
@@ -76,7 +76,7 @@ const MasterCard = ({ master, index }) => (
             </div>
           )}
           {master.experience_years && (
-            <div className="rounded-lg border border-parchment-100/10 bg-[#130d09]/50 px-3 py-2.5">
+            <div className="rounded-lg border border-parchment-100/10 bg-ink-900/50 px-3 py-2.5">
               <div className="flex items-center gap-1.5 text-brass-500">
                 <FiClock className="text-xs shrink-0" />
                 <span className="text-[0.6rem] font-semibold uppercase tracking-[0.1em]">Experience</span>
@@ -110,7 +110,7 @@ const DisciplineFilter = ({ disciplines, active, onChange }) => (
           onClick={() => onChange(discipline)}
           className={`px-4 py-2 rounded-full border text-xs font-semibold uppercase tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass-400 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950 ${
             isActive
-              ? 'bg-brass-500 border-brass-500 text-ink-950'
+              ? 'bg-brass-500 border-brass-500 text-onaccent'
               : 'border-parchment-100/15 text-slate-300 hover:border-brass-400 hover:text-brass-400'
           }`}
         >

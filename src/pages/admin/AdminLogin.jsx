@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FiUser, FiLock, FiArrowLeft, FiShield, FiEye, FiEyeOff } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext.jsx';
+import ThemeToggle from '../../components/common/ThemeToggle.jsx';
 
 const AdminLogin = () => {
   const { login, logout } = useAuth();
@@ -32,8 +33,9 @@ const AdminLogin = () => {
 
   return (
     <div className="relative grid min-h-screen overflow-hidden bg-ink-950 lg:grid-cols-2">
+      <ThemeToggle className="absolute right-5 top-5 z-10 bg-ink-950/60 backdrop-blur sm:right-8 sm:top-8" />
       <div className="absolute -right-32 bottom-10 h-80 w-80 rounded-full bg-maroon-400/10 blur-3xl" />
-      <section className="relative order-2 hidden flex-col justify-between border-l border-parchment-100/10 bg-[#100b07] px-12 py-12 lg:order-none lg:flex xl:px-20">
+      <section className="relative order-2 hidden flex-col justify-between border-l border-parchment-100/10 bg-ink-950 px-12 py-12 lg:order-none lg:flex xl:px-20">
         <Link to="/" className="inline-flex w-fit items-center gap-2 text-sm text-slate-400 transition-colors hover:text-brass-400"><FiArrowLeft /> Back to academy</Link>
         <div className="max-w-md">
           <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-brass-500/30 bg-brass-500/10 text-2xl text-brass-400"><FiShield /></div>
@@ -47,7 +49,7 @@ const AdminLogin = () => {
       <main className="relative flex items-center justify-center px-5 py-10 sm:px-8">
         <div className="w-full max-w-md">
           <Link to="/" className="mb-8 inline-flex items-center gap-2 text-sm text-slate-400 transition-colors hover:text-brass-400 lg:hidden"><FiArrowLeft /> Back to academy</Link>
-          <div className="rounded-3xl border border-parchment-100/10 bg-[#100c09]/95 p-6 shadow-2xl shadow-black/40 sm:p-9">
+          <div className="rounded-3xl border border-parchment-100/10 bg-ink-900/95 p-6 shadow-2xl shadow-black/40 sm:p-9">
             <div className="mb-8">
               <p className="eyebrow mb-2">Secure access</p>
               <h2 className="font-display text-3xl text-parchment-100">Admin sign in</h2>

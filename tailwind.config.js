@@ -1,32 +1,49 @@
 /** @type {import('tailwindcss').Config} */
+
+// Palette tokens are backed by CSS variables (see src/index.css) so every
+// existing utility class (bg-ink-900, text-parchment-100, etc.) automatically
+// re-themes when the `light` class is toggled on <html> — no need to touch
+// individual components.
+const themed = (name) => `rgb(var(--color-${name}) / <alpha-value>)`;
+
 export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
   theme: {
     extend: {
       colors: {
         ink: {
-          950: '#070504', // deepest page canvas
-          900: '#100D0A',
-          800: '#181410',
-          700: '#2C2620',
+          950: themed('ink-950'), // deepest page canvas
+          900: themed('ink-900'),
+          800: themed('ink-800'),
+          700: themed('ink-700'),
         },
         brass: {
-          400: '#E69A3F',
-          500: '#C97B28', // primary accent — warm gold
-          600: '#A76422',
+          200: themed('brass-200'),
+          300: themed('brass-300'),
+          400: themed('brass-400'),
+          500: themed('brass-500'), // primary accent — warm gold
+          600: themed('brass-600'),
         },
         maroon: {
-          500: '#852B38', // secondary accent — rich temple red
-          600: '#61202B',
+          300: themed('maroon-300'),
+          400: themed('maroon-400'),
+          500: themed('maroon-500'), // secondary accent — rich temple red
+          600: themed('maroon-600'),
         },
         parchment: {
-          100: '#F7F0E8', // bright cream text on dark
-          300: '#DCCFBC',
+          100: themed('parchment-100'), // primary text
+          200: themed('parchment-200'),
+          300: themed('parchment-300'), // secondary text
         },
         slate: {
-          400: '#8D94A5',
-          500: '#767A8D',
+          300: themed('slate-300'),
+          400: themed('slate-400'),
+          500: themed('slate-500'),
+          600: themed('slate-600'),
         },
+        // Fixed (non-theming) near-black used as text on top of brass/gold
+        // accents (buttons, active pills, badges) — stays readable in both themes.
+        onaccent: '#15100b',
       },
       fontFamily: {
         display: ['"Playfair Display"', 'serif'],

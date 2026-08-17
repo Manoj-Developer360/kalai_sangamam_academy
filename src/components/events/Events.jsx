@@ -9,7 +9,7 @@ import { publicService } from '../../services/publicService';
 const statusStyles = {
   open: 'bg-emerald-700/95 text-white border-emerald-300/90',
   closed: 'bg-red-700/95 text-white border-red-300/90',
-  coming_soon: 'bg-brass-500/95 text-ink-950 border-brass-200/90',
+  coming_soon: 'bg-brass-500/95 text-onaccent border-brass-200/90',
 };
 const statusLabel = { open: 'Open', closed: 'Closed', coming_soon: 'Coming Soon' };
 

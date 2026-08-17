@@ -33,7 +33,7 @@ const Gallery = () => {
               onClick={() => setActive(c)}
               className={`text-xs px-4 py-2 rounded-full border transition-colors ${
                 active === c
-                  ? 'bg-brass-500 text-ink-950 border-brass-500 font-semibold'
+                  ? 'bg-brass-500 text-onaccent border-brass-500 font-semibold'
                   : 'border-parchment-100/15 text-slate-400 hover:border-brass-500/40'
               }`}
             >

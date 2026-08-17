@@ -79,7 +79,7 @@ const Hero = () => {
 
       {flashNews && (
         <div className="mb-4 flex justify-center lg:hidden">
-          <div className="flex w-full max-w-md items-center gap-3 overflow-hidden rounded-full border border-brass-500/25 bg-[#130d09]/80 px-3 py-2 shadow-[0_10px_30px_-18px_rgba(224,133,50,0.8)] backdrop-blur-sm sm:max-w-lg">
+          <div className="flex w-full max-w-md items-center gap-3 overflow-hidden rounded-full border border-brass-500/25 bg-ink-900/80 px-3 py-2 shadow-[0_10px_30px_-18px_rgba(224,133,50,0.8)] backdrop-blur-sm sm:max-w-lg">
             <span className="shrink-0 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-brass-500">
               Flash News
             </span>
@@ -99,7 +99,7 @@ const Hero = () => {
 
       <div className="relative lg:min-h-[42rem]">
         {flashNews && (
-          <div className="absolute left-1/2 top-0 z-30 hidden w-[min(32rem,calc(100%-3rem))] -translate-x-1/2 items-center gap-3 overflow-hidden rounded-full border border-brass-500/25 bg-[#130d09]/85 px-4 py-2.5 shadow-[0_10px_30px_-18px_rgba(224,133,50,0.8)] backdrop-blur-md lg:flex">
+          <div className="absolute left-1/2 top-0 z-30 hidden w-[min(32rem,calc(100%-3rem))] -translate-x-1/2 items-center gap-3 overflow-hidden rounded-full border border-brass-500/25 bg-ink-900/85 px-4 py-2.5 shadow-[0_10px_30px_-18px_rgba(224,133,50,0.8)] backdrop-blur-md lg:flex">
             <span className="shrink-0 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-brass-500">
               Flash News
             </span>
@@ -135,7 +135,7 @@ const Hero = () => {
             }}
           />
 
-          <div className="absolute inset-x-6 bottom-6 z-10 flex items-center justify-between gap-6 rounded-2xl border border-white/10 bg-[#120d09]/80 p-5 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.85)] backdrop-blur-md">
+          <div className="absolute inset-x-6 bottom-6 z-10 flex items-center justify-between gap-6 rounded-2xl border border-white/10 bg-ink-900/80 p-5 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.85)] backdrop-blur-md">
             <div className="flex min-w-0 items-center gap-4">
               <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg border border-brass-500/30 bg-brass-500/10 text-brass-500">
                 <FiCalendar />
@@ -284,7 +284,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="relative mt-8 w-full border border-parchment-100/15 bg-[#1b120d]/80 p-6 shadow-[0_24px_90px_-55px_rgba(224,133,50,0.35)] backdrop-blur-sm sm:p-7 lg:hidden"
+            className="relative mt-8 w-full border border-parchment-100/15 bg-ink-800/80 p-6 shadow-[0_24px_90px_-55px_rgba(224,133,50,0.35)] backdrop-blur-sm sm:p-7 lg:hidden"
           >
             <span className="absolute left-0 top-0 h-px w-16 bg-brass-500" />
             {heroEvent ? (

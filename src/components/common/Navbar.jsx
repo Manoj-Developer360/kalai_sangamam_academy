@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { FiMenu, FiUser, FiX } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext.jsx';
+import ThemeToggle from './ThemeToggle.jsx';
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
@@ -71,7 +72,8 @@ const Navbar = () => {
           })}
         </nav>
 
-        <div className="hidden xl:block">
+        <div className="hidden xl:flex items-center gap-3">
+          <ThemeToggle />
           {!loading && user ? (
             <Link
               to={dashboardPath}
@@ -88,13 +90,16 @@ const Navbar = () => {
           )}
         </div>
 
-        <button
-          className="xl:hidden text-parchment-100 text-2xl"
-          onClick={() => setOpen((o) => !o)}
-          aria-label="Toggle menu"
-        >
-          {open ? <FiX /> : <FiMenu />}
-        </button>
+        <div className="flex items-center gap-3 xl:hidden">
+          <ThemeToggle />
+          <button
+            className="text-parchment-100 text-2xl"
+            onClick={() => setOpen((o) => !o)}
+            aria-label="Toggle menu"
+          >
+            {open ? <FiX /> : <FiMenu />}
+          </button>
+        </div>
       </div>
 
       {open && (

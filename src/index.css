@@ -3,6 +3,89 @@
 @tailwind utilities;
 
 @layer base {
+  /* ---------------------------------------------------------------------
+     Theme tokens
+     -------------------------------------------------------------------
+     Every color in tailwind.config.js reads from these CSS variables, so
+     toggling the `light` class on <html> re-themes the whole app without
+     touching individual components. Values are "R G B" triplets so Tailwind
+     can apply opacity modifiers (e.g. bg-ink-900/80).
+  --------------------------------------------------------------------- */
+  :root {
+    /* Dark theme (default) */
+    --color-ink-950: 7 5 4;      /* #070504 deepest page canvas */
+    --color-ink-900: 16 13 10;   /* #100D0A panel / card surface */
+    --color-ink-800: 24 20 16;   /* #181410 hover / skeleton surface */
+    --color-ink-700: 44 38 32;   /* #2C2620 borders / dividers */
+
+    --color-brass-200: 243 217 174; /* #F3D9AE */
+    --color-brass-300: 235 180 110; /* #EBB46E */
+    --color-brass-400: 230 154 63;  /* #E69A3F */
+    --color-brass-500: 201 123 40;  /* #C97B28 primary accent */
+    --color-brass-600: 167 100 34;  /* #A76422 */
+
+    --color-maroon-300: 201 118 134; /* #C97686 */
+    --color-maroon-400: 168 70 90;   /* #A8465A */
+    --color-maroon-500: 133 43 56;   /* #852B38 */
+    --color-maroon-600: 97 32 43;    /* #61202B */
+
+    --color-parchment-100: 247 240 232; /* #F7F0E8 primary text on dark */
+    --color-parchment-200: 239 228 212; /* #EFE4D4 */
+    --color-parchment-300: 220 207 188; /* #DCCFBC secondary text */
+
+    --color-slate-300: 166 171 184; /* #A6ABB8 */
+    --color-slate-400: 141 148 165; /* #8D94A5 */
+    --color-slate-500: 118 122 141; /* #767A8D */
+    --color-slate-600: 92 96 114;   /* #5C6072 */
+
+    /* Body background gradient stops */
+    --bg-glow: 112 70 32;
+    --bg-1: 9 7 5;
+    --bg-2: 13 9 6;
+    --bg-3: 18 12 7;
+    --bg-4: 11 8 6;
+    --bg-5: 7 5 4;
+
+    color-scheme: dark;
+  }
+
+  html.light {
+    /* Light theme */
+    --color-ink-950: 250 246 240; /* #FAF6F0 lightest page canvas */
+    --color-ink-900: 243 235 222; /* #F3EBDE panel / card surface */
+    --color-ink-800: 233 221 201; /* #E9DDC9 hover / skeleton surface */
+    --color-ink-700: 214 197 168; /* #D6C5A8 borders / dividers */
+
+    --color-brass-200: 250 226 190; /* #FAE2BE */
+    --color-brass-300: 240 195 130; /* #F0C382 */
+    --color-brass-400: 214 137 45;  /* #D6892D */
+    --color-brass-500: 184 106 26;  /* #B86A1A primary accent */
+    --color-brass-600: 150 86 20;   /* #965614 */
+
+    --color-maroon-300: 196 108 122; /* #C46C7A */
+    --color-maroon-400: 163 61 79;   /* #A33D4F */
+    --color-maroon-500: 133 43 56;   /* #852B38 (kept — reads fine on light bg) */
+    --color-maroon-600: 97 32 43;    /* #61202B */
+
+    --color-parchment-100: 34 26 18;  /* #221A12 primary text on light */
+    --color-parchment-200: 51 40 28;  /* #33281C */
+    --color-parchment-300: 74 59 42;  /* #4A3B2A secondary text */
+
+    --color-slate-300: 90 96 112;  /* #5A6070 */
+    --color-slate-400: 74 79 94;   /* #4A4F5E */
+    --color-slate-500: 58 62 75;   /* #3A3E4B */
+    --color-slate-600: 45 48 59;   /* #2D303B */
+
+    --bg-glow: 201 123 40;
+    --bg-1: 253 251 247;
+    --bg-2: 250 243 233;
+    --bg-3: 246 236 220;
+    --bg-4: 250 243 233;
+    --bg-5: 253 251 247;
+
+    color-scheme: light;
+  }
+
   html {
     scroll-behavior: smooth;
     min-height: 100%;
@@ -11,11 +94,11 @@
     min-height: 100%;
   }
   body {
-    @apply text-parchment-100 font-body antialiased;
+    @apply text-parchment-100 font-body antialiased transition-colors duration-300;
     min-height: 100vh;
     background:
-      radial-gradient(circle at 70% 18%, rgba(112, 70, 32, 0.16), transparent 38%),
-      linear-gradient(135deg, #090705 0%, #0d0906 30%, #120c07 55%, #0b0806 78%, #070504 100%);
+      radial-gradient(circle at 70% 18%, rgb(var(--bg-glow) / 0.16), transparent 38%),
+      linear-gradient(135deg, rgb(var(--bg-1)) 0%, rgb(var(--bg-2)) 30%, rgb(var(--bg-3)) 55%, rgb(var(--bg-4)) 78%, rgb(var(--bg-5)) 100%);
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
@@ -33,7 +116,7 @@
   }
 
   ::selection {
-    @apply bg-brass-500 text-ink-950;
+    @apply bg-brass-500 text-onaccent;
   }
 
   :focus-visible {
@@ -56,21 +139,21 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-brass-500 text-ink-950 font-display font-semibold uppercase tracking-wide text-sm rounded-sm shadow-[0_16px_40px_-18px_rgba(232,133,50,0.8)] transition-all duration-200 hover:bg-brass-400;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-brass-500 text-onaccent font-display font-semibold uppercase tracking-wide text-sm rounded-sm shadow-[0_16px_40px_-18px_rgba(232,133,50,0.8)] transition-all duration-200 hover:bg-brass-400;
   }
 
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3 border border-brass-500/30 text-parchment-100 font-display font-semibold uppercase tracking-wide text-sm rounded-sm hover:border-brass-400 hover:text-brass-400 transition-colors duration-200;
-    background: rgba(255,255,255,0.03);
+    background: rgb(var(--color-parchment-100) / 0.03);
     backdrop-filter: blur(12px);
   }
 
   .gradient-text {
-    color: #E69A3F;
+    color: rgb(var(--color-brass-400));
   }
 
   .card {
-    @apply bg-[#0d0a08]/90 border border-parchment-100/10 rounded-3xl;
+    @apply bg-ink-900/90 border border-parchment-100/10 rounded-3xl transition-colors duration-300;
   }
 
   /* Shared form treatment: applies to every admin and student form, including
@@ -107,7 +190,7 @@
   }
 
   form input[type='file']::file-selector-button {
-    @apply mr-3 cursor-pointer rounded-lg border-0 bg-brass-500 px-3 py-2 text-xs font-semibold text-ink-950 transition hover:bg-brass-400;
+    @apply mr-3 cursor-pointer rounded-lg border-0 bg-brass-500 px-3 py-2 text-xs font-semibold text-onaccent transition hover:bg-brass-400;
   }
 
   form input[type='checkbox'],
@@ -127,10 +210,9 @@
   }
 
   /* Native date inputs need their own treatment because browser calendar
-     controls otherwise retain a bright, unstyled appearance. */
+     controls otherwise retain a bright, unstyled appearance in dark mode. */
   form input[type='date'] {
     @apply min-h-12 cursor-pointer pr-3;
-    color-scheme: dark;
   }
 
   form input[type='date']::-webkit-datetime-edit {
@@ -140,6 +222,10 @@
   form input[type='date']::-webkit-calendar-picker-indicator {
     @apply cursor-pointer rounded-md p-1 opacity-70 transition hover:bg-brass-500/15 hover:opacity-100;
     filter: sepia(1) saturate(1.15) hue-rotate(350deg);
+  }
+
+  html.light form input[type='date']::-webkit-calendar-picker-indicator {
+    filter: sepia(1) saturate(2) hue-rotate(350deg) brightness(0.85);
   }
 
   form textarea {

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FiHome, FiUser, FiCheckSquare, FiCreditCard, FiAward, FiMessageSquare, FiSettings, FiLogOut, FiMenu, FiX, FiArrowLeft } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext.jsx';
+import ThemeToggle from '../components/common/ThemeToggle.jsx';
 
 const LINKS = [
   { to: '/student/dashboard', label: 'Dashboard', icon: FiHome, end: true },
@@ -25,9 +26,12 @@ const StudentDashboardLayout = ({ children }) => {
 
   const SidebarContent = () => (
     <>
-      <div className="mb-8">
-        <p className="font-display text-lg text-parchment-100">Kalai <span className="text-brass-500">Sangamam</span></p>
-        <p className="text-xs text-slate-500 mt-1">{profile?.student_code || 'Student Portal'}</p>
+      <div className="mb-8 flex items-start justify-between gap-3">
+        <div>
+          <p className="font-display text-lg text-parchment-100">Kalai <span className="text-brass-500">Sangamam</span></p>
+          <p className="text-xs text-slate-500 mt-1">{profile?.student_code || 'Student Portal'}</p>
+        </div>
+        <ThemeToggle className="!h-9 !w-9 text-lg" />
       </div>
       <nav className="flex-1 space-y-1">
         {LINKS.map((l) => (
@@ -62,7 +66,10 @@ const StudentDashboardLayout = ({ children }) => {
       {/* Mobile drawer */}
       <div className="lg:hidden flex items-center justify-between p-4 border-b border-parchment-100/5">
         <p className="font-display text-parchment-100">Student Portal</p>
-        <button onClick={() => setOpen(true)} className="text-parchment-100 text-xl"><FiMenu /></button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle className="!h-9 !w-9 text-lg" />
+          <button onClick={() => setOpen(true)} className="text-parchment-100 text-xl"><FiMenu /></button>
+        </div>
       </div>
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden">

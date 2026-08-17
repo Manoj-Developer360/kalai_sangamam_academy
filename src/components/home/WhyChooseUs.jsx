@@ -43,13 +43,13 @@ const WhyChooseUs = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.45, delay: i * 0.08 }}
-            className="group relative bg-[#0d0906] p-7 sm:p-8 transition-colors duration-300 hover:bg-[#130d09]"
+            className="group relative bg-ink-950 p-7 sm:p-8 transition-colors duration-300 hover:bg-ink-900"
           >
             <span className="pointer-events-none absolute top-6 right-6 font-mono text-[0.65rem] tracking-[0.15em] text-brass-500/30">
               0{i + 1}
             </span>
 
-            <div className="flex h-12 w-12 items-center justify-center rounded-full border border-brass-500/30 bg-[#130d09]/80 transition-transform duration-300 group-hover:scale-110 group-hover:border-brass-500/60">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full border border-brass-500/30 bg-ink-900/80 transition-transform duration-300 group-hover:scale-110 group-hover:border-brass-500/60">
               <r.icon className="text-brass-500 text-xl" />
             </div>
 

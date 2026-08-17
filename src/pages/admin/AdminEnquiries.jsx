@@ -43,11 +43,11 @@ const AdminEnquiries = () => {
     key: 'actions',
     label: 'Contact',
     render: (row) => <div className="flex items-center gap-2">
-      <a href={`tel:${row.phone.replace(/\s+/g, '')}`} className="inline-flex items-center gap-1.5 rounded-full border border-brass-500/40 bg-brass-500/10 px-3 py-1.5 text-xs font-semibold text-brass-300 transition hover:bg-brass-500 hover:text-ink-950" aria-label={`Call ${row.name}`}>
+      <a href={`tel:${row.phone.replace(/\s+/g, '')}`} className="inline-flex items-center gap-1.5 rounded-full border border-brass-500/40 bg-brass-500/10 px-3 py-1.5 text-xs font-semibold text-brass-300 transition hover:bg-brass-500 hover:text-onaccent" aria-label={`Call ${row.name}`}>
         <FiPhone /> Call
       </a>
       {row.email ? (
-        <a href={`mailto:${row.email}`} className="inline-flex items-center gap-1.5 rounded-full border border-sky-400/40 bg-sky-400/10 px-3 py-1.5 text-xs font-semibold text-sky-300 transition hover:bg-sky-400 hover:text-ink-950" aria-label={`Email ${row.name}`}>
+        <a href={`mailto:${row.email}`} className="inline-flex items-center gap-1.5 rounded-full border border-sky-400/40 bg-sky-400/10 px-3 py-1.5 text-xs font-semibold text-sky-300 transition hover:bg-sky-400 hover:text-onaccent" aria-label={`Email ${row.name}`}>
           <FiMail /> Email
         </a>
       ) : <span className="text-xs text-slate-600">No email</span>}

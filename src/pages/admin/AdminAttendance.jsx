@@ -57,7 +57,7 @@ const AdminAttendance = () => {
       <form onSubmit={requestMark} className="card p-6 space-y-4 h-fit">
         <div><label className="text-xs text-slate-400 mb-1.5 block">Students</label><StudentMultiSelect students={students} selectedIds={selectedIds} onChange={setSelectedIds} /></div>
         <div><label className="text-xs text-slate-400 mb-1.5 block">Date</label><input type="date" value={date} onChange={(event) => setDate(event.target.value)} /></div>
-        <div><label className="text-xs text-slate-400 mb-1.5 block">Status</label><div className="flex flex-col sm:flex-row gap-2">{STATUSES.map((item) => <button type="button" key={item} onClick={() => setStatus(item)} className={`flex-1 capitalize text-xs py-2.5 rounded-sm border transition-colors ${status === item ? 'bg-brass-500 text-ink-950 border-brass-500 font-semibold' : 'border-parchment-100/15 text-slate-400'}`}>{item}</button>)}</div></div>
+        <div><label className="text-xs text-slate-400 mb-1.5 block">Status</label><div className="flex flex-col sm:flex-row gap-2">{STATUSES.map((item) => <button type="button" key={item} onClick={() => setStatus(item)} className={`flex-1 capitalize text-xs py-2.5 rounded-sm border transition-colors ${status === item ? 'bg-brass-500 text-onaccent border-brass-500 font-semibold' : 'border-parchment-100/15 text-slate-400'}`}>{item}</button>)}</div></div>
         <button type="submit" disabled={saving} className="btn-primary w-full disabled:opacity-60">{saving ? 'Saving...' : 'Save Attendance'}</button>
       </form>
       <div><p className="text-xs text-slate-500 uppercase tracking-wide mb-3">History</p>

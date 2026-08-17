@@ -43,7 +43,7 @@ const Achievements = ({ pageView = false }) => {
         {pageView && error && <ErrorState message="Couldn't load achievements right now." />}
         {displayedStats.length > 0 && (
           <>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 bg-[#100f0b] border-y border-parchment-100/5 py-7 sm:py-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 bg-ink-900 border-y border-parchment-100/5 py-7 sm:py-4">
               {displayedStats.map((s) => (
                 <AnimatedCounter
                   key={s.id}
@@ -68,7 +68,7 @@ const Achievements = ({ pageView = false }) => {
             <div className="text-center mb-8">
               <p className="eyebrow">Additional Achievements</p>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 bg-[#100f0b] border-y border-parchment-100/5 py-7 sm:py-10">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 bg-ink-900 border-y border-parchment-100/5 py-7 sm:py-10">
               {stats.map((s) => (
                 <AnimatedCounter
                   key={s.id}

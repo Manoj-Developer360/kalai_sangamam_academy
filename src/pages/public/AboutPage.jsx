@@ -302,7 +302,7 @@ const AboutPage = () => (
                 <span className="font-mono text-xs text-brass-500/70">
                   Step 0{i + 1}
                 </span>
-                <div className="mt-4 flex h-11 w-11 items-center justify-center rounded-full border border-brass-500/30 bg-[#130d09]/60">
+                <div className="mt-4 flex h-11 w-11 items-center justify-center rounded-full border border-brass-500/30 bg-ink-900/60">
                   <s.icon className="text-brass-500 text-lg" />
                 </div>
                 <h3 className="mt-4 font-display text-lg text-parchment-100 leading-snug">
@@ -341,7 +341,7 @@ const AboutPage = () => (
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="card p-7 sm:p-9 lg:p-10"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-full border border-brass-500/30 bg-[#130d09]/60 mb-5">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full border border-brass-500/30 bg-ink-900/60 mb-5">
                   <item.icon className="text-brass-500 text-xl" />
                 </div>
                 <h3 className="font-display text-xl lg:text-2xl text-parchment-100 mb-3">
@@ -423,7 +423,7 @@ const AboutPage = () => (
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="flex items-center gap-2 rounded-full border border-brass-500/25 bg-[#130d09]/60 px-3.5 py-2 sm:px-4"
+                className="flex items-center gap-2 rounded-full border border-brass-500/25 bg-ink-900/60 px-3.5 py-2 sm:px-4"
               >
                 <p.icon className="text-brass-500 text-sm shrink-0" />
                 <span className="text-xs sm:text-sm text-parchment-200 whitespace-nowrap">
