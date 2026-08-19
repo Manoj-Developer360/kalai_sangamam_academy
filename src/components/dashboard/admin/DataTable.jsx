@@ -2,12 +2,12 @@ import React from 'react';
 import { EmptyState } from '../../common/StateViews.jsx';
 
 // columns: [{ key, label, render? }]
-const DataTable = ({ columns, rows, actions, emptyMessage = 'No records found.' }) => {
+const DataTable = ({ columns, rows, actions, emptyMessage = 'No records found.', tableClassName = 'min-w-[600px]' }) => {
   if (!rows || rows.length === 0) return <EmptyState message={emptyMessage} />;
 
   return (
-    <div className="card overflow-x-auto">
-      <table className="w-full text-sm min-w-[600px]">
+    <div className="card max-w-full overflow-x-auto" role="region" aria-label="Data table" tabIndex="0">
+      <table className={`w-full text-sm ${tableClassName}`}>
         <thead>
           <tr className="text-left text-slate-500 text-xs uppercase border-b border-parchment-100/5">
             {columns.map((c) => (

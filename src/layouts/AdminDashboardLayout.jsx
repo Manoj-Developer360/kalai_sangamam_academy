@@ -72,12 +72,13 @@ const AdminDashboardLayout = ({ children }) => {
         <SidebarContent />
       </aside>
 
-      <div className="lg:hidden flex items-center justify-between p-4 border-b border-parchment-100/5">
-        <p className="font-display text-parchment-100">Admin Panel</p>
-        <div className="flex items-center gap-2">
-          <ThemeToggle className="!h-9 !w-9 text-lg" />
-          <button onClick={() => setOpen(true)} className="text-parchment-100 text-xl"><FiMenu /></button>
+      <div className="lg:hidden flex items-center gap-3 px-4 py-3 border-b border-parchment-100/5">
+        <button type="button" onClick={() => setOpen(true)} aria-label="Open navigation menu" className="shrink-0 inline-flex h-11 w-11 items-center justify-center rounded-sm border border-parchment-100/10 text-xl text-parchment-100 transition-colors hover:border-brass-500 hover:text-brass-400"><FiMenu /></button>
+        <div className="min-w-0 flex-1">
+          <p className="font-display text-sm leading-tight text-parchment-100 sm:text-base">Kalai <span className="text-brass-500">Sangamam</span></p>
+          <p className="mt-0.5 text-[11px] uppercase tracking-wide text-slate-500">Admin Console</p>
         </div>
+        <ThemeToggle className="!h-11 !w-11 shrink-0 text-lg" />
       </div>
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden">

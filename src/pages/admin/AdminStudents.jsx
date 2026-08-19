@@ -118,6 +118,12 @@ const AdminStudents = () => {
         showToast('Student removed.');
         loadStudents();
       }
+      if (confirm.type === 'delete') {
+        await adminService.deleteStudent(confirm.id);
+        showToast('Student permanently deleted.');
+        if (editing?.id === confirm.id) setModalOpen(false);
+        loadStudents();
+      }
       if (confirm.type === 'approve') {
         await adminService.approveStudentRequest(confirm.id);
         showToast('Registration request approved.');
@@ -176,6 +182,7 @@ const AdminStudents = () => {
                 <>
                   <button onClick={() => openEdit(row)} className="text-brass-400 text-xs hover:underline">Edit</button>
                   <button onClick={() => setConfirm({ type: 'remove', id: row.id })} className="text-maroon-400 text-xs hover:underline">Remove</button>
+                  <button onClick={() => setConfirm({ type: 'delete', id: row.id, name: row.full_name })} className="text-maroon-400 text-xs hover:underline">Delete</button>
                 </>
               )}
             />
@@ -305,18 +312,21 @@ const formatDate = (value) => (value ? new Date(value).toLocaleDateString() : '-
 const confirmTitle = (confirm) => {
   if (confirm?.type === 'approve') return 'Approve Request';
   if (confirm?.type === 'reject') return 'Reject Request';
+  if (confirm?.type === 'delete') return 'Delete Student Permanently?';
   return 'Remove Student';
 };
 
 const confirmMessage = (confirm) => {
   if (confirm?.type === 'approve') return 'This will create an active student account from the request.';
   if (confirm?.type === 'reject') return 'This registration request will be rejected.';
+  if (confirm?.type === 'delete') return 'This will permanently delete the student and their related records. This action cannot be undone.';
   return 'This student will be marked inactive and lose dashboard access.';
 };
 
 const confirmLabel = (confirm) => {
   if (confirm?.type === 'approve') return 'Approve';
   if (confirm?.type === 'reject') return 'Reject';
+  if (confirm?.type === 'delete') return 'Delete Permanently';
   return 'Remove';
 };
 

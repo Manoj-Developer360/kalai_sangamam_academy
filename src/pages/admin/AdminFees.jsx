@@ -48,7 +48,7 @@ const AdminFees = () => {
   return <AdminDashboardLayout>
     <AdminPageHeader title="Fees" subtitle="One monthly fee record per student, with multiple payments supported." />
     {error && <ErrorState message="Couldn't load fee data right now." />}
-    <div className="grid lg:grid-cols-[1fr_1.6fr] gap-6">
+    <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
       <form onSubmit={requestSubmit} className="card p-6 space-y-4 h-fit">
         <div><label className="text-xs text-slate-400 mb-1.5 block">Students</label><StudentMultiSelect students={students || []} selectedIds={selectedIds} onChange={setSelectedIds} /></div>
         <div><label className="text-xs text-slate-400 mb-1.5 block">Month (e.g. August 2026)</label><input required value={form.month} onChange={(event) => setForm({ ...form, month: event.target.value })} /></div>
@@ -58,7 +58,7 @@ const AdminFees = () => {
         <p className="text-xs text-slate-500">Each selected student is processed independently. Existing monthly records retain their payment history.</p>
         <button type="submit" disabled={saving} className="btn-primary w-full disabled:opacity-60">{saving ? 'Saving...' : 'Save Fee'}</button>
       </form>
-      <div><p className="text-xs text-slate-500 uppercase tracking-wide mb-3">Monthly Fee Records</p>{fees && <DataTable columns={[{ key: 'student', label: 'Student', render: (row) => row.students?.full_name || '-' }, { key: 'month', label: 'Month' }, { key: 'fee_amount', label: 'Fee', render: (row) => `Rs. ${row.fee_amount}` }, { key: 'paid_amount', label: 'Paid', render: (row) => `Rs. ${row.paid_amount}` }, { key: 'pending_amount', label: 'Pending', render: (row) => `Rs. ${row.pending_amount}` }, { key: 'payments', label: 'Payments', render: (row) => row.payments?.length || 0 }, { key: 'status', label: 'Status', render: (row) => <span className={`capitalize text-xs px-2.5 py-1 rounded-full border ${statusStyles[row.status]}`}>{row.status?.replace('_', ' ')}</span> }]} rows={fees} emptyMessage="No fee records yet." />}</div>
+      <div className="min-w-0"><p className="text-xs text-slate-500 uppercase tracking-wide mb-3">Monthly Fee Records</p>{fees && <DataTable tableClassName="min-w-[760px]" columns={[{ key: 'student_code', label: 'Student ID', render: (row) => row.students?.student_code || '-' }, { key: 'student', label: 'Student', render: (row) => row.students?.full_name || '-' }, { key: 'month', label: 'Month' }, { key: 'fee_amount', label: 'Fee', render: (row) => `Rs. ${row.fee_amount}` }, { key: 'paid_amount', label: 'Paid', render: (row) => `Rs. ${row.paid_amount}` }, { key: 'pending_amount', label: 'Balance', render: (row) => `Rs. ${row.pending_amount}` }, { key: 'payments', label: 'Payments', render: (row) => row.payments?.length || 0 }, { key: 'status', label: 'Status', render: (row) => <span className={`inline-flex whitespace-nowrap capitalize text-xs px-2.5 py-1 rounded-full border ${statusStyles[row.status]}`}>{row.status?.replace('_', ' ')}</span> }]} rows={fees} emptyMessage="No fee records yet." />}</div>
     </div>
     <ConfirmDialog open={confirmOpen} onClose={() => setConfirmOpen(false)} onConfirm={handleSubmit} title={`Apply Rs. ${form.payment_amount || 0} payment to ${selectedIds.length} student${selectedIds.length === 1 ? '' : 's'}?`} message={`Month: ${form.month}\nPayment date: ${displayDate(form.payment_date)}`} confirmLabel="Confirm" danger={false} />
   </AdminDashboardLayout>;

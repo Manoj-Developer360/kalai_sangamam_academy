@@ -1,6 +1,6 @@
 import React from 'react';
 
-const StudentMultiSelect = ({ students = [], selectedIds = [], onChange }) => {
+const StudentMultiSelect = ({ students = [], selectedIds = [], onChange, emptyMessage }) => {
   const selectedStudents = students.filter((student) => selectedIds.includes(student.id));
   const allSelected = students.length > 0 && selectedIds.length === students.length;
 
@@ -20,14 +20,16 @@ const StudentMultiSelect = ({ students = [], selectedIds = [], onChange }) => {
         )}
       </div>
       <div className="max-h-48 overflow-y-auto rounded-sm border border-parchment-100/10 divide-y divide-parchment-100/5">
-        <label className="flex cursor-pointer items-center gap-3 px-3 py-2.5 text-sm text-brass-300 hover:bg-parchment-100/5">
-          <input type="checkbox" checked={allSelected} onChange={() => onChange(allSelected ? [] : students.map((student) => student.id))} />
-          Select all
-        </label>
-        {students.map((student) => <label key={student.id} className="flex cursor-pointer items-center gap-3 px-3 py-2.5 text-sm text-slate-300 hover:bg-parchment-100/5">
-          <input type="checkbox" checked={selectedIds.includes(student.id)} onChange={() => toggleStudent(student.id)} />
-          <span>{student.full_name} <span className="text-slate-500">({student.student_code})</span></span>
-        </label>)}
+        {students.length === 0 ? <p className="px-3 py-2.5 text-sm text-slate-500">{emptyMessage || 'No students found.'}</p> : <>
+          <label className="flex cursor-pointer items-center gap-3 px-3 py-2.5 text-sm text-brass-300 hover:bg-parchment-100/5">
+            <input type="checkbox" checked={allSelected} onChange={() => onChange(allSelected ? [] : students.map((student) => student.id))} />
+            Select all
+          </label>
+          {students.map((student) => <label key={student.id} className="flex cursor-pointer items-center gap-3 px-3 py-2.5 text-sm text-slate-300 hover:bg-parchment-100/5">
+            <input type="checkbox" checked={selectedIds.includes(student.id)} onChange={() => toggleStudent(student.id)} />
+            <span>{student.full_name} <span className="text-slate-500">({student.student_code})</span></span>
+          </label>)}
+        </>}
       </div>
     </div>
   );
