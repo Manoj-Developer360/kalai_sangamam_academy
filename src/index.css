@@ -46,6 +46,12 @@
     --bg-4: 11 8 6;
     --bg-5: 7 5 4;
 
+    /* Masters cards: a more composed editorial surface than generic cards. */
+    --master-card-top: 25 20 15;
+    --master-card-bottom: 10 8 6;
+    --master-stat: 31 25 19;
+    --master-overlay: 10 8 6;
+
     color-scheme: dark;
   }
 
@@ -82,6 +88,11 @@
     --bg-3: 246 236 220;
     --bg-4: 250 243 233;
     --bg-5: 253 251 247;
+
+    --master-card-top: 255 253 249;
+    --master-card-bottom: 248 242 232;
+    --master-stat: 251 247 239;
+    --master-overlay: 250 246 240;
 
     color-scheme: light;
   }
@@ -154,6 +165,39 @@
 
   .card {
     @apply bg-ink-900/90 border border-parchment-100/10 rounded-3xl transition-colors duration-300;
+  }
+
+  .master-card {
+    @apply relative overflow-hidden rounded-2xl border border-parchment-100/15 transition-all duration-300;
+    background: linear-gradient(155deg, rgb(var(--master-card-top)) 0%, rgb(var(--master-card-bottom)) 100%);
+    box-shadow: 0 18px 50px -28px rgb(0 0 0 / 0.52);
+  }
+
+  .master-card:hover {
+    @apply -translate-y-1 border-brass-500/45;
+    box-shadow: 0 28px 65px -24px rgb(var(--color-brass-500) / 0.28);
+  }
+
+  html.light .master-card {
+    box-shadow: 0 18px 40px -24px rgb(61 42 20 / 0.2);
+  }
+
+  .master-card-photo {
+    background: linear-gradient(145deg, rgb(var(--color-ink-800)) 0%, rgb(var(--color-ink-950)) 100%);
+  }
+
+  .master-card-photo-overlay {
+    background: linear-gradient(to top, rgb(var(--master-overlay) / 0.96) 0%, rgb(var(--master-overlay) / 0.22) 44%, transparent 75%);
+  }
+
+  .master-card-role {
+    @apply border border-brass-500/45 px-3 py-1 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-brass-400 backdrop-blur-sm;
+    background: rgb(var(--master-card-bottom) / 0.82);
+  }
+
+  .master-card-stat {
+    @apply rounded-lg border border-parchment-100/15 px-3 py-2.5;
+    background: rgb(var(--master-stat));
   }
 
   /* Shared form treatment: applies to every admin and student form, including

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useLayoutEffect, useState } from 'react';
 
 const ThemeContext = createContext(null);
 
@@ -6,22 +6,27 @@ const STORAGE_KEY = 'ks-theme';
 
 const getInitialTheme = () => {
   if (typeof window === 'undefined') return 'dark';
-  const stored = window.localStorage.getItem(STORAGE_KEY);
-  if (stored === 'light' || stored === 'dark') return stored;
+  try {
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    if (stored === 'light' || stored === 'dark') return stored;
+  } catch (_) {
+    // Storage can be unavailable in private or restricted browser contexts.
+  }
   return 'dark';
 };
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(getInitialTheme);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = document.documentElement;
-    if (theme === 'light') {
-      root.classList.add('light');
-    } else {
-      root.classList.remove('light');
+    root.classList.toggle('light', theme === 'light');
+    root.style.colorScheme = theme;
+    try {
+      window.localStorage.setItem(STORAGE_KEY, theme);
+    } catch (_) {
+      // Keep the selected theme for the current session if persistence fails.
     }
-    window.localStorage.setItem(STORAGE_KEY, theme);
   }, [theme]);
 
   const toggleTheme = () => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));

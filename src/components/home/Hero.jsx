@@ -177,11 +177,10 @@ const Hero = () => {
           >
             {/* MOBILE-ONLY floating framed image, sits to the right of the heading */}
             <motion.div
-              initial={{ opacity: 0, x: 120, scale: 1.3 }}
+              initial={{ opacity: 0, x: 48 }}
               animate={{
                 opacity: 1,
                 x: 0,
-                scale: 1.3,
               }}
               transition={{
                 duration: 0.8,

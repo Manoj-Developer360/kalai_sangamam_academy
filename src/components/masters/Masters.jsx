@@ -31,10 +31,10 @@ const MasterCard = ({ master, index }) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.45, delay: index * 0.06 }}
-    className="group relative overflow-hidden rounded-2xl border border-parchment-100/12 bg-gradient-to-b from-ink-900/80 to-ink-950 shadow-[0_18px_50px_-28px_rgba(0,0,0,0.9)] transition-all duration-300 hover:-translate-y-1 hover:border-brass-500/40 hover:shadow-[0_28px_65px_-24px_rgba(224,133,50,0.25)]"
+    className="master-card group"
   >
     {/* PHOTO */}
-    <div className="relative aspect-[1.08/1] overflow-hidden bg-gradient-to-br from-ink-800 via-ink-900 to-ink-950">
+    <div className="master-card-photo relative aspect-[1.08/1] overflow-hidden">
       {master.photo_url ? (
         <img
           src={master.photo_url}
@@ -47,10 +47,10 @@ const MasterCard = ({ master, index }) => (
           <span className="font-display text-4xl text-brass-400">{initials(master.name)}</span>
         </div>
       )}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/10 to-transparent" />
+      <div className="master-card-photo-overlay " />
 
       {/* ROLE BADGE */}
-      <span className="absolute top-3 left-3 rounded-full border border-brass-500/40 bg-ink-950/80 px-3 py-1 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-brass-400 backdrop-blur-sm">
+      <span className="master-card-role absolute top-3 left-3 rounded-full">
         {master.role}
       </span>
     </div>
@@ -65,7 +65,7 @@ const MasterCard = ({ master, index }) => (
       {(master.specialization || master.experience_years) && (
         <div className="mt-4 grid grid-cols-2 gap-3">
           {master.specialization && (
-            <div className="rounded-lg border border-parchment-100/10 bg-ink-900/50 px-3 py-2.5">
+            <div className="master-card-stat">
               <div className="flex items-center gap-1.5 text-brass-500">
                 <FiAward className="text-xs shrink-0" />
                 <span className="text-[0.6rem] font-semibold uppercase tracking-[0.1em]">Specialty</span>
@@ -76,7 +76,7 @@ const MasterCard = ({ master, index }) => (
             </div>
           )}
           {master.experience_years && (
-            <div className="rounded-lg border border-parchment-100/10 bg-ink-900/50 px-3 py-2.5">
+            <div className="master-card-stat">
               <div className="flex items-center gap-1.5 text-brass-500">
                 <FiClock className="text-xs shrink-0" />
                 <span className="text-[0.6rem] font-semibold uppercase tracking-[0.1em]">Experience</span>
