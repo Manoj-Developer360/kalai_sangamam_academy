@@ -154,7 +154,7 @@
   }
 
   .eyebrow {
-    @apply text-brass-500 font-body text-[0.7rem] font-semibold tracking-[0.2em] uppercase;
+    @apply text-brass-500 font-body text-[1.5rem] font-semibold tracking-[0.2em] uppercase;
   }
 
   .section-heading {
