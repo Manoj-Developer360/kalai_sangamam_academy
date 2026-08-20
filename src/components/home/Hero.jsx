@@ -211,7 +211,7 @@ const Hero = () => {
             </motion.div>
 
             <p className="eyebrow mb-4 pr-28 sm:pr-36 lg:pr-0">
-              Kalai Sangamam &middot; Dindigul
+              Kalai Sangamam
             </p>
 
             {/* Tamil display heading — negative tracking removed and line-height opened up,

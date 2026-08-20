@@ -581,8 +581,8 @@ const EventEnquiry = () => {
 
   return (
     <div className="card p-7 sm:p-8">
-      <div className="flex items-center gap-2 mb-2 text-brass-500 text-xs uppercase tracking-[0.22em] font-mono">
-        <FiCalendar aria-hidden="true" /> Upcoming Events & Enquiries
+      <div className="eyebrow mb-2">
+         Upcoming Events & Enquiries
       </div>
       <p className="text-slate-400 text-sm mb-6">
         Ask about upcoming competitions, event registration, participation details, schedules, or registration deadlines.
