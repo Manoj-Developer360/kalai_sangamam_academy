@@ -236,7 +236,7 @@ const Hero = () => {
 
             {/* Tamil display heading — negative tracking removed and line-height opened up,
                 since Tamil conjuncts/matras clip under tight latin-style leading/tracking */}
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-display font-bold leading-[1.25] tracking-wider text-parchment-100">
+            <h1 className="text-xl sm:text-4xl lg:text-5xl xl:text-6xl sm:text-left text-center font-display font-bold leading-[1.25] tracking-wider text-parchment-100">
               <span className="lg:hidden">
                 Tradition. <span className="text-brass-400">Discipline.</span>{" "}
                 Champions.
@@ -261,7 +261,7 @@ const Hero = () => {
                 delay: 0.15,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="relative mx-auto mt-6 w-full max-w-[28rem] overflow-hidden border border-brass-500/25 bg-ink-800/70 p-2 shadow-[0_28px_70px_-38px_rgba(224,133,50,0.7)] lg:hidden"
+              className="relative mx-auto mt-4 w-full max-w-[28rem] overflow-hidden border border-brass-500/25 bg-ink-800/70 p-2 shadow-[0_28px_70px_-38px_rgba(224,133,50,0.7)] lg:hidden"
             >
               <motion.img
                 src={academyImage}
@@ -312,7 +312,7 @@ const Hero = () => {
             </div> */}
 
             {/* short Tamil affirmation line, set apart with a brass rule above it */}
-            <div className="mt-4 border-t border-brass-500/20 pt-6">
+            <div className="mt-0 sm:mt-4 sm:border-t border-brass-500/20 pt-6">
               <p className="font-display text-base sm:text-lg leading-relaxed text-parchment-100">
                 கலையை கற்று. ஒழுக்கத்தை வளர்த்து.
                 <br className="hidden sm:block" /> உன் வெற்றியை உருவாக்கு.
