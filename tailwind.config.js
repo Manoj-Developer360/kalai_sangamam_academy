@@ -46,9 +46,10 @@ export default {
         onaccent: '#15100b',
       },
       fontFamily: {
-        display: ['"Playfair Display"', 'serif'],
-        body: ['"Inter"', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'monospace'],
+        display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        heading: ['"Playfair Display"', 'Georgia', 'serif'],
+        body: ['"Manrope"', 'system-ui', 'sans-serif'],
+        mono: ['"Manrope"', 'system-ui', 'sans-serif'],
       },
       backgroundImage: {
         'stick-sweep': 'linear-gradient(105deg, transparent 48%, #C89B3C 48.5%, #C89B3C 50%, transparent 50.5%)',

@@ -27,7 +27,7 @@ const StudentDashboardHome = () => {
       <p className="text-slate-500 text-sm mb-8">Here's a quick look at your training status.</p>
 
       <div className="grid sm:grid-cols-3 gap-5">
-        <div className="card p-6">
+        <div className="card student-stat--attendance p-6">
           <FiCheckSquare className="text-brass-500 text-2xl mb-3" />
           <p className="text-2xl font-mono text-parchment-100">{attendance ? `${attendance.percentage}%` : '—'}</p>
           <p className="text-slate-400 text-xs mt-1">Attendance this period</p>

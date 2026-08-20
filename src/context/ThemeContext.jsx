@@ -12,7 +12,7 @@ const getInitialTheme = () => {
   } catch (_) {
     // Storage can be unavailable in private or restricted browser contexts.
   }
-  return 'dark';
+  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 };
 
 export const ThemeProvider = ({ children }) => {

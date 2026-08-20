@@ -5,12 +5,12 @@ import { adminService } from '../../services/adminService';
 import { ErrorState } from '../../components/common/StateViews.jsx';
 
 const CARDS = [
-  { key: 'totalStudents', label: 'Total Students', icon: FiUsers },
-  { key: 'activeStudents', label: 'Active Students', icon: FiUserCheck },
-  { key: 'totalMasters', label: 'Total Masters', icon: FiUserCheck },
-  { key: 'upcomingEvents', label: 'Upcoming Events', icon: FiCalendar },
-  { key: 'pendingFees', label: 'Pending Fees', icon: FiCreditCard },
-  { key: 'galleryItems', label: 'Gallery Items', icon: FiImage },
+  { key: 'totalStudents', label: 'Total Students', icon: FiUsers, accent: 'border-brass-500' },
+  { key: 'activeStudents', label: 'Active Students', icon: FiUserCheck, accent: 'border-emerald-500' },
+  { key: 'totalMasters', label: 'Total Masters', icon: FiUserCheck, accent: 'border-sky-500' },
+  { key: 'upcomingEvents', label: 'Upcoming Events', icon: FiCalendar, accent: 'border-violet-500' },
+  { key: 'pendingFees', label: 'Pending Fees', icon: FiCreditCard, accent: 'border-amber-500' },
+  { key: 'galleryItems', label: 'Gallery Items', icon: FiImage, accent: 'border-rose-500' },
 ];
 
 const AdminDashboardHome = () => {
@@ -31,7 +31,7 @@ const AdminDashboardHome = () => {
       {stats && (
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {CARDS.map((c) => (
-            <div key={c.key} className="card p-6">
+            <div key={c.key} className={`card border-l-2 p-6 ${c.accent}`}>
               <c.icon className="text-brass-500 text-2xl mb-3" />
               <p className="text-2xl font-mono text-parchment-100">{stats[c.key]}</p>
               <p className="text-slate-400 text-xs mt-1">{c.label}</p>

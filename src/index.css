@@ -12,26 +12,26 @@
      can apply opacity modifiers (e.g. bg-ink-900/80).
   --------------------------------------------------------------------- */
   :root {
-    /* Dark theme (default) */
-    --color-ink-950: 7 5 4;      /* #070504 deepest page canvas */
-    --color-ink-900: 16 13 10;   /* #100D0A panel / card surface */
-    --color-ink-800: 24 20 16;   /* #181410 hover / skeleton surface */
-    --color-ink-700: 44 38 32;   /* #2C2620 borders / dividers */
+    /* Imperial dark: deep charcoal surfaces, never pure black. */
+    --color-ink-950: 18 18 16;   /* #121210 page canvas */
+    --color-ink-900: 28 28 26;   /* #1C1C1A card surface */
+    --color-ink-800: 38 37 34;   /* #262522 elevated surface */
+    --color-ink-700: 48 47 43;   /* #302F2B borders / dividers */
 
-    --color-brass-200: 243 217 174; /* #F3D9AE */
-    --color-brass-300: 235 180 110; /* #EBB46E */
-    --color-brass-400: 230 154 63;  /* #E69A3F */
-    --color-brass-500: 201 123 40;  /* #C97B28 primary accent */
-    --color-brass-600: 167 100 34;  /* #A76422 */
+    --color-brass-200: 239 221 166;
+    --color-brass-300: 220 190 101;
+    --color-brass-400: 211 174 63;
+    --color-brass-500: 197 155 39;  /* #C59B27 Imperial Gold */
+    --color-brass-600: 164 127 30;  /* #A47F1E gold hover */
 
     --color-maroon-300: 201 118 134; /* #C97686 */
     --color-maroon-400: 168 70 90;   /* #A8465A */
     --color-maroon-500: 133 43 56;   /* #852B38 */
     --color-maroon-600: 97 32 43;    /* #61202B */
 
-    --color-parchment-100: 247 240 232; /* #F7F0E8 primary text on dark */
-    --color-parchment-200: 239 228 212; /* #EFE4D4 */
-    --color-parchment-300: 220 207 188; /* #DCCFBC secondary text */
+    --color-parchment-100: 245 244 240; /* #F5F4F0 primary text on dark */
+    --color-parchment-200: 222 220 213;
+    --color-parchment-300: 161 158 149; /* #A19E95 secondary text */
 
     --color-slate-300: 166 171 184; /* #A6ABB8 */
     --color-slate-400: 141 148 165; /* #8D94A5 */
@@ -39,12 +39,12 @@
     --color-slate-600: 92 96 114;   /* #5C6072 */
 
     /* Body background gradient stops */
-    --bg-glow: 112 70 32;
-    --bg-1: 9 7 5;
-    --bg-2: 13 9 6;
-    --bg-3: 18 12 7;
-    --bg-4: 11 8 6;
-    --bg-5: 7 5 4;
+    --bg-glow: 197 155 39;
+    --bg-1: 18 18 16;
+    --bg-2: 23 23 20;
+    --bg-3: 18 18 16;
+    --bg-4: 23 23 20;
+    --bg-5: 18 18 16;
 
     /* Masters cards: a more composed editorial surface than generic cards. */
     --master-card-top: 25 20 15;
@@ -56,38 +56,38 @@
   }
 
   html.light {
-    /* Light theme */
-    --color-ink-950: 250 246 240; /* #FAF6F0 lightest page canvas */
-    --color-ink-900: 243 235 222; /* #F3EBDE panel / card surface */
-    --color-ink-800: 233 221 201; /* #E9DDC9 hover / skeleton surface */
-    --color-ink-700: 214 197 168; /* #D6C5A8 borders / dividers */
+    /* Premium public light: warm, quiet and editorial. */
+    --color-ink-950: 252 251 247; /* #FCFBF7 page canvas */
+    --color-ink-900: 255 255 255; /* #FFFFFF card surface */
+    --color-ink-800: 244 240 230; /* #F4F0E6 elevated surface */
+    --color-ink-700: 231 226 215; /* #E7E2D7 borders / dividers */
 
-    --color-brass-200: 250 226 190; /* #FAE2BE */
-    --color-brass-300: 240 195 130; /* #F0C382 */
-    --color-brass-400: 214 137 45;  /* #D6892D */
-    --color-brass-500: 184 106 26;  /* #B86A1A primary accent */
-    --color-brass-600: 150 86 20;   /* #965614 */
+    --color-brass-200: 239 221 166;
+    --color-brass-300: 220 190 101;
+    --color-brass-400: 197 155 39;
+    --color-brass-500: 197 155 39;
+    --color-brass-600: 164 127 30;
 
     --color-maroon-300: 196 108 122; /* #C46C7A */
     --color-maroon-400: 163 61 79;   /* #A33D4F */
     --color-maroon-500: 133 43 56;   /* #852B38 (kept — reads fine on light bg) */
     --color-maroon-600: 97 32 43;    /* #61202B */
 
-    --color-parchment-100: 34 26 18;  /* #221A12 primary text on light */
-    --color-parchment-200: 51 40 28;  /* #33281C */
-    --color-parchment-300: 74 59 42;  /* #4A3B2A secondary text */
+    --color-parchment-100: 28 28 28;  /* #1C1C1C primary text on light */
+    --color-parchment-200: 53 51 47;
+    --color-parchment-300: 94 91 84;  /* #5E5B54 secondary text */
 
     --color-slate-300: 90 96 112;  /* #5A6070 */
     --color-slate-400: 74 79 94;   /* #4A4F5E */
     --color-slate-500: 58 62 75;   /* #3A3E4B */
     --color-slate-600: 45 48 59;   /* #2D303B */
 
-    --bg-glow: 201 123 40;
-    --bg-1: 253 251 247;
-    --bg-2: 250 243 233;
-    --bg-3: 246 236 220;
-    --bg-4: 250 243 233;
-    --bg-5: 253 251 247;
+    --bg-glow: 197 155 39;
+    --bg-1: 252 251 247;
+    --bg-2: 248 246 240;
+    --bg-3: 252 251 247;
+    --bg-4: 248 246 240;
+    --bg-5: 252 251 247;
 
     --master-card-top: 255 253 249;
     --master-card-bottom: 248 242 232;
@@ -100,6 +100,8 @@
   html {
     scroll-behavior: smooth;
     min-height: 100%;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
   html, body, #root {
     min-height: 100%;
@@ -113,6 +115,7 @@
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
+    overflow-wrap: break-word;
   }
   #root {
     min-height: 100vh;
@@ -124,6 +127,15 @@
   h3,
   h4 {
     @apply font-display tracking-tight text-parchment-100;
+  }
+
+  img, svg, video, canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  button, input, select, textarea {
+    font: inherit;
   }
 
   ::selection {
@@ -138,23 +150,23 @@
 
 @layer components {
   .container-xl {
-    @apply max-w-7xl mx-auto px-5 sm:px-8 lg:px-10;
+    @apply w-full max-w-[90rem] mx-auto px-5 sm:px-8 lg:px-10;
   }
 
   .eyebrow {
-    @apply text-brass-500 font-mono text-xs tracking-[0.25em] uppercase;
+    @apply text-brass-500 font-body text-[0.7rem] font-semibold tracking-[0.2em] uppercase;
   }
 
   .section-heading {
-    @apply text-3xl sm:text-4xl lg:text-5xl font-display font-semibold text-parchment-100;
+    @apply text-[clamp(2.25rem,5vw,4.25rem)] leading-[0.95] font-display font-semibold text-parchment-100;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-brass-500 text-onaccent font-display font-semibold uppercase tracking-wide text-sm rounded-sm shadow-[0_16px_40px_-18px_rgba(232,133,50,0.8)] transition-all duration-200 hover:bg-brass-400;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 px-6 py-3 bg-brass-500 text-onaccent font-body font-bold uppercase tracking-[0.08em] text-xs rounded-md shadow-[0_16px_40px_-18px_rgba(232,133,50,0.8)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-brass-400 disabled:pointer-events-none disabled:opacity-60;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 border border-brass-500/30 text-parchment-100 font-display font-semibold uppercase tracking-wide text-sm rounded-sm hover:border-brass-400 hover:text-brass-400 transition-colors duration-200;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 px-6 py-3 border border-brass-500/30 text-parchment-100 font-body font-bold uppercase tracking-[0.08em] text-xs rounded-md hover:border-brass-400 hover:text-brass-400 disabled:pointer-events-none disabled:opacity-60 transition-colors duration-200;
     background: rgb(var(--color-parchment-100) / 0.03);
     backdrop-filter: blur(12px);
   }
@@ -164,7 +176,7 @@
   }
 
   .card {
-    @apply bg-ink-900/90 border border-parchment-100/10 rounded-3xl transition-colors duration-300;
+    @apply bg-ink-900/90 border border-parchment-100/10 rounded-2xl transition-colors duration-300;
   }
 
   .master-card {
@@ -292,4 +304,72 @@
   .skeleton {
     @apply animate-pulse bg-ink-700 rounded-md;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Product-area accents: the same component system serves three distinct
+   experiences without copying pages or introducing a second CSS framework. */
+.student-portal {
+  --portal-blue: 43 108 176;
+  --portal-blue-surface: 235 245 255;
+}
+
+html.light .student-portal {
+  --color-ink-950: 244 246 248;
+  --color-ink-900: 255 255 255;
+  --color-ink-800: 235 245 255;
+  --color-ink-700: 222 226 230;
+  --color-parchment-100: 26 32 44;
+  --color-parchment-200: 45 55 72;
+  --color-parchment-300: 74 85 104;
+  --color-slate-300: 74 85 104;
+  --color-slate-400: 90 101 119;
+  --color-slate-500: 113 128 150;
+}
+
+html:not(.light) .student-portal {
+  --color-ink-950: 26 32 44;
+  --color-ink-900: 45 55 72;
+  --color-ink-800: 36 45 58;
+  --color-ink-700: 74 85 104;
+  --color-parchment-100: 237 242 247;
+  --color-parchment-200: 203 213 224;
+  --color-parchment-300: 148 163 184;
+  --portal-blue: 99 179 237;
+  --portal-blue-surface: 37 55 77;
+}
+
+.student-stat--attendance {
+  border-color: rgb(var(--portal-blue) / 0.32);
+}
+
+.student-stat--attendance svg {
+  color: rgb(var(--portal-blue));
+}
+
+html.light .admin-portal {
+  --color-ink-950: 248 249 250;
+  --color-ink-900: 255 255 255;
+  --color-ink-800: 248 249 250;
+  --color-ink-700: 222 226 230;
+  --color-parchment-100: 33 37 41;
+  --color-parchment-200: 73 80 87;
+  --color-parchment-300: 108 117 125;
+}
+
+html.light .admin-portal aside {
+  background-color: rgb(28 28 28);
+  --color-parchment-100: 234 234 234;
+  --color-parchment-200: 210 210 210;
+  --color-parchment-300: 170 170 170;
+  --color-slate-400: 185 185 185;
+  --color-slate-500: 150 150 150;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import {
   FiHome, FiUsers, FiUserCheck, FiBookOpen, FiAward, FiImage,
@@ -28,6 +28,14 @@ const AdminDashboardLayout = ({ children }) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const closeDesktopMenu = () => {
+      if (window.innerWidth >= 1024) setOpen(false);
+    };
+    window.addEventListener('resize', closeDesktopMenu);
+    return () => window.removeEventListener('resize', closeDesktopMenu);
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -67,7 +75,7 @@ const AdminDashboardLayout = ({ children }) => {
   );
 
   return (
-    <div className="min-h-screen bg-ink-950 lg:flex">
+    <div className="admin-portal min-h-screen bg-ink-950 lg:flex">
       <aside className="hidden lg:flex flex-col w-64 shrink-0 bg-ink-900 border-r border-parchment-100/5 p-6 h-screen sticky top-0">
         <SidebarContent />
       </aside>
@@ -83,7 +91,7 @@ const AdminDashboardLayout = ({ children }) => {
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div className="absolute inset-0 bg-ink-950/70" onClick={() => setOpen(false)} />
-          <aside className="absolute left-0 top-0 bottom-0 w-72 bg-ink-900 p-6 flex flex-col">
+          <aside className="absolute left-0 top-0 bottom-0 w-72 max-w-[86vw] bg-ink-900 p-6 flex flex-col shadow-2xl">
             <button onClick={() => setOpen(false)} className="self-end text-parchment-100 text-xl mb-4"><FiX /></button>
             <SidebarContent />
           </aside>

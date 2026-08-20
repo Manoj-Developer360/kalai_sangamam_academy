@@ -28,8 +28,15 @@ const Navbar = () => {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
+    const onResize = () => {
+      if (window.innerWidth >= 1280) setOpen(false);
+    };
     window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener('resize', onResize);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onResize);
+    };
   }, []);
 
   return (
@@ -39,9 +46,9 @@ const Navbar = () => {
       }`}
     >
       <div className="container-xl flex items-center justify-between h-16 lg:h-20">
-        <a href="#home" className="font-display text-xl lg:text-2xl font-semibold text-brass-400">
+        <Link to="/" className="font-display text-xl lg:text-2xl font-semibold text-brass-400">
           Kalai <span className="text-brass-500">Sangamam</span>
-        </a>
+        </Link>
 
         <nav className="hidden xl:flex items-center gap-6">
           {NAV_LINKS.map((link) => {
@@ -63,7 +70,7 @@ const Navbar = () => {
                 key={link.href}
                 to={link.href}
                 className={({ isActive }) =>
-                  `text-sm transition-colors ${isActive ? 'text-brass-400' : 'text-parchment-300 hover:text-brass-400'}`
+                  `relative py-2 text-sm transition-colors after:absolute after:inset-x-0 after:-bottom-1 after:h-px after:origin-left after:bg-brass-500 after:transition-transform ${isActive ? 'text-brass-400 after:scale-x-100' : 'text-parchment-300 after:scale-x-0 hover:text-brass-400 hover:after:scale-x-100'}`
                 }
               >
                 {link.label}
@@ -93,7 +100,7 @@ const Navbar = () => {
         <div className="flex items-center gap-3 xl:hidden">
           <ThemeToggle />
           <button
-            className="text-parchment-100 text-2xl"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-sm border border-parchment-100/10 text-2xl text-parchment-100 transition-colors hover:border-brass-500 hover:text-brass-400"
             onClick={() => setOpen((o) => !o)}
             aria-label="Toggle menu"
           >
@@ -103,7 +110,7 @@ const Navbar = () => {
       </div>
 
       {open && (
-        <div className="xl:hidden bg-ink-900 border-t border-parchment-100/5 px-5 py-6 flex flex-col gap-4">
+        <div className="xl:hidden border-t border-parchment-100/10 bg-ink-900 px-5 py-6 shadow-xl flex flex-col gap-2">
           {NAV_LINKS.map((link) => {
             if (link.href.startsWith('/#')) {
               return (
@@ -111,7 +118,7 @@ const Navbar = () => {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="text-parchment-200 text-sm"
+                  className="rounded-md px-3 py-3 text-parchment-200 text-sm hover:bg-ink-800 hover:text-brass-400"
                 >
                   {link.label}
                 </a>
@@ -123,7 +130,7 @@ const Navbar = () => {
                 key={link.href}
                 to={link.href}
                 onClick={() => setOpen(false)}
-                className="text-parchment-200 text-sm"
+                className="rounded-md px-3 py-3 text-parchment-200 text-sm hover:bg-ink-800 hover:text-brass-400"
               >
                 {link.label}
               </Link>
