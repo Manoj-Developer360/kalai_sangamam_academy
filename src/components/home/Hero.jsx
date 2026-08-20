@@ -12,6 +12,8 @@ import {
   FiActivity,
   FiTarget,
   FiBookOpen,
+  FiChevronLeft,
+  FiChevronRight,
 } from "react-icons/fi";
 import { publicService } from "../../services/publicService";
 import academyImage from "../../assets/images/hero/banner.jpg";
@@ -39,16 +41,57 @@ const formatEventDate = (date) =>
       })
     : null;
 
+const EventQueueControls = ({
+  activeIndex,
+  events,
+  onSelect,
+  compact = false,
+}) => {
+  if (events.length < 2) return null;
+
+  return (
+    <div
+      className={`flex items-center ${compact ? "justify-between" : "justify-end"} gap-2`}
+    >
+      {!compact && (
+        <span className="mr-1 font-mono text-[0.62rem] tracking-[0.16em] text-parchment-300/45">
+          {String(activeIndex + 1).padStart(2, "0")} /{" "}
+          {String(events.length).padStart(2, "0")}
+        </span>
+      )}
+      <button
+        type="button"
+        onClick={() =>
+          onSelect((activeIndex - 1 + events.length) % events.length)
+        }
+        aria-label="Show previous event"
+        className="grid h-8 w-8 place-items-center border border-parchment-100/15 text-parchment-300 transition hover:border-brass-500/60 hover:text-brass-400"
+      >
+        <FiChevronLeft />
+      </button>
+      <button
+        type="button"
+        onClick={() => onSelect((activeIndex + 1) % events.length)}
+        aria-label="Show next event"
+        className="grid h-8 w-8 place-items-center border border-parchment-100/15 text-parchment-300 transition hover:border-brass-500/60 hover:text-brass-400"
+      >
+        <FiChevronRight />
+      </button>
+    </div>
+  );
+};
+
 const Hero = () => {
   const navigate = useNavigate();
-  const [heroEvent, setHeroEvent] = useState(null);
+  const [events, setEvents] = useState([]);
+  const [activeEventIndex, setActiveEventIndex] = useState(0);
   const [flashNews, setFlashNews] = useState("");
 
   useEffect(() => {
     publicService
-      .getHeroEvent()
-      .then(({ data }) => setHeroEvent(data.data || null))
-      .catch(() => setHeroEvent(null));
+      .getEvents()
+      .then(({ data }) => setEvents(Array.isArray(data.data) ? data.data : []))
+      .catch(() => setEvents([]));
 
     publicService
       .getSiteSettings()
@@ -58,6 +101,13 @@ const Hero = () => {
       })
       .catch(() => setFlashNews(""));
   }, []);
+
+  useEffect(() => {
+    if (activeEventIndex >= events.length) setActiveEventIndex(0);
+  }, [activeEventIndex, events.length]);
+
+  const heroEvent = events[activeEventIndex] || null;
+  const eventNumber = String(activeEventIndex + 1).padStart(2, "0");
 
   const navigateToPrograms = () => {
     navigate("/programs");
@@ -142,7 +192,7 @@ const Hero = () => {
               </span>
               <div className="min-w-0">
                 <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.24em] text-brass-500">
-                  {heroEvent ? "Featured Event" : "Flash News"}
+                  {heroEvent ? `Featured Event ${eventNumber}` : "Flash News"}
                 </p>
                 <h4 className="mt-1 truncate font-display text-lg leading-tight text-parchment-100">
                   {heroEvent ? heroEvent.title : "No featured event"}
@@ -154,16 +204,23 @@ const Hero = () => {
                 </p>
               </div>
             </div>
-            <button
-              onClick={() =>
-                navigate(
-                  heroEvent ? `/events#event-${heroEvent.id}` : "/events",
-                )
-              }
-              className="flex shrink-0 items-center gap-2 px-3 py-2 font-display text-sm font-semibold uppercase tracking-wide text-parchment-100 transition-colors hover:text-brass-400"
-            >
-              View All Events <FiArrowRight className="text-brass-500" />
-            </button>
+            <div className="flex shrink-0 items-center gap-2">
+              <EventQueueControls
+                activeIndex={activeEventIndex}
+                events={events}
+                onSelect={setActiveEventIndex}
+              />
+              <button
+                onClick={() =>
+                  navigate(
+                    heroEvent ? `/events#event-${heroEvent.id}` : "/events",
+                  )
+                }
+                className="flex items-center gap-2 px-3 py-2 font-display text-sm font-semibold uppercase tracking-wide text-parchment-100 transition-colors hover:text-brass-400"
+              >
+                View All Events <FiArrowRight className="text-brass-500" />
+              </button>
+            </div>
           </div>
         </motion.div>
 
@@ -175,60 +232,63 @@ const Hero = () => {
             transition={{ duration: 0.6 }}
             className="relative lg:w-[46%]"
           >
-            {/* MOBILE-ONLY floating framed image, sits to the right of the heading */}
-            <motion.div
-              initial={{ opacity: 0, x: 48 }}
-              animate={{
-                opacity: 1,
-                x: 0,
-              }}
-              transition={{
-                duration: 0.8,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="absolute right-5 top-9 z-10 h-28 w-28 sm:h-36 sm:w-32 lg:hidden"
-            >
-              <div className="relative h-full w-full overflow-hidden rounded-sm">
-                {/* Image */}
-                <img
-                  src={academyImage}
-                  alt="Kalai Sangamam academy"
-                  className="h-full w-full object-cover"
-                  style={{
-                    WebkitMaskImage: `
-    linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%)
-  `,
-                    WebkitMaskComposite: "source-in",
-                    maskImage: `
-    linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%)
-  `,
-                    maskComposite: "intersect",
-                  }}
-                />
-              </div>
-            </motion.div>
-
-            <p className="eyebrow mb-4 pr-28 sm:pr-36 lg:pr-0">
-              Kalai Sangamam
-            </p>
+            <p className="eyebrow mb-4">Kalai Sangamam</p>
 
             {/* Tamil display heading — negative tracking removed and line-height opened up,
                 since Tamil conjuncts/matras clip under tight latin-style leading/tracking */}
-            <h1 className="pr-28 sm:pr-36 lg:pr-0 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-display font-bold leading-[1.25] tracking-wider text-parchment-100">
-              Tradition.
-              <br />
-              <span className="text-brass-400">Discipline.</span>
-              <br />
-              Champions.
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-display font-bold leading-[1.25] tracking-wider text-parchment-100">
+              <span className="lg:hidden">
+                Tradition. <span className="text-brass-400">Discipline.</span>{" "}
+                Champions.
+              </span>
+
+              <span className="hidden lg:inline">
+                Tradition.
+                <br />
+                <span className="text-brass-400">Discipline.</span>
+                <br />
+                Champions.
+              </span>
             </h1>
 
-            <p className="mt-3 font-display text-base sm:text-lg font-semibold tracking-wide text-brass-400">
+            {/* On small screens the academy image receives its own stage instead of
+                competing with the heading. The desktop banner remains untouched. */}
+            <motion.figure
+              initial={{ opacity: 0, scale: 0.92, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.15,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="relative mx-auto mt-6 w-full max-w-[28rem] overflow-hidden border border-brass-500/25 bg-ink-800/70 p-2 shadow-[0_28px_70px_-38px_rgba(224,133,50,0.7)] lg:hidden"
+            >
+              <motion.img
+                src={academyImage}
+                alt="Kalai Sangamam martial arts training"
+                initial={{ scale: 1.08 }}
+                animate={{ scale: 1 }}
+                transition={{
+                  duration: 1.2,
+                  delay: 0.15,
+                  ease: "easeOut",
+                }}
+                className="aspect-[16/9] w-full object-cover object-top"
+              />
+
+              <motion.span
+                initial={{ width: 0, opacity: 0 }}
+                animate={{ width: 80, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="absolute left-0 top-0 z-10 h-px bg-brass-500"
+              />
+            </motion.figure>
+
+            <p className="mt-3 font-display text-base sm:text-lg sm:text-left text-center font-semibold tracking-wide text-brass-400">
               Where Tradition Builds Champions.
             </p>
 
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-300 text-justify lg:text-lg">
+            <p className="hidden mt-6 max-w-xl text-base leading-relaxed text-slate-300 text-justify lg:block lg:text-lg">
               We blend tradition, disciplined training, and modern excellence to
               build strength, focus, confidence, and character — from Silambam &
               Karate to Yoga, Skating & Archery.
@@ -278,56 +338,82 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* MOBILE-ONLY event card, kept exactly as-is per your confirmation */}
+          {/* MOBILE-ONLY event queue. It is driven by the same ordered public
+              event response as the events page, so additions/removals are automatic. */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="relative mt-8 w-full border border-parchment-100/15 bg-ink-800/80 p-6 shadow-[0_24px_90px_-55px_rgba(224,133,50,0.35)] backdrop-blur-sm sm:p-7 lg:hidden"
+            className="relative mx-auto mt-6 w-[94%] max-w-[24rem] border border-parchment-100/15 bg-ink-800/80 p-4 shadow-[0_16px_50px_-32px_rgba(224,133,50,0.4)] backdrop-blur-sm lg:hidden"
           >
-            <span className="absolute left-0 top-0 h-px w-16 bg-brass-500" />
+            <span className="absolute left-0 top-0 h-px w-14 bg-brass-500" />
+
             {heroEvent ? (
               <>
-                <div className="flex items-center justify-between border-b border-parchment-100/10 pb-5">
-                  <span className="flex items-center gap-2 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-brass-500">
-                    <span className="h-1.5 w-1.5 rounded-full bg-brass-500 shadow-[0_0_12px_rgba(224,133,50,0.8)]" />
+                <div className="flex items-center justify-between border-b border-parchment-100/10 pb-3">
+                  <span className="flex items-center gap-2 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-brass-500">
+                    <span className="h-1.5 w-1.5 rounded-full bg-brass-500 shadow-[0_0_10px_rgba(224,133,50,0.8)]" />
                     Featured Event
                   </span>
-                  <span className="font-mono text-xs text-parchment-300/50">
-                    01
+
+                  <span className="font-mono text-[0.68rem] text-parchment-300/50">
+                    {eventNumber}
                   </span>
                 </div>
 
-                <div className="grid gap-5 py-7 sm:grid-cols-[3.25rem_1fr]">
-                  <span className="grid h-12 w-12 place-items-center border border-brass-500/25 text-brass-500">
-                    <FiCalendar className="text-lg" />
+                <div className="flex items-center gap-4 py-4">
+                  {/* Event Image */}
+                  <span className="grid h-16 w-24 shrink-0 place-items-center overflow-hidden border border-brass-500/25 bg-ink-900 text-brass-500">
+                    {heroEvent.image_url ? (
+                      <img
+                        src={heroEvent.image_url}
+                        alt=""
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <FiCalendar className="text-lg" />
+                    )}
                   </span>
-                  <div>
-                    <p className="mb-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-parchment-300/55">
+
+                  {/* Event Content */}
+                  <div className="min-w-0 flex-1">
+                    <p className="mb-1.5 font-mono text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-parchment-300/55">
                       Upcoming Event
                     </p>
-                    <h3 className="font-display text-2xl leading-[1.05] text-parchment-100 lg:text-3xl">
+
+                    <h3 className="truncate font-display text-xl leading-tight text-parchment-100">
                       {heroEvent.title}
                     </h3>
-                    <div className="mt-5 grid gap-2.5 text-sm text-parchment-300/65">
-                      <div className="flex items-center gap-2.5">
-                        <FiCalendar className="text-brass-500" />
+
+                    <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-parchment-300/65">
+                      <div className="flex items-center gap-1.5">
+                        <FiCalendar className="shrink-0 text-brass-500" />
                         <span>
                           {formatEventDate(heroEvent.event_date) ||
                             "Date to be announced"}
                         </span>
                       </div>
-                      <div className="flex items-center gap-2.5">
-                        <FiMapPin className="text-brass-500" />
+
+                      <div className="flex items-center gap-1.5">
+                        <FiMapPin className="shrink-0 text-brass-500" />
                         <span>Dindigul</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
+                <div className="border-t border-parchment-100/10 pt-4">
+                  <EventQueueControls
+                    activeIndex={activeEventIndex}
+                    events={events}
+                    onSelect={setActiveEventIndex}
+                    compact
+                  />
+                </div>
+
                 <button
                   onClick={() => navigate(`/events#event-${heroEvent.id}`)}
-                  className="w-full flex items-center justify-between border-t border-parchment-100/10 pt-5 font-display text-sm font-semibold uppercase tracking-wide text-parchment-100 transition-colors hover:text-brass-400"
+                  className="w-full flex items-center justify-between pt-5 font-display text-sm font-semibold uppercase tracking-wide text-parchment-100 transition-colors hover:text-brass-400"
                 >
                   <span>View Event</span>
                   <FiArrowRight className="text-brass-500" />
