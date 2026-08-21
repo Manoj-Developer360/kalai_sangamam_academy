@@ -6,10 +6,9 @@ import SectionHeading from '../common/SectionHeading';
 import { SkeletonGrid, ErrorState, EmptyState } from '../common/StateViews';
 import { publicService } from '../../services/publicService';
 
-// Program media lives in frontend assets — replace these files directly,
-// no Cloudinary or backend involvement needed for this section.
-// Place images at: frontend/src/assets/images/programs/<slug>.jpg
-const programImage = (slug) => new URL(`../../assets/images/programs/${slug}.jpg`, import.meta.url).href;
+// Program media lives in frontend assets
+const programImage = (slug) =>
+  new URL(`../../assets/images/programs/${slug}.jpg`, import.meta.url).href;
 
 const Programs = () => {
   const [programs, setPrograms] = useState(null);
@@ -23,7 +22,7 @@ const Programs = () => {
   }, []);
 
   return (
-    <section id="programs" className="py-10 ">
+    <section id="programs" className="py-10">
       <div className="container-xl">
         <SectionHeading
           eyebrow="Our Training Programs"
@@ -31,9 +30,20 @@ const Programs = () => {
           subtitle="Silambam, Karate, Yoga, Skating, Archery and Hindi — each with a structured path from introduction to advanced levels."
         />
 
-        {!programs && !error && <SkeletonGrid count={6} className="sm:grid-cols-2 lg:grid-cols-3" />}
-        {error && <ErrorState message="Couldn't load training programs right now." />}
-        {programs && programs.length === 0 && <EmptyState message="Programs will be listed here soon." />}
+        {!programs && !error && (
+          <SkeletonGrid
+            count={6}
+            className="sm:grid-cols-2 lg:grid-cols-3"
+          />
+        )}
+
+        {error && (
+          <ErrorState message="Couldn't load training programs right now." />
+        )}
+
+        {programs && programs.length === 0 && (
+          <EmptyState message="Programs will be listed here soon." />
+        )}
 
         {programs && programs.length > 0 && (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -43,42 +53,82 @@ const Programs = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: i * 0.06 }}
+                transition={{
+                  duration: 0.45,
+                  delay: i * 0.06,
+                }}
                 className="card overflow-hidden flex flex-col h-full"
               >
-                <div className="h-44 overflow-hidden bg-ink-700">
-                  <img
-                    src={programImage(p.slug)}
-                    alt={p.name}
-                    onError={(e) => { e.currentTarget.style.opacity = 0; }}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  />
+                {/* IMAGE */}
+                <div className="h-52 overflow-hidden bg-white flex items-center justify-center">
+                  <div className="w-full h-52 overflow-hidden">
+                    <img
+                      src={programImage(p.slug)}
+                      alt={p.name}
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                      }}
+                      className="
+                        w-full
+                        h-full
+                        object-cover
+                        object-center
+                        hover:scale-105
+                        transition-transform
+                        duration-500
+                      "
+                    />
+                  </div>
                 </div>
+
+                {/* CONTENT */}
                 <div className="p-6 flex flex-col flex-1">
-                  <h3 className="font-display text-xl text-parchment-100">{p.name}</h3>
+                  <h3 className="font-display text-xl text-parchment-100">
+                    {p.name}
+                  </h3>
+
                   <p className="mt-2 text-brass-400 text-sm uppercase tracking-[0.22em] font-mono line-clamp-1">
-                    {p.tagline || p.training_schedule || p.introduction || 'Training program'}
+                    {p.tagline ||
+                      p.training_schedule ||
+                      p.introduction ||
+                      'Training program'}
                   </p>
-                  <p className="mt-4 text-slate-300 text-sm leading-relaxed line-clamp-3">
-                    {p.training_details || p.introduction || 'Structured training designed to build skill, discipline and confidence.'}
+
+                  <p className="mt-2 text-slate-300 text-sm leading-relaxed line-clamp-3">
+                    {p.training_details ||
+                      p.introduction ||
+                      'Structured training designed to build skill, discipline and confidence.'}
                   </p>
+
+                  {/* SHOW ONLY FIRST 2 BENEFITS */}
                   {p.benefits?.length > 0 && (
-                    <div className="mt-5 pt-5 border-t border-brass-500/15">
+                    <div className="mt-2 pt-2 border-t border-brass-500/15">
                       <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-brass-500/70">
                         Key Benefits
                       </span>
-                      <ul className="mt-3 space-y-2.5">
-                        {p.benefits.slice(0, 4).map((benefit) => (
-                          <li key={benefit} className="flex items-start gap-2.5 text-slate-300 text-sm leading-snug">
+
+                      <ul className="mt-1 space-y-2.5">
+                        {p.benefits.slice(0, 2).map((benefit) => (
+                          <li
+                            key={benefit}
+                            className="flex items-start gap-2.5 text-slate-300 text-sm leading-snug"
+                          >
                             <FiCheckCircle className="mt-0.5 shrink-0 text-brass-500 text-base" />
-                            <span className="line-clamp-1">{benefit}</span>
+
+                            <span className="line-clamp-1">
+                              {benefit}
+                            </span>
                           </li>
                         ))}
                       </ul>
                     </div>
                   )}
+
                   <div className="mt-auto pt-6">
-                    <Link to={`/programs/${p.slug}`} className="inline-flex items-center gap-1 text-sm text-brass-400 hover:gap-2 transition-all">
+                    <Link
+                      to={`/programs/${p.slug}`}
+                      className="inline-flex items-center gap-1 text-sm text-brass-400 hover:gap-2 transition-all"
+                    >
                       View More <FiArrowRight />
                     </Link>
                   </div>
