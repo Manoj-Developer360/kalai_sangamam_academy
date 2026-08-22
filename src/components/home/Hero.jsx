@@ -120,7 +120,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative pt-24 pb-16 lg:pt-20 lg:pr-12 lg:pb-0 overflow-hidden"
+      className="relative pt-20 pb-16 lg:pt-20 lg:pr-12 lg:pb-0 overflow-hidden"
     >
       <div className="absolute inset-0 -z-10">
         <div className="absolute -top-40 -left-40 w-[30rem] h-[30rem] bg-brass-500/10 rounded-full blur-3xl" />
@@ -129,7 +129,7 @@ const Hero = () => {
 
       {flashNews && (
         <div className="mb-4 flex justify-center lg:hidden">
-          <div className="flex w-full max-w-md items-center gap-3 overflow-hidden rounded-full border border-brass-500/25 bg-ink-900/80 px-3 py-2 shadow-[0_10px_30px_-18px_rgba(224,133,50,0.8)] backdrop-blur-sm sm:max-w-lg">
+          <div className="flex w-80 max-w-md items-center gap-3 overflow-hidden rounded-full border border-brass-500/25 bg-ink-900/80 px-3 py-2 shadow-[0_10px_30px_-18px_rgba(224,133,50,0.8)] backdrop-blur-sm sm:max-w-lg">
             <span className="shrink-0 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-brass-500">
               Flash News
             </span>
