@@ -91,7 +91,7 @@ const Events = ({ preview = false }) => {
           </div>
           {preview && (
             <div className="mt-8 flex justify-center">
-              <Link to="/events" className="btn-secondary group w-full sm:w-auto">
+              <Link to="/events" className="btn-secondary group w-40 sm:w-auto">
                 View All Events
                 <FiArrowRight className="transition-transform duration-200 group-hover:translate-x-1" />
               </Link>
