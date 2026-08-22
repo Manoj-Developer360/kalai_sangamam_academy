@@ -116,7 +116,7 @@ const ProgramDetailPage = () => {
                   )}
 
                   <div className="mt-6 flex flex-wrap gap-3">
-                    <Link to="/contact" className="btn-primary inline-flex">
+                    <Link to="/contact#enrol-form" className="btn-primary inline-flex">
                       Enroll in {program.name}
                     </Link>
                   </div>

@@ -458,7 +458,7 @@ const GameEnrolmentForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="card p-7 sm:p-8 space-y-4">
+    <form id="enrol-form" onSubmit={handleSubmit} noValidate className="card p-7 sm:p-8 space-y-4">
       <div>
         <p className="eyebrow mb-2">Enrol in a Program</p>
         <p className="text-slate-400 text-sm">Tell us a little about the student and we'll take it from there.</p>
@@ -588,7 +588,7 @@ const EventEnquiry = () => {
         Ask about upcoming competitions, event registration, participation details, schedules, or registration deadlines.
       </p>
 
-      <form onSubmit={handleSubmit} noValidate className="space-y-4">
+      <form id="event-enquiry" onSubmit={handleSubmit} noValidate className="space-y-4">
         <div className="grid sm:grid-cols-2 gap-4">
           <FormField
             label="Name" name="name" required

@@ -83,7 +83,7 @@ const Events = ({ preview = false }) => {
                         Register <FiExternalLink />
                       </a>
                     )}
-                    <Link to="/contact" className="btn-secondary flex-1 !py-2.5 text-xs text-center">
+                    <Link to="/contact#event-enquiry" className="btn-secondary flex-1 !py-2.5 text-xs text-center">
                       Any Queries?
                     </Link>
                     {e.qr_code_url && (
