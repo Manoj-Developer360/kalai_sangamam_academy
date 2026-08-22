@@ -58,7 +58,7 @@ const Navbar = () => {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-sm text-parchment-300 hover:text-brass-400 transition-colors"
+                  className="text-sm font-medium text-parchment-300 hover:text-brass-400 transition-colors"
                 >
                   {link.label}
                 </a>
@@ -70,7 +70,7 @@ const Navbar = () => {
                 key={link.href}
                 to={link.href}
                 className={({ isActive }) =>
-                  `relative py-2 text-sm transition-colors after:absolute after:inset-x-0 after:-bottom-1 after:h-px after:origin-left after:bg-brass-500 after:transition-transform ${isActive ? 'text-brass-400 after:scale-x-100' : 'text-parchment-300 after:scale-x-0 hover:text-brass-400 hover:after:scale-x-100'}`
+                  `relative py-2 text-sm font-medium transition-colors after:absolute after:inset-x-0 after:-bottom-1 after:h-px after:origin-left after:bg-brass-500 after:transition-transform ${isActive ? 'text-brass-400 after:scale-x-100' : 'text-parchment-300 after:scale-x-0 hover:text-brass-400 hover:after:scale-x-100'}`
                 }
               >
                 {link.label}
@@ -118,7 +118,7 @@ const Navbar = () => {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="rounded-md px-3 py-3 text-parchment-200 text-sm hover:bg-ink-800 hover:text-brass-400"
+                  className="rounded-md px-3 py-3 text-sm font-medium text-parchment-200 hover:bg-ink-800 hover:text-brass-400"
                 >
                   {link.label}
                 </a>
@@ -130,7 +130,7 @@ const Navbar = () => {
                 key={link.href}
                 to={link.href}
                 onClick={() => setOpen(false)}
-                className="rounded-md px-3 py-3 text-parchment-200 text-sm hover:bg-ink-800 hover:text-brass-400"
+                className="rounded-md px-3 py-3 text-sm font-medium text-parchment-200 hover:bg-ink-800 hover:text-brass-400"
               >
                 {link.label}
               </Link>

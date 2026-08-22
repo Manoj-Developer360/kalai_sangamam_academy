@@ -49,8 +49,8 @@ const Gallery = ({ preview = false }) => {
 
         {items && items.length > 0 && (
           <>
-          <div className="grid sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            {items.slice(0, preview ? 8 : undefined).map((item, i) => (
+          <div className={preview ? 'gallery-preview-grid' : 'grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4'}>
+            {items.slice(0, preview ? 6 : undefined).map((item, i) => (
               <motion.button
                 key={item.id}
                 initial={{ opacity: 0, scale: 0.96 }}
@@ -58,7 +58,7 @@ const Gallery = ({ preview = false }) => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: (i % 8) * 0.04 }}
                 onClick={() => setLightbox(item)}
-                className="relative aspect-square overflow-hidden rounded-md group bg-ink-700"
+                className={`relative overflow-hidden rounded-md group bg-ink-700 ${preview ? '' : 'aspect-square'}`}
               >
                 <img
                   src={item.media_type === 'video' ? item.video_url : item.image_url}
@@ -105,7 +105,7 @@ const Gallery = ({ preview = false }) => {
                 <img src={lightbox.image_url} alt={lightbox.title || lightbox.category} className="max-h-[72vh] max-w-full rounded-md object-contain" />
               )}
               <div className="mt-3 text-center">
-                <h3 className="font-display text-lg text-parchment-100">{lightbox.title || lightbox.category}</h3>
+                <h3 className="font-display text-lg font-semibold text-parchment-100">{lightbox.title || lightbox.category}</h3>
                 <p className="mt-1 text-xs text-brass-400">{lightbox.category}</p>
               </div>
             </div>

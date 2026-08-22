@@ -58,7 +58,7 @@ const MasterCard = ({ master, index }) => (
     {/* CONTENT */}
     <div className="p-5 sm:p-6 text-left">
       <span className="block h-px w-9 bg-brass-500/60 mb-3" />
-      <h3 className="font-display text-xl sm:text-[1.35rem] text-parchment-100 leading-tight">
+      <h3 className="font-display text-xl font-semibold sm:text-[1.35rem] text-parchment-100 leading-tight">
         {master.name}
       </h3>
 

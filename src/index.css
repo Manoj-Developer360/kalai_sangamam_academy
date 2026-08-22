@@ -130,7 +130,7 @@
   h2,
   h3,
   h4 {
-    @apply font-display tracking-tight text-parchment-100;
+    @apply font-display font-semibold tracking-tight text-parchment-100;
   }
 
   img, svg, video, canvas {
@@ -154,23 +154,23 @@
 
 @layer components {
   .container-xl {
-    @apply w-full max-w-[90rem] mx-auto px-5 sm:px-8 lg:px-10;
+    @apply w-full max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-10;
   }
 
   .eyebrow {
-    @apply text-brass-400 font-body text-[0.9rem] font-semibold tracking-[0.2em] uppercase sm:text-[1.5rem];
+    @apply text-brass-400 font-body text-[0.72rem] font-bold tracking-[0.14em] uppercase sm:text-sm sm:tracking-[0.16em];
   }
 
   .section-heading {
-    @apply text-[clamp(2.25rem,5vw,4.25rem)] leading-[0.95] font-display font-semibold text-parchment-100;
+    @apply text-[clamp(1.9rem,5vw,4.25rem)] leading-[1] font-display font-bold text-parchment-100;
   }
 
   .btn-primary {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 px-6 py-3 bg-brass-500 text-onaccent font-body font-bold uppercase tracking-[0.08em] text-xs rounded-md shadow-[0_16px_40px_-18px_rgba(232,133,50,0.8)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-brass-600 hover:shadow-[0_20px_42px_-18px_rgba(126,86,0,0.48)] disabled:pointer-events-none disabled:opacity-60;
+    @apply inline-flex min-h-10 items-center justify-center gap-1.5 px-4 py-2.5 bg-brass-500 text-onaccent font-body font-bold uppercase tracking-[0.06em] text-[0.68rem] rounded-md shadow-[0_16px_40px_-18px_rgba(232,133,50,0.8)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-brass-600 hover:shadow-[0_20px_42px_-18px_rgba(126,86,0,0.48)] disabled:pointer-events-none disabled:opacity-60 sm:min-h-11 sm:gap-2 sm:px-6 sm:py-3 sm:text-xs sm:tracking-[0.08em];
   }
 
   .btn-secondary {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 px-6 py-3 border border-brass-500/45 text-parchment-100 font-body font-bold uppercase tracking-[0.08em] text-xs rounded-md hover:-translate-y-0.5 hover:border-brass-400 hover:text-brass-400 disabled:pointer-events-none disabled:opacity-60 transition-all duration-200;
+    @apply inline-flex min-h-10 items-center justify-center gap-1.5 px-4 py-2.5 border border-brass-500/45 text-parchment-100 font-body font-bold uppercase tracking-[0.06em] text-[0.68rem] rounded-md hover:-translate-y-0.5 hover:border-brass-400 hover:text-brass-400 disabled:pointer-events-none disabled:opacity-60 transition-all duration-200 sm:min-h-11 sm:gap-2 sm:px-6 sm:py-3 sm:text-xs sm:tracking-[0.08em];
     background: rgb(var(--color-parchment-100) / 0.03);
     backdrop-filter: blur(12px);
   }
@@ -214,6 +214,24 @@
   .master-card-stat {
     @apply rounded-lg border border-parchment-100/15 px-3 py-2.5;
     background: rgb(var(--master-stat));
+  }
+
+  .gallery-preview-grid {
+    @apply grid grid-cols-2 auto-rows-[7.5rem] gap-3 sm:auto-rows-[9rem] sm:gap-4 lg:grid-cols-4 lg:auto-rows-[10rem];
+  }
+
+  .gallery-preview-grid > :first-child {
+    @apply col-span-2 row-span-2;
+  }
+
+  @screen lg {
+    .gallery-preview-grid > :nth-child(2) {
+      @apply row-span-2;
+    }
+
+    .gallery-preview-grid > :nth-child(5) {
+      @apply col-span-2;
+    }
   }
 
   /* Shared form treatment: applies to every admin and student form, including

@@ -83,11 +83,11 @@ const Programs = () => {
 
                 {/* CONTENT */}
                 <div className="p-6 flex flex-col flex-1">
-                  <h3 className="font-display text-xl text-parchment-100">
+                  <h3 className="font-display text-xl font-semibold text-parchment-100">
                     {p.name}
                   </h3>
 
-                  <p className="mt-2 text-brass-400 text-sm uppercase tracking-[0.22em] font-mono line-clamp-1">
+                  <p className="mt-2 text-brass-400 text-sm font-semibold uppercase tracking-[0.12em] font-mono line-clamp-1">
                     {p.tagline ||
                       p.training_schedule ||
                       p.introduction ||

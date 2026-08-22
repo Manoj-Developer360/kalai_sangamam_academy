@@ -53,7 +53,7 @@ const WhyChooseUs = () => (
               <r.icon className="text-brass-500 text-xl" />
             </div>
 
-            <h3 className="font-display text-base sm:text-lg text-parchment-100 mt-5 mb-2">
+            <h3 className="font-display text-base font-semibold sm:text-lg text-parchment-100 mt-5 mb-2">
               {r.title}
             </h3>
             <p className="text-slate-400 text-sm leading-relaxed">

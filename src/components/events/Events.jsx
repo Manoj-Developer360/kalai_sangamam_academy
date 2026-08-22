@@ -63,7 +63,7 @@ const Events = ({ preview = false }) => {
                   </span>
                 </div>
                 <div className="p-6 flex flex-col flex-1">
-                  <h3 className="font-display text-lg text-parchment-100 mb-2">{e.title}</h3>
+                  <h3 className="font-display text-lg font-semibold text-parchment-100 mb-2">{e.title}</h3>
                   {e.description && <p className="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-2">{e.description}</p>}
 
                   <div className="text-xs text-slate-400 space-y-1 mb-4">

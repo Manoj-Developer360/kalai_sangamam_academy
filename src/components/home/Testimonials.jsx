@@ -44,8 +44,8 @@ const Testimonials = () => {
                 <FiMessageCircle className="relative mx-auto mb-5 text-3xl text-brass-400" />
                 <p className="relative text-base leading-8 text-parchment-100 italic sm:text-lg">&ldquo;{items[index].message}&rdquo;</p>
                 <div className="relative mx-auto mt-7 h-px w-12 bg-brass-500/60" />
-                <p className="relative mt-4 font-display text-lg text-brass-600">{items[index].student_name}</p>
-                <p className="relative mt-1 text-xs uppercase tracking-[0.14em] text-slate-400">
+                <p className="relative mt-4 font-display text-lg font-semibold text-brass-600">{items[index].student_name}</p>
+                <p className="relative mt-1 text-xs font-medium uppercase tracking-[0.09em] text-slate-400">
                   {[items[index].program, items[index].designation].filter(Boolean).join(' · ')}
                 </p>
               </motion.div>

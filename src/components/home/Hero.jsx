@@ -236,7 +236,7 @@ const Hero = () => {
 
             {/* Tamil display heading — negative tracking removed and line-height opened up,
                 since Tamil conjuncts/matras clip under tight latin-style leading/tracking */}
-            <h1 className="text-xl sm:text-4xl lg:text-5xl xl:text-6xl sm:text-left text-center font-display font-bold leading-[1.25] tracking-wider text-parchment-100">
+            <h1 className="text-[1.35rem] sm:text-4xl lg:text-5xl xl:text-6xl sm:text-left text-center font-display font-bold leading-[1.25] tracking-[0.03em] text-parchment-100">
               <span className="lg:hidden">
                 Tradition. <span className="text-brass-400">Discipline.</span>{" "}
                 Champions.
@@ -284,7 +284,7 @@ const Hero = () => {
               />
             </motion.figure>
 
-            <p className="mt-3 font-display text-base sm:text-lg sm:text-left text-center font-semibold tracking-wide text-brass-400">
+            <p className="mt-3 font-display text-base sm:text-lg sm:text-left text-center font-semibold tracking-[0.03em] text-brass-400">
               Where Tradition Builds Champions.
             </p>
 
@@ -317,7 +317,7 @@ const Hero = () => {
                 கலையை கற்று. ஒழுக்கத்தை வளர்த்து.
                 <br className="hidden sm:block" /> உன் வெற்றியை உருவாக்கு.
               </p>
-              <p className="mt-2 font-mono text-[0.68rem] uppercase tracking-[0.22em] text-brass-500/80">
+              <p className="mt-2 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-brass-500/80">
                 Kalai Sangamam &mdash; TRAIN. DISCIPLINE. EXCEL.
               </p>
             </div>
