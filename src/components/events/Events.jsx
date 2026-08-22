@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
-import { FiCalendar, FiPhone, FiExternalLink } from 'react-icons/fi';
+import { FiArrowRight, FiCalendar, FiPhone, FiExternalLink } from 'react-icons/fi';
 import SectionHeading from '../common/SectionHeading';
 import { SkeletonGrid, ErrorState, EmptyState } from '../common/StateViews';
 import { publicService } from '../../services/publicService';
@@ -13,7 +13,7 @@ const statusStyles = {
 };
 const statusLabel = { open: 'Open', closed: 'Closed', coming_soon: 'Coming Soon' };
 
-const Events = () => {
+const Events = ({ preview = false }) => {
   const location = useLocation();
   const [events, setEvents] = useState(null);
   const [error, setError] = useState(false);
@@ -44,8 +44,9 @@ const Events = () => {
         {events && events.length === 0 && <EmptyState message="No upcoming events available." />}
 
         {events && events.length > 0 && (
+          <>
           <div className="grid lg:grid-cols-3 gap-6">
-            {events.map((e, i) => (
+            {events.slice(0, preview ? 3 : undefined).map((e, i) => (
               <motion.div
                 key={e.id}
                 id={`event-${e.id}`}
@@ -88,6 +89,15 @@ const Events = () => {
               </motion.div>
             ))}
           </div>
+          {preview && (
+            <div className="mt-8 flex justify-center">
+              <Link to="/events" className="btn-secondary group w-full sm:w-auto">
+                View All Events
+                <FiArrowRight className="transition-transform duration-200 group-hover:translate-x-1" />
+              </Link>
+            </div>
+          )}
+          </>
         )}
       </div>
     </section>

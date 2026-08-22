@@ -19,8 +19,8 @@ const Home = () => (
     <Programs />
     <Masters limit={3} showViewAll />
     <Achievements />
-    <Gallery />
-    <Events />
+    <Gallery preview />
+    <Events preview />
     <Testimonials />
     <FAQ />
     <Contact />

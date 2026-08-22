@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiX, FiPlayCircle } from 'react-icons/fi';
+import { FiArrowRight, FiX, FiPlayCircle } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import SectionHeading from '../common/SectionHeading';
 import { SkeletonGrid, ErrorState, EmptyState } from '../common/StateViews';
 import { publicService } from '../../services/publicService';
 
 const CATEGORIES = ['All', 'Silambam', 'Karate', 'Yoga', 'Skating', 'Archery', 'Hindi', 'Training', 'Competitions', 'Events', 'Award Ceremony'];
 
-const Gallery = () => {
+const Gallery = ({ preview = false }) => {
   const [items, setItems] = useState(null);
   const [error, setError] = useState(false);
   const [active, setActive] = useState('All');
@@ -47,8 +48,9 @@ const Gallery = () => {
         {items && items.length === 0 && <EmptyState message="No media in this category yet." />}
 
         {items && items.length > 0 && (
+          <>
           <div className="grid sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            {items.map((item, i) => (
+            {items.slice(0, preview ? 8 : undefined).map((item, i) => (
               <motion.button
                 key={item.id}
                 initial={{ opacity: 0, scale: 0.96 }}
@@ -72,6 +74,15 @@ const Gallery = () => {
               </motion.button>
             ))}
           </div>
+          {preview && (
+            <div className="mt-8 flex justify-center">
+              <Link to="/gallery" className="btn-secondary group w-full sm:w-auto">
+                View All Photos
+                <FiArrowRight className="transition-transform duration-200 group-hover:translate-x-1" />
+              </Link>
+            </div>
+          )}
+          </>
         )}
       </div>
 

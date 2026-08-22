@@ -102,12 +102,12 @@ const Programs = () => {
 
                   {/* SHOW ONLY FIRST 2 BENEFITS */}
                   {p.benefits?.length > 0 && (
-                    <div className="mt-2 pt-2 border-t border-brass-500/15">
-                      <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-brass-500/70">
+                    <div className="mt-3 pt-3 border-t border-brass-500/20">
+                      <span className="font-mono text-[0.72rem] font-bold uppercase tracking-[0.18em] text-brass-400">
                         Key Benefits
                       </span>
 
-                      <ul className="mt-1 space-y-2.5">
+                      <ul className="mt-3 space-y-2.5">
                         {p.benefits.slice(0, 2).map((benefit) => (
                           <li
                             key={benefit}

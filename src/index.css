@@ -62,11 +62,13 @@
     --color-ink-800: 244 240 230; /* #F4F0E6 elevated surface */
     --color-ink-700: 231 226 215; /* #E7E2D7 borders / dividers */
 
-    --color-brass-200: 239 221 166;
-    --color-brass-300: 220 190 101;
-    --color-brass-400: 197 155 39;
-    --color-brass-500: 197 155 39;
-    --color-brass-600: 164 127 30;
+    /* Light-mode brass values are deliberately deeper than their dark-mode
+       counterparts: gold is used for labels and links as well as decoration. */
+    --color-brass-200: 229 207 143; /* #E5CF8F */
+    --color-brass-300: 199 161 58;  /* #C7A13A */
+    --color-brass-400: 145 100 0;   /* #916400 — accessible gold text */
+    --color-brass-500: 155 109 5;   /* #9B6D05 — primary brand gold */
+    --color-brass-600: 126 86 0;    /* #7E5600 — hover / deep gold */
 
     --color-maroon-300: 196 108 122; /* #C46C7A */
     --color-maroon-400: 163 61 79;   /* #A33D4F */
@@ -156,7 +158,7 @@
   }
 
   .eyebrow {
-    @apply text-brass-500 font-body text-[0.9rem] font-semibold tracking-[0.2em] uppercase sm:text-[1.5rem];
+    @apply text-brass-400 font-body text-[0.9rem] font-semibold tracking-[0.2em] uppercase sm:text-[1.5rem];
   }
 
   .section-heading {
@@ -164,11 +166,11 @@
   }
 
   .btn-primary {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 px-6 py-3 bg-brass-500 text-onaccent font-body font-bold uppercase tracking-[0.08em] text-xs rounded-md shadow-[0_16px_40px_-18px_rgba(232,133,50,0.8)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-brass-400 disabled:pointer-events-none disabled:opacity-60;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 px-6 py-3 bg-brass-500 text-onaccent font-body font-bold uppercase tracking-[0.08em] text-xs rounded-md shadow-[0_16px_40px_-18px_rgba(232,133,50,0.8)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-brass-600 hover:shadow-[0_20px_42px_-18px_rgba(126,86,0,0.48)] disabled:pointer-events-none disabled:opacity-60;
   }
 
   .btn-secondary {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 px-6 py-3 border border-brass-500/30 text-parchment-100 font-body font-bold uppercase tracking-[0.08em] text-xs rounded-md hover:border-brass-400 hover:text-brass-400 disabled:pointer-events-none disabled:opacity-60 transition-colors duration-200;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 px-6 py-3 border border-brass-500/45 text-parchment-100 font-body font-bold uppercase tracking-[0.08em] text-xs rounded-md hover:-translate-y-0.5 hover:border-brass-400 hover:text-brass-400 disabled:pointer-events-none disabled:opacity-60 transition-all duration-200;
     background: rgb(var(--color-parchment-100) / 0.03);
     backdrop-filter: blur(12px);
   }
