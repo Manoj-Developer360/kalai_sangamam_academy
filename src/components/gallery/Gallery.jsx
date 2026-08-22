@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiArrowRight, FiX, FiPlayCircle } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { HomeSectionLink, HOME_SECTIONS } from '../../utils/homeSectionNavigation.jsx';
 import SectionHeading from '../common/SectionHeading';
 import { SkeletonGrid, ErrorState, EmptyState } from '../common/StateViews';
 import { publicService } from '../../services/publicService';
@@ -97,10 +97,10 @@ const Gallery = ({ preview = false }) => {
           )}
           {preview && (
             <div className="mt-8 flex justify-center">
-              <Link to="/gallery" className="btn-secondary group w-40 sm:w-auto">
+              <HomeSectionLink to="/gallery" section={HOME_SECTIONS.gallery} className="btn-secondary group w-40 sm:w-auto">
                 View All Photos
                 <FiArrowRight className="transition-transform duration-200 group-hover:translate-x-1" />
-              </Link>
+              </HomeSectionLink>
             </div>
           )}
           </>

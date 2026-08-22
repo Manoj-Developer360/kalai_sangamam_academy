@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
+import { HomeSectionLink, HOME_SECTIONS } from '../../utils/homeSectionNavigation.jsx';
 import { FiArrowRight, FiCalendar, FiPhone, FiExternalLink } from 'react-icons/fi';
 import SectionHeading from '../common/SectionHeading';
 import { SkeletonGrid, ErrorState, EmptyState } from '../common/StateViews';
@@ -95,10 +96,10 @@ const Events = ({ preview = false }) => {
           </div>
           {preview && (
             <div className="mt-8 flex justify-center">
-              <Link to="/events" className="btn-secondary group w-40 sm:w-auto">
+              <HomeSectionLink to="/events" section={HOME_SECTIONS.events} className="btn-secondary group w-40 sm:w-auto">
                 View All Events
                 <FiArrowRight className="transition-transform duration-200 group-hover:translate-x-1" />
-              </Link>
+              </HomeSectionLink>
             </div>
           )}
           </>

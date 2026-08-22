@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
+import { Routes, Route, useLocation, useNavigationType } from 'react-router-dom';
 import { ToastProvider } from './context/ToastContext.jsx';
 import ProtectedRoute from './routes/ProtectedRoute.jsx';
 
@@ -38,13 +38,112 @@ import AdminAttendance from './pages/admin/AdminAttendance.jsx';
 import AdminFees from './pages/admin/AdminFees.jsx';
 import AdminSettings from './pages/admin/AdminSettings.jsx';
 import AdminEnquiries from './pages/admin/AdminEnquiries.jsx';
+import { homeSectionStorageKey } from './utils/homeSectionNavigation.jsx';
 
-const ScrollToTop = () => {
-  const { pathname, hash } = useLocation();
+/**
+ * Keeps the scroll position with React Router's unique history-entry key.
+ * PUSH/REPLACE navigation starts a new page at the top, while POP navigation
+ * (the browser Back/Forward buttons) returns to the exact saved position.
+ */
+const ScrollRestoration = () => {
+  const location = useLocation();
+  const navigationType = useNavigationType();
+  const positions = useRef(new Map());
 
   useEffect(() => {
-    if (!hash) window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-  }, [pathname, hash]);
+    // Prevent the browser and React from competing to restore the same entry.
+    const previousRestoration = window.history.scrollRestoration;
+    window.history.scrollRestoration = 'manual';
+
+    return () => {
+      window.history.scrollRestoration = previousRestoration;
+    };
+  }, []);
+
+  useEffect(() => {
+    const savePosition = () => {
+      positions.current.set(location.key, {
+        x: window.scrollX,
+        y: window.scrollY,
+      });
+    };
+
+    savePosition();
+    window.addEventListener('scroll', savePosition, { passive: true });
+    window.addEventListener('pagehide', savePosition);
+
+    return () => {
+      savePosition();
+      window.removeEventListener('scroll', savePosition);
+      window.removeEventListener('pagehide', savePosition);
+    };
+  }, [location.key]);
+
+  useLayoutEffect(() => {
+    let cancelled = false;
+    const frames = [];
+    const timers = [];
+    const runWhenRendered = (callback) => {
+      frames.push(requestAnimationFrame(() => {
+        frames.push(requestAnimationFrame(() => {
+          if (!cancelled) callback();
+        }));
+      }));
+    };
+
+    const scrollToHash = () => {
+      const id = decodeURIComponent(location.hash.slice(1));
+      const target = id && document.getElementById(id);
+      if (target) target.scrollIntoView({ block: 'start', behavior: 'auto' });
+    };
+
+    const homeSourceSection = location.pathname === '/'
+      ? sessionStorage.getItem(homeSectionStorageKey(location.key))
+      : null;
+    const scrollToHomeSourceSection = () => {
+      const target = homeSourceSection && document.getElementById(homeSourceSection);
+      if (target) target.scrollIntoView({ block: 'start', behavior: 'auto' });
+    };
+
+    if (navigationType === 'POP' && homeSourceSection) {
+      // A Home CTA explicitly tagged this history entry. It takes precedence
+      // over pixel restoration and never defaults to an unrelated section.
+      runWhenRendered(scrollToHomeSourceSection);
+      [100, 300, 600].forEach((delay) => {
+        timers.push(window.setTimeout(() => {
+          if (!cancelled) scrollToHomeSourceSection();
+        }, delay));
+      });
+    } else if (navigationType === 'POP') {
+      const position = positions.current.get(location.key);
+      if (position) {
+        // A few short retries account for route effects and async cards/images
+        // establishing their size without forcing a hard-coded page offset.
+        const restore = () => window.scrollTo({ left: position.x, top: position.y, behavior: 'auto' });
+        runWhenRendered(restore);
+        [100, 300, 600].forEach((delay) => {
+          timers.push(window.setTimeout(() => {
+            if (!cancelled) restore();
+          }, delay));
+        });
+      } else if (location.hash) {
+        runWhenRendered(scrollToHash);
+      } else {
+        runWhenRendered(() => window.scrollTo({ top: 0, left: 0, behavior: 'auto' }));
+      }
+    } else if (location.hash) {
+      runWhenRendered(scrollToHash);
+    } else {
+      // New links and direct route loads intentionally start at the top.
+      runWhenRendered(() => window.scrollTo({ top: 0, left: 0, behavior: 'auto' }));
+    }
+
+    return () => {
+      cancelled = true;
+      frames.forEach(cancelAnimationFrame);
+      timers.forEach(clearTimeout);
+    };
+  }, [location.key, location.hash, navigationType]);
 
   return null;
 };
@@ -52,7 +151,7 @@ const ScrollToTop = () => {
 function App() {
   return (
     <ToastProvider>
-      <ScrollToTop />
+      <ScrollRestoration />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutPage />} />

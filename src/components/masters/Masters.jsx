@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { HomeSectionLink, HOME_SECTIONS } from '../../utils/homeSectionNavigation.jsx';
 import { FiArrowRight, FiAward, FiClock } from 'react-icons/fi';
 import SectionHeading from '../common/SectionHeading';
 import { SkeletonGrid, ErrorState, EmptyState } from '../common/StateViews';
@@ -223,9 +223,9 @@ const Masters = ({ limit, showViewAll = false, pageView = false }) => {
             <MasterGrid masters={homeMasters} />
             {showViewAll && (
               <div className="mt-9 text-center">
-                <Link to="/masters" className="btn-secondary">
+                <HomeSectionLink to="/masters" section={HOME_SECTIONS.masters} className="btn-secondary">
                   Meet Our Masters <FiArrowRight />
-                </Link>
+                </HomeSectionLink>
               </div>
             )}
           </>

@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { HomeSectionLink, HOME_SECTIONS } from '../../utils/homeSectionNavigation.jsx';
 import { FiTarget, FiCompass, FiHeart, FiArrowRight } from "react-icons/fi";
 
 import SectionHeading from "../common/SectionHeading";
@@ -180,13 +180,14 @@ const About = () => {
                 CTA
             ================================================== */}
             <div className="mt-8 flex justify-center lg:justify-start">
-              <Link
+              <HomeSectionLink
                 to="/about"
+                section={HOME_SECTIONS.about}
                 className="group inline-flex items-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.18em] text-brass-500 transition-colors duration-300 hover:text-brass-400 sm:text-sm"
               >
                 View Full Story
                 <FiArrowRight className="text-base transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
+              </HomeSectionLink>
             </div>
           </motion.div>
         </div>

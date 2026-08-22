@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiArrowRight, FiCheckCircle } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { HomeSectionLink, HOME_SECTIONS } from '../../utils/homeSectionNavigation.jsx';
 import SectionHeading from '../common/SectionHeading';
 import { SkeletonGrid, ErrorState, EmptyState } from '../common/StateViews';
 import { publicService } from '../../services/publicService';
@@ -125,12 +125,13 @@ const Programs = () => {
                   )}
 
                   <div className="mt-auto pt-6">
-                    <Link
+                    <HomeSectionLink
                       to={`/programs/${p.slug}`}
+                      section={HOME_SECTIONS.programs}
                       className="inline-flex items-center gap-1 text-sm text-brass-400 hover:gap-2 transition-all"
                     >
                       View More <FiArrowRight />
-                    </Link>
+                    </HomeSectionLink>
                   </div>
                 </div>
               </motion.div>

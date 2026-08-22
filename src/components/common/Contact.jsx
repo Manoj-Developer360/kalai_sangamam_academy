@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { HomeSectionLink, HOME_SECTIONS } from '../../utils/homeSectionNavigation.jsx';
 import { motion } from 'framer-motion';
 import SectionHeading from '../common/SectionHeading';
 import { FiMapPin, FiPhone, FiMail, FiArrowRight } from 'react-icons/fi';
@@ -66,7 +66,7 @@ const CommonContact = ({ site, className = '' }) => {
   };
 
   return (
-    <section className={`cc-section py-10 ${className}`} aria-labelledby="common-contact-heading">
+    <section id="contact" className={`cc-section py-10 ${className}`} aria-labelledby="common-contact-heading">
       <style>{`
         .cc-section {
           --cc-gap: clamp(1.75rem, 1.2rem + 2vw, 3rem);
@@ -298,10 +298,10 @@ const CommonContact = ({ site, className = '' }) => {
               program details, or information about our other academy branches — our team
               is ready to help on the dedicated contact page.
             </p>
-            <Link to="/contact" className="btn-primary cc-cta__button">
+            <HomeSectionLink to="/contact" section={HOME_SECTIONS.contact} className="btn-primary cc-cta__button">
               <span>View Contact Page</span>
               <FiArrowRight className="cc-cta__arrow" aria-hidden="true" />
-            </Link>
+            </HomeSectionLink>
           </motion.div>
         </div>
       </div>
