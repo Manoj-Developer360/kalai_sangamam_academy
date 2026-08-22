@@ -64,7 +64,11 @@ const Events = ({ preview = false }) => {
                 </div>
                 <div className="p-6 flex flex-col flex-1">
                   <h3 className="font-display text-lg font-semibold text-parchment-100 mb-2">{e.title}</h3>
-                  {e.description && <p className="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-2">{e.description}</p>}
+                  {e.description && (
+                    <p className={`mb-4 text-sm leading-relaxed text-slate-400 ${preview ? 'line-clamp-2' : 'whitespace-pre-line'}`}>
+                      {e.description}
+                    </p>
+                  )}
 
                   <div className="text-xs text-slate-400 space-y-1 mb-4">
                     <p className="flex items-center gap-2"><FiCalendar className="text-brass-500" /> {new Date(e.event_date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
