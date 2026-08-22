@@ -34,14 +34,14 @@ const StudentDashboardLayout = ({ children }) => {
 
   const SidebarContent = () => (
     <>
-      <div className="mb-8 flex items-start justify-between gap-3">
+      <div className="mb-6 flex items-start justify-between gap-3">
         <div>
           <p className="font-display text-lg text-parchment-100">Kalai <span className="text-brass-500">Sangamam</span></p>
           <p className="text-xs text-slate-500 mt-1">{profile?.student_code || 'Student Portal'}</p>
         </div>
         <ThemeToggle className="!h-9 !w-9 text-lg" />
       </div>
-      <nav className="flex-1 space-y-1">
+      <nav className="flex-1 space-y-0.5 overflow-y-auto pr-1">
         {LINKS.map((l) => (
           <NavLink
             key={l.to}
@@ -58,7 +58,7 @@ const StudentDashboardLayout = ({ children }) => {
           </NavLink>
         ))}
       </nav>
-      <button onClick={handleLogout} className="flex items-center gap-3 px-3 py-2.5 text-sm text-maroon-400 hover:text-maroon-300">
+      <button onClick={handleLogout} className="mt-3 flex items-center gap-3 px-3 py-2.5 text-sm text-maroon-400 hover:text-maroon-300">
         <FiLogOut /> Logout
       </button>
     </>
@@ -67,20 +67,20 @@ const StudentDashboardLayout = ({ children }) => {
   return (
     <div className="student-portal min-h-screen bg-ink-950 lg:flex">
       {/* Desktop sidebar */}
-      <aside className="hidden lg:flex h-screen sticky top-0 flex-col w-64 shrink-0 bg-ink-900 border-r border-parchment-100/10 p-6">
+      <aside className="hidden lg:flex h-screen sticky top-0 flex-col w-64 shrink-0 bg-ink-900 border-r border-parchment-100/5 p-6">
         <SidebarContent />
       </aside>
 
       {/* Mobile drawer */}
-      <div className="lg:hidden flex items-center gap-3 px-4 py-3 border-b border-parchment-100/10 bg-ink-950/95">
+      <div className="lg:hidden flex items-center gap-3 px-4 py-3 border-b border-parchment-100/5">
         <button type="button" onClick={() => setOpen(true)} aria-label="Open navigation menu" className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-sm border border-parchment-100/10 text-xl text-parchment-100 transition-colors hover:border-brass-500 hover:text-brass-400"><FiMenu /></button>
         <div className="min-w-0 flex-1">
-          <p className="font-display text-sm text-parchment-100">Student Portal</p>
-          <p className="mt-0.5 truncate text-[11px] uppercase tracking-wide text-slate-500">{profile?.student_code || 'Kalai Sangamam'}</p>
+          <p className="font-display text-sm leading-tight text-parchment-100 sm:text-base">Kalai <span className="text-brass-500">Sangamam</span></p>
+          <p className="mt-0.5 truncate text-[11px] uppercase tracking-wide text-slate-500">Student Portal</p>
         </div>
-        <div className="flex items-center gap-2">
+        {/* <div className="flex items-center gap-2">
           <ThemeToggle className="!h-11 !w-11 text-lg" />
-        </div>
+        </div> */}
       </div>
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden">

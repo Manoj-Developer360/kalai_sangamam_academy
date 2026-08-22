@@ -366,47 +366,8 @@
   }
 }
 
-/* Product-area accents: the same component system serves three distinct
-   experiences without copying pages or introducing a second CSS framework. */
-.student-portal {
-  --portal-blue: 43 108 176;
-  --portal-blue-surface: 235 245 255;
-}
-
+html.light .admin-portal,
 html.light .student-portal {
-  --color-ink-950: 244 246 248;
-  --color-ink-900: 255 255 255;
-  --color-ink-800: 235 245 255;
-  --color-ink-700: 222 226 230;
-  --color-parchment-100: 26 32 44;
-  --color-parchment-200: 45 55 72;
-  --color-parchment-300: 74 85 104;
-  --color-slate-300: 74 85 104;
-  --color-slate-400: 90 101 119;
-  --color-slate-500: 113 128 150;
-}
-
-html:not(.light) .student-portal {
-  --color-ink-950: 26 32 44;
-  --color-ink-900: 45 55 72;
-  --color-ink-800: 36 45 58;
-  --color-ink-700: 74 85 104;
-  --color-parchment-100: 237 242 247;
-  --color-parchment-200: 203 213 224;
-  --color-parchment-300: 148 163 184;
-  --portal-blue: 99 179 237;
-  --portal-blue-surface: 37 55 77;
-}
-
-.student-stat--attendance {
-  border-color: rgb(var(--portal-blue) / 0.32);
-}
-
-.student-stat--attendance svg {
-  color: rgb(var(--portal-blue));
-}
-
-html.light .admin-portal {
   --color-ink-950: 248 249 250;
   --color-ink-900: 255 255 255;
   --color-ink-800: 248 249 250;
@@ -416,7 +377,8 @@ html.light .admin-portal {
   --color-parchment-300: 108 117 125;
 }
 
-html.light .admin-portal aside {
+html.light .admin-portal aside,
+html.light .student-portal aside {
   background-color: rgb(28 28 28);
   --color-parchment-100: 234 234 234;
   --color-parchment-200: 210 210 210;
